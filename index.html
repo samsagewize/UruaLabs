@@ -552,6 +552,7 @@
       <a href="#music">Music</a>
       <a href="#websites">Websites</a>
       <a href="#nfts">NFTs</a>
+      <a href="#" onclick="switchToRetro()">Nostalgia</a>
     </div>
 
     <div class="hamburger" onclick="toggleMenu()">
@@ -567,6 +568,7 @@
     <a href="#music">Music</a>
     <a href="#websites">Websites</a>
     <a href="#nfts">NFTs</a>
+    <a href="#" onclick="switchToRetro()">Nostalgia</a>
   </div>
 
   <section class="hero">
@@ -678,6 +680,240 @@
     window.addEventListener('scroll', () => {
       document.body.classList.toggle('scrolled', window.scrollY > 50);
     });
+
+    function switchToRetro() {
+      const retroHTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urua Labs — Coming 2006 Style</title>
+  <meta name="description" content="Urua Labs — Launching January 22, 2026 (but feeling like 1999)"/>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #008080;              /* Teal desktop background classic */
+      --window: #c0c0c0;          /* Classic Windows gray */
+      --window-dark: #808080;
+      --highlight: #000080;
+      --text: #000000;
+      --title-bar: linear-gradient(#000080, #1084d0);
+      --border: #dfdfdf #000000 #000000 #dfdfdf;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Tahoma, 'MS Sans Serif', Geneva, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.4;
+      height: 100vh;
+      image-rendering: pixelated;     /* crisp pixels where needed */
+      cursor: url('https://cur.cursors-4u.net/nature/nat-10/nat1004.cur'), auto; /* classic arrow cursor (or use your own) */
+    }
+
+    /* Fake Windows 98-style window */
+    .retro-window {
+      background: var(--window);
+      border: 2px solid;
+      border-image: var(--border) 2;
+      border-radius: 0;
+      box-shadow: 4px 4px 0 #000;
+      margin: 40px auto;
+      max-width: 920px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    .title-bar {
+      background: var(--title-bar);
+      color: white;
+      padding: 4px 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: bold;
+      user-select: none;
+    }
+
+    .title-bar-buttons span {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background: var(--window);
+      border: 1px outset #fff;
+      text-align: center;
+      line-height: 16px;
+      margin-left: 4px;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .content {
+      padding: 16px;
+      background: #ffffff;
+    }
+
+    h1 {
+      font-size: 28px;
+      color: var(--highlight);
+      margin-bottom: 12px;
+      text-shadow: 1px 1px 0 #fff;
+    }
+
+    p {
+      margin-bottom: 1.2em;
+      font-size: 14px;
+    }
+
+    .btn {
+      background: var(--window);
+      border: 2px outset #fff;
+      padding: 8px 16px;
+      margin: 8px 4px 8px 0;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 1px 1px 0 #000;
+    }
+
+    .btn:active {
+      border-style: inset;
+      box-shadow: none;
+    }
+
+    .focus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .retro-card {
+      background: #f0f0f0;
+      border: 2px inset #fff;
+      padding: 14px;
+      min-height: 120px;
+    }
+
+    .retro-card h3 {
+      color: #000080;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .construction {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(255,255,255,0.85);
+      margin: 40px auto;
+      max-width: 700px;
+      border: 4px double #000080;
+    }
+
+    .construction h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .launch-date {
+      font-size: 24px;
+      color: #c00000;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: white;
+      font-size: 12px;
+      background: #000080;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .focus-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .retro-window {
+        margin: 20px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="retro-window">
+    <div class="title-bar">
+      <span>Urua Labs – My Computer</span>
+      <div class="title-bar-buttons">
+        <span>−</span><span>□</span><span>×</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <h1>Welcome to Urua Labs</h1>
+      <p>Building the digital future… one pixel at a time.</p>
+
+      <div style="margin: 20px 0;">
+        <button class="btn">Explore</button>
+        <button class="btn">Learn More</button>
+      </div>
+
+      <div class="construction">
+        <h1>Under Construction</h1>
+        <p>The site is being carefully assembled in true Y2K fashion.</p>
+        <div class="launch-date">Grand Opening: January 22, 2026</div>
+        <p style="margin-top: 20px;">
+          Follow updates: 
+          <a href="https://x.com/UruaLabs" style="color:#0000ff; text-decoration:underline;">@UruaLabs on X</a>
+        </p>
+      </div>
+
+      <h2 style="color:#000080; margin: 30px 0 12px;">Our Focus Areas</h2>
+
+      <div class="focus-grid">
+        <div class="retro-card">
+          <h3>Crypto & Blockchain</h3>
+          <p>Next-gen protocols, DeFi, tokenomics and layer-2 magic.</p>
+        </div>
+        <div class="retro-card">
+          <h3>Music & Creators</h3>
+          <p>Revolutionizing distribution, ownership and royalties.</p>
+        </div>
+        <div class="retro-card">
+          <h3>Websites & Experiences</h3>
+          <p>High-performance web3 + immersive digital worlds.</p>
+        </div>
+        <div class="retro-card">
+          <h3>NFTs & Collectibles</h3>
+          <p>Utility, art, identity and the future of ownership.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Urua Labs • Made with love and Windows 98 nostalgia
+  </footer>
+
+</body>
+</html>`;
+      document.open();
+      document.write(retroHTML);
+      document.close();
+    }
   </script>
 </body>
 </html>
