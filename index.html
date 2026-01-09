@@ -3,32 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Urua Labs — Coming Soon</title>
-  <meta name="description" content="Urua Labs — Launching January 22, 2026"/>
+  <title>Urua Labs — Coming 2006 Style</title>
+  <meta name="description" content="Urua Labs — Launching January 22, 2026 (but feeling like 1999)"/>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #0f0f0f;
-      --text-light: #444;
-      --accent: #0066ff;
-      --gray: #f5f5f5;
-      --border: #e5e5e5;
-    }
-    
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0a0a0a;
-        --text: #ffffff;
-        --text-light: #cccccc;
-        --accent: #4d9aff;
-        --gray: #111;
-        --border: #222;
-      }
+      --bg: #008080;              /* Teal desktop background classic */
+      --window: #c0c0c0;          /* Classic Windows gray */
+      --window-dark: #808080;
+      --highlight: #000080;
+      --text: #000000;
+      --title-bar: linear-gradient(#000080, #1084d0);
+      --border: #dfdfdf #000000 #000000 #dfdfdf;
     }
 
     * {
@@ -38,646 +28,201 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: Tahoma, 'MS Sans Serif', Geneva, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.5;
-      padding-bottom: 80px;
-      overflow-x: hidden;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      padding: 0 5%;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      z-index: 2000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      header {
-        background: rgba(10,10,10,0.92);
-      }
-    }
-
-    .logo {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 2.2rem;
-    }
-
-    .nav-menu a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-menu a:hover {
-      color: var(--accent);
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-    }
-
-    .hamburger span {
-      width: 28px;
-      height: 3px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    /* Mobile overlay menu */
-    .mobile-menu {
-      position: fixed;
-      top: 80px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3rem;
-      transform: translateY(-100%);
-      transition: transform 0.4s ease;
-      z-index: 999;
-    }
-
-    .mobile-menu.active {
-      transform: translateY(0);
-    }
-
-    .mobile-menu a {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* Bottom nav - app style (mobile only) */
-    .bottom-nav {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 70px;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid var(--border);
-      z-index: 1000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .bottom-nav {
-        background: rgba(10,10,10,0.94);
-      }
-    }
-
-    .bottom-nav-inner {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      height: 100%;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .bottom-nav a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--text-light);
-      text-decoration: none;
-      gap: 4px;
-      transition: color 0.2s;
-    }
-
-    .bottom-nav a:hover,
-    .bottom-nav a.active {
-      color: var(--accent);
-    }
-
-    .bottom-nav .hamburger {
-      display: flex;
-    }
-
-    /* Hero */
-    .hero {
+      line-height: 1.4;
       height: 100vh;
-      min-height: 720px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 5%;
-      background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+      image-rendering: pixelated;     /* crisp pixels where needed */
+      cursor: url('https://cur.cursors-4u.net/nature/nat-10/nat1004.cur'), auto; /* classic arrow cursor (or use your own) */
     }
 
-    @media (prefers-color-scheme: dark) {
-      .hero {
-        background: linear-gradient(135deg, #0a1120 0%, #001133 100%);
-      }
-    }
-
-    .hero-content {
-      max-width: 900px;
-    }
-
-    .hero h1 {
-      font-size: clamp(3.8rem, 9vw, 7.2rem);
-      font-weight: 800;
-      line-height: 0.92;
-      letter-spacing: -2px;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero p {
-      font-size: 1.5rem;
-      color: var(--text-light);
-      max-width: 640px;
-      margin: 0 auto 2.5rem;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-      padding: 12px 32px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .btn-outline {
-      border: 2px solid var(--text);
-      color: var(--text);
-      padding: 12px 32px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* Focus Section (enhanced) */
-    .focus-section {
-      background: var(--bg);
-      position: relative;
-      padding: 140px 5% 120px;
-    }
-
-    .focus-section h2 {
-      font-size: clamp(2.8rem, 6vw, 3.6rem);
-      font-weight: 800;
-      text-align: center;
-      max-width: 960px;
-      margin: 0 auto 5rem;
-      line-height: 1.05;
-      letter-spacing: -1px;
-      background: linear-gradient(90deg, var(--accent), #00d4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 2.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
-      padding: 2.4rem 2rem;
-      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.06),
-        inset 0 1px 1px rgba(255,255,255,0.08);
-      position: relative;
+    /* Fake Windows 98-style window */
+    .retro-window {
+      background: var(--window);
+      border: 2px solid;
+      border-image: var(--border) 2;
+      border-radius: 0;
+      box-shadow: 4px 4px 0 #000;
+      margin: 40px auto;
+      max-width: 920px;
       overflow: hidden;
+      font-size: 13px;
     }
 
-    @media (prefers-color-scheme: dark) {
-      .card {
-        background: rgba(20, 20, 30, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 
-          0 12px 40px rgba(0, 0, 0, 0.35),
-          inset 0 1px 1px rgba(255,255,255,0.04);
-      }
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card:hover {
-      transform: translateY(-12px);
-      box-shadow: 
-        0 30px 70px rgba(0, 0, 0, 0.14),
-        inset 0 1px 1px rgba(255,255,255,0.1);
-    }
-
-    .card h3 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      margin-bottom: 1.1rem;
-      background: linear-gradient(90deg, var(--text), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.4px;
-    }
-
-    .card p {
-      font-size: 1.08rem;
-      color: var(--text-light);
-      opacity: 0.92;
-      line-height: 1.6;
-    }
-
-    /* Newsletter */
-    .newsletter {
-      background: var(--accent);
+    .title-bar {
+      background: var(--title-bar);
       color: white;
-      text-align: center;
-      padding: 140px 5%;
-    }
-
-    .newsletter h2 {
-      font-size: 3.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .newsletter p {
-      font-size: 1.3rem;
-      opacity: 0.9;
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-    }
-
-    .newsletter form {
-      max-width: 520px;
-      margin: 0 auto;
+      padding: 4px 8px;
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .newsletter input {
-      flex: 1;
-      min-width: 240px;
-      padding: 16px 20px;
-      border: none;
-      border-radius: 999px;
-      font-size: 1.1rem;
-    }
-
-    .newsletter button {
-      background: black;
-      color: white;
-      border: none;
-      padding: 16px 36px;
-      border-radius: 999px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--gray);
-      padding: 80px 5% 40px;
-      color: var(--text-light);
-      font-size: 0.95rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 3rem;
-      max-width: 1400px;
-      margin: 0 auto 4rem;
-    }
-
-    footer a {
-      color: var(--text-light);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.8rem;
-    }
-
-    .copyright {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    /* Popup */
-    .construction-popup {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      display: flex;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      z-index: 3000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.6s ease;
+      font-weight: bold;
+      user-select: none;
     }
 
-    .construction-popup.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .popup-content {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 3.5rem 2.5rem;
-      max-width: 540px;
-      width: 90%;
+    .title-bar-buttons span {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background: var(--window);
+      border: 1px outset #fff;
       text-align: center;
-      position: relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.5rem;
-      font-size: 2rem;
+      line-height: 16px;
+      margin-left: 4px;
+      font-size: 10px;
       cursor: pointer;
-      color: var(--text-light);
-      transition: color 0.2s;
     }
 
-    .close-btn:hover {
-      color: var(--accent);
+    .content {
+      padding: 16px;
+      background: #ffffff;
     }
 
-    .popup-content h1 {
-      font-size: 3.2rem;
-      margin-bottom: 1rem;
-      line-height: 1.1;
+    h1 {
+      font-size: 28px;
+      color: var(--highlight);
+      margin-bottom: 12px;
+      text-shadow: 1px 1px 0 #fff;
     }
 
-    .popup-content p {
-      font-size: 1.3rem;
-      color: var(--text-light);
-      margin-bottom: 2rem;
+    p {
+      margin-bottom: 1.2em;
+      font-size: 14px;
+    }
+
+    .btn {
+      background: var(--window);
+      border: 2px outset #fff;
+      padding: 8px 16px;
+      margin: 8px 4px 8px 0;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 1px 1px 0 #000;
+    }
+
+    .btn:active {
+      border-style: inset;
+      box-shadow: none;
+    }
+
+    .focus-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .retro-card {
+      background: #f0f0f0;
+      border: 2px inset #fff;
+      padding: 14px;
+      min-height: 120px;
+    }
+
+    .retro-card h3 {
+      color: #000080;
+      margin-bottom: 8px;
+      font-size: 15px;
+    }
+
+    .construction {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(255,255,255,0.85);
+      margin: 40px auto;
+      max-width: 700px;
+      border: 4px double #000080;
+    }
+
+    .construction h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
     }
 
     .launch-date {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 1.5rem 0;
+      font-size: 24px;
+      color: #c00000;
+      font-weight: bold;
     }
 
-    /* Mobile adjustments */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: white;
+      font-size: 12px;
+      background: #000080;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
     @media (max-width: 768px) {
-      .nav-menu {
-        display: none;
+      .focus-grid {
+        grid-template-columns: 1fr;
       }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .bottom-nav {
-        display: flex;
-      }
-
-      .focus-section {
-        padding: 100px 5% 100px;
-      }
-
-      .section-grid {
-        gap: 2rem;
-      }
-
-      .card {
-        padding: 2rem 1.6rem;
-      }
-
-      .card h3 {
-        font-size: 1.75rem;
-      }
-
-      .popup-content {
-        padding: 2.5rem 1.8rem;
-      }
-
-      .popup-content h1 {
-        font-size: 2.6rem;
+      
+      .retro-window {
+        margin: 20px 10px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Under Construction Popup -->
-  <div class="construction-popup active" id="constructionPopup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">×</span>
-      
-      <h1>Under Construction</h1>
-      <p>We're building something powerful. Stay tuned — official launch coming very soon!</p>
-      
-      <div class="launch-date">Opening January 22, 2026</div>
-      
-      <p style="font-size:1.1rem; margin-top:1.5rem;">
-        Follow us on X for updates: <strong><a href="https://x.com/UruaLabs" target="_blank" rel="noopener noreferrer">@UruaLabs</a></strong>
-      </p>
+  <div class="retro-window">
+    <div class="title-bar">
+      <span>Urua Labs – My Computer</span>
+      <div class="title-bar-buttons">
+        <span>−</span><span>□</span><span>×</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <h1>Welcome to Urua Labs</h1>
+      <p>Building the digital future… one pixel at a time.</p>
+
+      <div style="margin: 20px 0;">
+        <button class="btn">Explore</button>
+        <button class="btn">Learn More</button>
+      </div>
+
+      <div class="construction">
+        <h1>Under Construction</h1>
+        <p>The site is being carefully assembled in true Y2K fashion.</p>
+        <div class="launch-date">Grand Opening: January 22, 2026</div>
+        <p style="margin-top: 20px;">
+          Follow updates: 
+          <a href="https://x.com/UruaLabs" style="color:#0000ff; text-decoration:underline;">@UruaLabs on X</a>
+        </p>
+      </div>
+
+      <h2 style="color:#000080; margin: 30px 0 12px;">Our Focus Areas</h2>
+
+      <div class="focus-grid">
+        <div class="retro-card">
+          <h3>Crypto & Blockchain</h3>
+          <p>Next-gen protocols, DeFi, tokenomics and layer-2 magic.</p>
+        </div>
+        <div class="retro-card">
+          <h3>Music & Creators</h3>
+          <p>Revolutionizing distribution, ownership and royalties.</p>
+        </div>
+        <div class="retro-card">
+          <h3>Websites & Experiences</h3>
+          <p>High-performance web3 + immersive digital worlds.</p>
+        </div>
+        <div class="retro-card">
+          <h3>NFTs & Collectibles</h3>
+          <p>Utility, art, identity and the future of ownership.</p>
+        </div>
+      </div>
     </div>
   </div>
-
-  <header>
-    <a href="/" class="logo">Urua Labs</a>
-    
-    <div class="nav-menu">
-      <a href="#crypto">Crypto</a>
-      <a href="#music">Music</a>
-      <a href="#websites">Websites</a>
-      <a href="#nfts">NFTs</a>
-    </div>
-
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </header>
-
-  <!-- Mobile overlay menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#crypto">Crypto</a>
-    <a href="#music">Music</a>
-    <a href="#websites">Websites</a>
-    <a href="#nfts">NFTs</a>
-  </div>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Building the<br>Digital Future</h1>
-      <p>Urua Labs — Powering the next wave of Blockchain tech, Music & Web Experience</p>
-      
-      <div class="hero-buttons">
-        <a href="#" class="btn-primary">Explore Now</a>
-        <a href="#" class="btn-outline">Learn More</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Bottom navigation - app feel (mobile only) -->
-  <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <a href="#crypto"><span>Crypto</span></a>
-      <a href="#music"><span>Music</span></a>
-      <a href="#websites"><span>Websites</span></a>
-      <a href="#nfts"><span>NFTs</span></a>
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Focus Areas Section -->
-  <section class="focus-section">
-    <h2>We invest in exceptional founders shaping tomorrow —<br>across every frontier and every stage.</h2>
-
-    <div class="section-grid">
-      <div class="card">
-        <h3>Crypto & Blockchain</h3>
-        <p>Next-gen protocols, DeFi innovation, tokenomics, layer-2 scaling, and infrastructure powering the decentralized economy.</p>
-      </div>
-
-      <div class="card">
-        <h3>Music & Creator Economy</h3>
-        <p>Platforms revolutionizing music distribution, fan ownership, royalties via blockchain, and new monetization models for creators.</p>
-      </div>
-
-      <div class="card">
-        <h3>Websites & Digital Experiences</h3>
-        <p>High-performance web3 interfaces, immersive front-ends, AI-enhanced UX, and next-generation interactive digital products.</p>
-      </div>
-
-      <div class="card">
-        <h3>NFTs & Digital Collectibles</h3>
-        <p>Evolving NFT utility, generative art, identity, gaming assets, real-world-linked tokens, and the future of ownership.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="newsletter">
-    <h2>Stay ahead of the curve</h2>
-    <p>Join thousands of founders, investors and builders who read our insights every week.</p>
-    
-    <form>
-      <input type="email" placeholder="Your email address" required>
-      <button type="submit">Subscribe</button>
-    </form>
-  </section>
 
   <footer>
-    <div class="footer-grid">
-      <div>
-        <h4>Urua Labs</h4>
-        <p>Powering the next generation of digital innovation.</p>
-      </div>
-      <div>
-        <h4>Quick Links</h4>
-        <a href="#">Portfolio</a>
-        <a href="#">Services</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-      </div>
-      <div>
-        <h4>Follow Us</h4>
-        <a href="#">X / Twitter</a>
-        <a href="#">Instagram</a>
-        <a href="#">Newsletter</a>
-      </div>
-    </div>
-    
-    <div class="copyright">
-      © 2026 Urua Labs. All rights reserved.
-    </div>
+    © 2026 Urua Labs • Made with love and Windows 98 nostalgia
   </footer>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('active');
-    }
-
-    function closePopup() {
-      document.getElementById('constructionPopup').classList.remove('active');
-    }
-
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.remove('active');
-      });
-    });
-
-    // Optional scroll header effect
-    window.addEventListener('scroll', () => {
-      document.body.classList.toggle('scrolled', window.scrollY > 50);
-    });
-  </script>
 </body>
 </html>
