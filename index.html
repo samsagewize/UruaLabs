@@ -421,6 +421,71 @@
       border-top: 1px solid var(--border);
     }
 
+    /* Popup */
+    .construction-popup {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.6s ease;
+    }
+
+    .construction-popup.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-content {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3.5rem 2.5rem;
+      max-width: 540px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.5rem;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--text-light);
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: var(--accent);
+    }
+
+    .popup-content h1 {
+      font-size: 3.2rem;
+      margin-bottom: 1rem;
+      line-height: 1.1;
+    }
+
+    .popup-content p {
+      font-size: 1.3rem;
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+
+    .launch-date {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 1.5rem 0;
+    }
+
     /* Mobile adjustments */
     @media (max-width: 768px) {
       .nav-menu {
@@ -450,6 +515,14 @@
       .card h3 {
         font-size: 1.75rem;
       }
+
+      .popup-content {
+        padding: 2.5rem 1.8rem;
+      }
+
+      .popup-content h1 {
+        font-size: 2.6rem;
+      }
     }
   </style>
 </head>
@@ -466,7 +539,7 @@
       <div class="launch-date">Opening January 22, 2026</div>
       
       <p style="font-size:1.1rem; margin-top:1.5rem;">
-        Follow us on X for updates: <strong>@UruaLabs</strong>
+        Follow us on X for updates: <strong><a href="https://x.com/UruaLabs" target="_blank" rel="noopener noreferrer">@UruaLabs</a></strong>
       </p>
     </div>
   </div>
