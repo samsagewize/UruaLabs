@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urua Labs — Building the Next Era of Technology</title>
+  <meta name="description" content="Urua Labs backs bold founders creating the future through frontier technology."/>
+  
+  <!-- Google Fonts: Inter (very similar to a16z typography feel) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #0f0f0f;
+      --text-light: #444;
+      --accent: #0066ff;
+      --gray: #f5f5f5;
+      --border: #e5e5e5;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --text: #ffffff;
+        --text-light: #cccccc;
+        --accent: #4d9aff;
+        --gray: #111;
+        --border: #222;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      padding: 0 5%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+
+    body.scrolled header {
+      background: rgba(255,255,255,0.98);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      header {
+        background: rgba(10,10,10,0.92);
+      }
+      body.scrolled header {
+        background: rgba(10,10,10,0.98);
+      }
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    nav a {
+      margin-left: 2.5rem;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 1.5rem;
+    }
+
+    /* Hero */
+    .hero {
+      height: 100vh;
+      min-height: 720px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 5%;
+      background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .hero {
+        background: linear-gradient(135deg, #0a1120 0%, #001133 100%);
+      }
+    }
+
+    .hero-content {
+      max-width: 900px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.8rem, 9vw, 7.2rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text-light);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--text);
+      color: var(--text);
+      padding: 12px 32px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Sections */
+    section {
+      padding: 140px 5% 120px;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 3rem;
+      max-width: 1400px;
+      margin: 4rem auto 0;
+    }
+
+    .card {
+      background: var(--gray);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .card:hover {
+        box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      }
+    }
+
+    .card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Newsletter */
+    .newsletter {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+      padding: 140px 5%;
+    }
+
+    .newsletter h2 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .newsletter form {
+      max-width: 520px;
+      margin: 2rem auto 0;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .newsletter input {
+      flex: 1;
+      min-width: 240px;
+      padding: 16px 20px;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.1rem;
+    }
+
+    .newsletter button {
+      background: black;
+      color: white;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--gray);
+      padding: 80px 5% 40px;
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      max-width: 1400px;
+      margin: 0 auto 4rem;
+    }
+
+    footer a {
+      color: var(--text-light);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 4.2rem; }
+      .hero p { font-size: 1.3rem; }
+      nav { display: none; } /* → add mobile menu in production */
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Urua Labs</a>
+    
+    <nav>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#insights">Insights</a>
+      <a href="#people">People</a>
+      <a href="#about">About</a>
+      <a href="#" class="btn-primary">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>It’s Time<br>to Build</h1>
+      <p>Urua Labs invests in exceptional founders creating the next generation of frontier technology — from AI infrastructure to deep science and next-generation platforms.</p>
+      
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary">Discover Portfolio</a>
+        <a href="#" class="btn-outline">Read Insights</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 style="text-align:center; font-size:3.2rem; max-width:900px; margin:0 auto 4rem; line-height:1.1;">
+      We back bold entrepreneurs building the future — across every stage and sector.
+    </h2>
+
+    <div class="section-grid">
+      <div class="card">
+        <h3>Artificial Intelligence</h3>
+        <p>Next-generation models, infrastructure, agents, and applications that redefine how humans and machines work together.</p>
+      </div>
+      <div class="card">
+        <h3>Deep Science</h3>
+        <p>Bio + Health, materials, energy — technologies that push the boundaries of what's physically possible.</p>
+      </div>
+      <div class="card">
+        <h3>Future Platforms</h3>
+        <p>Crypto primitives, decentralized systems, new consumer & enterprise paradigms.</p>
+      </div>
+      <div class="card">
+        <h3>American Dynamism</h3>
+        <p>Companies building critical infrastructure for national strength and resilience.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <h2>Stay ahead of the curve</h2>
+    <p>Join thousands of founders, investors and builders who read our insights every week.</p>
+    
+    <form>
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>Urua Labs</h4>
+        <p>Backing the builders of tomorrow's world.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="#">Portfolio</a>
+        <a href="#">Insights</a>
+        <a href="#">Team</a>
+        <a href="#">Careers</a>
+      </div>
+      <div>
+        <h4>Follow Us</h4>
+        <a href="#">X / Twitter</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Newsletter</a>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      © 2026 Urua Labs. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Simple scroll effect for header
+    window.addEventListener('scroll', () => {
+      document.body.classList.toggle('scrolled', window.scrollY > 50);
+    });
+  </script>
+</body>
+</html>
