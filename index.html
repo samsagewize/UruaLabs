@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Urua Labs — Coming Soon</title>
-  <meta name="description" content="Urua Labs — Launching January 22, 2026"/>
+  <title>Urua Labs — Next Generation Digital Frontier</title>
+  <meta name="description" content="Urua Labs — Crypto, Music, Websites & NFTs"/>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,11 +42,10 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
-      padding-bottom: 80px;
-      overflow-x: hidden;
+      padding-bottom: 80px; /* space for bottom nav on mobile */
     }
 
-    /* Header (same as before) */
+    /* Header */
     header {
       position: fixed;
       top: 0;
@@ -56,11 +55,12 @@
       padding: 0 5%;
       background: rgba(255,255,255,0.92);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      z-index: 2000;
+      z-index: 1000;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -77,8 +77,25 @@
       text-decoration: none;
     }
 
-    .hamburger {
+    .nav-menu {
       display: flex;
+      align-items: center;
+      gap: 2.2rem;
+    }
+
+    .nav-menu a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-menu a:hover {
+      color: var(--accent);
+    }
+
+    .hamburger {
+      display: none;
       flex-direction: column;
       gap: 6px;
       cursor: pointer;
@@ -89,74 +106,89 @@
       height: 3px;
       background: var(--text);
       border-radius: 2px;
+      transition: all 0.3s;
     }
 
-    /* Popup */
-    .construction-popup {
+    /* Mobile menu overlay */
+    .mobile-menu {
       position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
+      top: 80px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg);
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      z-index: 3000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.6s ease;
+      gap: 3rem;
+      transform: translateY(-100%);
+      transition: transform 0.4s ease;
+      z-index: 999;
     }
 
-    .construction-popup.active {
-      opacity: 1;
-      visibility: visible;
+    .mobile-menu.active {
+      transform: translateY(0);
     }
 
-    .popup-content {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 3.5rem 2.5rem;
-      max-width: 540px;
-      width: 90%;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    .mobile-menu a {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
     }
 
-    .close-btn {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.5rem;
-      font-size: 2rem;
-      cursor: pointer;
+    /* Bottom nav - app style (mobile only) */
+    .bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      z-index: 1000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .bottom-nav {
+        background: rgba(10,10,10,0.94);
+      }
+    }
+
+    .bottom-nav-inner {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .bottom-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.75rem;
       color: var(--text-light);
+      text-decoration: none;
+      gap: 4px;
       transition: color 0.2s;
     }
 
-    .close-btn:hover {
+    .bottom-nav a:hover,
+    .bottom-nav a.active {
       color: var(--accent);
     }
 
-    .popup-content h1 {
-      font-size: 3.2rem;
-      margin-bottom: 1rem;
-      line-height: 1.1;
+    .bottom-nav .hamburger {
+      display: flex;
     }
 
-    .popup-content p {
-      font-size: 1.3rem;
-      color: var(--text-light);
-      margin-bottom: 2rem;
-    }
-
-    .launch-date {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 1.5rem 0;
-    }
-
-    /* Rest of styles (hero, bottom-nav, mobile-menu) - kept from previous version */
+    /* Hero & other sections (same as before) */
     .hero {
       height: 100vh;
       min-height: 720px;
@@ -166,8 +198,6 @@
       text-align: center;
       padding: 0 5%;
       background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
-      filter: blur(3px) brightness(0.7);
-      pointer-events: none;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -176,65 +206,143 @@
       }
     }
 
-    .nav-menu { display: none; } /* hidden for simplicity in construction mode */
+    .hero-content {
+      max-width: 900px;
+    }
 
-    .bottom-nav {
-      display: none;
+    .hero h1 {
+      font-size: clamp(3.8rem, 9vw, 7.2rem);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      color: var(--text-light);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-outline {
+      border: 2px solid var(--text);
+      color: var(--text);
+      padding: 12px 32px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    section {
+      padding: 140px 5% 100px;
     }
 
     @media (max-width: 768px) {
-      .construction-popup .popup-content {
-        padding: 2.5rem 1.8rem;
+      .nav-menu {
+        display: none;
       }
-      .popup-content h1 {
-        font-size: 2.6rem;
+
+      .hamburger {
+        display: flex;
+      }
+
+      .bottom-nav {
+        display: flex;
+      }
+
+      section {
+        padding: 100px 5% 120px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Under Construction Popup -->
-  <div class="construction-popup active" id="constructionPopup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">&times;</span>
-      
-      <h1>Under Construction</h1>
-      <p>We're building something powerful. Stay tuned — official launch coming very soon!</p>
-      
-      <div class="launch-date">Opening January 22, 2026</div>
-      
-      <p style="font-size:1.1rem; margin-top:1.5rem;">
-        Follow us on X for updates: <strong>@UruaLabs</strong>
-      </p>
-    </div>
-  </div>
-
   <header>
     <a href="/" class="logo">Urua Labs</a>
     
-    <div class="hamburger">
+    <div class="nav-menu">
+      <a href="#crypto">Crypto</a>
+      <a href="#music">Music</a>
+      <a href="#websites">Websites</a>
+      <a href="#nfts">NFTs</a>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">
       <span></span>
       <span></span>
       <span></span>
     </div>
   </header>
 
+  <!-- Mobile overlay menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#crypto">Crypto</a>
+    <a href="#music">Music</a>
+    <a href="#websites">Websites</a>
+    <a href="#nfts">NFTs</a>
+  </div>
+
   <section class="hero">
     <div class="hero-content">
       <h1>Building the<br>Digital Future</h1>
-      <p>Urua Labs — Crypto · Music · Websites · NFTs</p>
+      <p>Urua Labs — powering the next wave of Crypto, Music, Web experiences and NFT innovation.</p>
+      
+      <div class="hero-buttons">
+        <a href="#" class="btn-primary">Explore Now</a>
+        <a href="#" class="btn-outline">Learn More</a>
+      </div>
     </div>
   </section>
 
+  <!-- Bottom navigation - app feel (mobile only) -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <a href="#crypto"><span>Crypto</span></a>
+      <a href="#music"><span>Music</span></a>
+      <a href="#websites"><span>Websites</span></a>
+      <a href="#nfts"><span>NFTs</span></a>
+      <a class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Rest of your content sections... -->
+  <section>
+    <h2 style="text-align:center; font-size:3rem;">Our Focus Areas</h2>
+    <!-- Add your cards etc. here -->
+  </section>
+
   <script>
-    function closePopup() {
-      document.getElementById('constructionPopup').classList.remove('active');
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('active');
     }
 
-    // Optional: Auto-show on load (already active by default)
-    window.addEventListener('load', () => {
-      // Can add delay or logic here if needed
+    // Optional: close menu when clicking a link
+    document.querySelectorAll('.mobile-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileMenu').classList.remove('active');
+      });
     });
   </script>
 </body>
