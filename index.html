@@ -303,7 +303,7 @@
   <section class="hero">
     <div class="hero-content">
       <h1>Building the<br>Digital Future</h1>
-      <p>Urua Labs — powering the next wave of Crypto, Music, Web experiences and NFT innovation.</p>
+      <p>Urua Labs — Powering the next wave of Blockchain tech, Music & Web Experience </p>
       
       <div class="hero-buttons">
         <a href="#" class="btn-primary">Explore Now</a>
@@ -315,10 +315,9 @@
   <!-- Bottom navigation - app feel (mobile only) -->
   <nav class="bottom-nav">
     <div class="bottom-nav-inner">
-      <a href="#crypto"><span>Crypto</span></a>
+      <a href="#crypto"><span>Services</span></a>
       <a href="#music"><span>Music</span></a>
-      <a href="#websites"><span>Websites</span></a>
-      <a href="#nfts"><span>NFTs</span></a>
+      <a href="#websites"><span>Portfolio</span></a>
       <a class="hamburger" onclick="toggleMenu()">
         <span></span>
         <span></span>
@@ -327,22 +326,78 @@
     </div>
   </nav>
 
-  <!-- Rest of your content sections... -->
-  <section>
-    <h2 style="text-align:center; font-size:3rem;">Our Focus Areas</h2>
-    <!-- Add your cards etc. here -->
+  <div class="hero-buttons">
+        <a href="#" class="btn-primary">Discover Portfolio</a>
+        <a href="#" class="btn-outline">Read Insights</a>
+      </div>
+    </div>
   </section>
 
-  <script>
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('active');
-    }
+  <section>
+    <h2 style="text-align:center; font-size:3.2rem; max-width:900px; margin:0 auto 4rem; line-height:1.1;">
+      We back bold entrepreneurs building the future — across every stage and sector.
+    </h2>
 
-    // Optional: close menu when clicking a link
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.remove('active');
-      });
+    <div class="section-grid">
+      <div class="card">
+        <h3>Artificial Intelligence</h3>
+        <p>Next-generation models, infrastructure, agents, and applications that redefine how humans and machines work together.</p>
+      </div>
+      <div class="card">
+        <h3>Deep Science</h3>
+        <p>Bio + Health, materials, energy — technologies that push the boundaries of what's physically possible.</p>
+      </div>
+      <div class="card">
+        <h3>Future Platforms</h3>
+        <p>Crypto primitives, decentralized systems, new consumer & enterprise paradigms.</p>
+      </div>
+      <div class="card">
+        <h3>American Dynamism</h3>
+        <p>Companies building critical infrastructure for national strength and resilience.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter">
+    <h2>Stay ahead of the curve</h2>
+    <p>Join thousands of founders, investors and builders who read our insights every week.</p>
+    
+    <form>
+      <input type="email" placeholder="Your email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h4>Urua Labs</h4>
+        <p>Backing the builders of tomorrow's world.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <a href="#">Portfolio</a>
+        <a href="#">Insights</a>
+        <a href="#">Team</a>
+        <a href="#">Careers</a>
+      </div>
+      <div>
+        <h4>Follow Us</h4>
+        <a href="#">X / Twitter</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Newsletter</a>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      © 2026 Urua Labs. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Simple scroll effect for header
+    window.addEventListener('scroll', () => {
+      document.body.classList.toggle('scrolled', window.scrollY > 50);
     });
   </script>
 </body>
