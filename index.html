@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,26 +8,26 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Georgia:wght@400;700&family=Handjet&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #0f0f0f;
-      --text-light: #444;
-      --accent: #0066ff;
-      --gray: #f5f5f5;
-      --border: #e5e5e5;
+      --bg: #f5f5f0; /* Light paper color */
+      --text: #333333;
+      --text-light: #555555;
+      --accent: #8b4513; /* Brown for journal feel */
+      --gray: #e0e0e0;
+      --border: #d0d0d0;
     }
     
     @media (prefers-color-scheme: dark) {
       :root {
-        --bg: #0a0a0a;
-        --text: #ffffff;
-        --text-light: #cccccc;
-        --accent: #4d9aff;
-        --gray: #111;
-        --border: #222;
+        --bg: #2c2c2c;
+        --text: #e0e0e0;
+        --text-light: #b0b0b0;
+        --accent: #cd853f;
+        --gray: #3a3a3a;
+        --border: #4a4a4a;
       }
     }
 
@@ -39,12 +38,14 @@
     }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Georgia', serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.6;
       padding-bottom: 80px;
       overflow-x: hidden;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0 50h100" stroke="#ddd" stroke-width="0.5" opacity="0.5"/></svg>'); /* Subtle lines for notebook feel */
+      background-repeat: repeat;
     }
 
     /* Header */
@@ -55,7 +56,7 @@
       right: 0;
       height: 80px;
       padding: 0 5%;
-      background: rgba(255,255,255,0.92);
+      background: rgba(245,245,245,0.92); /* Semi-transparent paper */
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
@@ -67,15 +68,16 @@
 
     @media (prefers-color-scheme: dark) {
       header {
-        background: rgba(10,10,10,0.92);
+        background: rgba(40,40,40,0.92);
       }
     }
 
     .logo {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--text);
+      font-family: 'Handjet', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--accent);
       text-decoration: none;
     }
 
@@ -87,8 +89,8 @@
 
     .nav-menu a {
       color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
+      text-decoration: underline wavy var(--accent);
+      font-weight: 400;
       transition: color 0.2s;
     }
 
@@ -148,7 +150,7 @@
       left: 0;
       right: 0;
       height: 70px;
-      background: rgba(255,255,255,0.94);
+      background: rgba(245,245,245,0.94);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-top: 1px solid var(--border);
@@ -157,7 +159,7 @@
 
     @media (prefers-color-scheme: dark) {
       .bottom-nav {
-        background: rgba(10,10,10,0.94);
+        background: rgba(40,40,40,0.94);
       }
     }
 
@@ -190,34 +192,35 @@
       display: flex;
     }
 
-    /* Hero */
+    /* Hero styled as journal entry */
     .hero {
       height: 100vh;
       min-height: 720px;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 0 5%;
-      background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .hero {
-        background: linear-gradient(135deg, #0a1120 0%, #001133 100%);
-      }
+      text-align: left;
+      padding: 0 10%;
+      background: transparent;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.05); /* Page shadow */
     }
 
     .hero-content {
       max-width: 900px;
+      background: rgba(255,255,255,0.3);
+      padding: 2rem;
+      border-left: 5px solid var(--accent); /* Notebook binding */
+      box-shadow: 10px 10px 20px rgba(0,0,0,0.1);
     }
 
     .hero h1 {
+      font-family: 'Handjet', cursive;
       font-size: clamp(3.8rem, 9vw, 7.2rem);
-      font-weight: 800;
-      line-height: 0.92;
-      letter-spacing: -2px;
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: 1px;
       margin-bottom: 1.5rem;
+      color: var(--accent);
     }
 
     .hero p {
@@ -230,47 +233,46 @@
     .hero-buttons {
       display: flex;
       gap: 1.5rem;
-      justify-content: center;
+      justify-content: flex-start;
       flex-wrap: wrap;
     }
 
     .btn-primary {
-      background: var(--accent);
-      color: white;
+      background: transparent;
+      color: var(--accent);
       padding: 12px 32px;
-      border-radius: 999px;
+      border: 2px dashed var(--accent);
+      border-radius: 0;
       text-decoration: none;
       font-weight: 600;
     }
 
     .btn-outline {
-      border: 2px solid var(--text);
+      border: 2px dotted var(--text);
       color: var(--text);
       padding: 12px 32px;
-      border-radius: 999px;
+      border-radius: 0;
       text-decoration: none;
       font-weight: 600;
     }
 
-    /* Focus Section (enhanced) */
+    /* Focus Section styled as journal pages */
     .focus-section {
       background: var(--bg);
       position: relative;
-      padding: 140px 5% 120px;
+      padding: 140px 10% 120px;
     }
 
     .focus-section h2 {
+      font-family: 'Handjet', cursive;
       font-size: clamp(2.8rem, 6vw, 3.6rem);
-      font-weight: 800;
-      text-align: center;
+      font-weight: 400;
+      text-align: left;
       max-width: 960px;
       margin: 0 auto 5rem;
-      line-height: 1.05;
-      letter-spacing: -1px;
-      background: linear-gradient(90deg, var(--accent), #00d4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      line-height: 1.2;
+      letter-spacing: 1px;
+      color: var(--accent);
     }
 
     .section-grid {
@@ -282,60 +284,31 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px dashed var(--border);
+      border-radius: 0;
       padding: 2.4rem 2rem;
       transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.06),
-        inset 0 1px 1px rgba(255,255,255,0.08);
+      box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
       position: relative;
       overflow: hidden;
     }
 
     @media (prefers-color-scheme: dark) {
       .card {
-        background: rgba(20, 20, 30, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 
-          0 12px 40px rgba(0, 0, 0, 0.35),
-          inset 0 1px 1px rgba(255,255,255,0.04);
+        background: rgba(50, 50, 60, 0.35);
+        border: 1px dashed rgba(255, 255, 255, 0.08);
+        box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.35);
       }
     }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card:hover {
-      transform: translateY(-12px);
-      box-shadow: 
-        0 30px 70px rgba(0, 0, 0, 0.14),
-        inset 0 1px 1px rgba(255,255,255,0.1);
-    }
-
     .card h3 {
+      font-family: 'Handjet', cursive;
       font-size: 1.9rem;
-      font-weight: 700;
+      font-weight: 400;
       margin-bottom: 1.1rem;
-      background: linear-gradient(90deg, var(--text), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.4px;
+      color: var(--accent);
+      letter-spacing: 1px;
     }
 
     .card p {
@@ -345,60 +318,63 @@
       line-height: 1.6;
     }
 
-    /* Newsletter */
+    /* Newsletter styled as note */
     .newsletter {
-      background: var(--accent);
-      color: white;
-      text-align: center;
-      padding: 140px 5%;
+      background: transparent;
+      color: var(--text);
+      text-align: left;
+      padding: 140px 10%;
+      border-top: 1px dashed var(--border);
     }
 
     .newsletter h2 {
+      font-family: 'Handjet', cursive;
       font-size: 3.5rem;
       margin-bottom: 1.5rem;
+      color: var(--accent);
     }
 
     .newsletter p {
       font-size: 1.3rem;
       opacity: 0.9;
       max-width: 600px;
-      margin: 0 auto 2.5rem;
+      margin: 0 0 2.5rem;
     }
 
     .newsletter form {
       max-width: 520px;
-      margin: 0 auto;
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      justify-content: center;
     }
 
     .newsletter input {
       flex: 1;
       min-width: 240px;
       padding: 16px 20px;
-      border: none;
-      border-radius: 999px;
+      border: 1px dotted var(--border);
+      background: transparent;
+      border-radius: 0;
       font-size: 1.1rem;
     }
 
     .newsletter button {
-      background: black;
-      color: white;
-      border: none;
+      background: transparent;
+      color: var(--accent);
+      border: 1px dashed var(--accent);
       padding: 16px 36px;
-      border-radius: 999px;
+      border-radius: 0;
       font-weight: 600;
       cursor: pointer;
     }
 
     /* Footer */
-    footer {
-      background: var(--gray);
-      padding: 80px 5% 40px;
+    .footer {
+      background: transparent;
+      padding: 80px 10% 40px;
       color: var(--text-light);
       font-size: 0.95rem;
+      border-top: 1px dashed var(--border);
     }
 
     .footer-grid {
@@ -411,23 +387,21 @@
 
     footer a {
       color: var(--text-light);
-      text-decoration: none;
+      text-decoration: underline wavy;
       display: block;
       margin-bottom: 0.8rem;
     }
 
     .copyright {
-      text-align: center;
+      text-align: left;
       padding-top: 2rem;
-      border-top: 1px solid var(--border);
     }
 
-    /* Popup */
+    /* Popup styled as sticky note */
     .construction-popup {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.5);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -443,15 +417,16 @@
     }
 
     .popup-content {
-      background: var(--bg);
+      background: #fffacd; /* Yellow sticky note */
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 4px;
       padding: 3.5rem 2.5rem;
       max-width: 540px;
       width: 90%;
       text-align: center;
       position: relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+      box-shadow: 10px 10px 20px rgba(0,0,0,0.2);
+      transform: rotate(2deg); /* Tilted note */
     }
 
     .close-btn {
@@ -469,9 +444,11 @@
     }
 
     .popup-content h1 {
+      font-family: 'Handjet', cursive;
       font-size: 3.2rem;
       margin-bottom: 1rem;
       line-height: 1.1;
+      color: var(--accent);
     }
 
     .popup-content p {
@@ -481,6 +458,7 @@
     }
 
     .launch-date {
+      font-family: 'Handjet', cursive;
       font-size: 2.4rem;
       font-weight: 700;
       color: var(--accent);
@@ -519,6 +497,7 @@
 
       .popup-content {
         padding: 2.5rem 1.8rem;
+        transform: rotate(0deg);
       }
 
       .popup-content h1 {
@@ -564,10 +543,9 @@
 
   <!-- Mobile overlay menu -->
   <div class="mobile-menu" id="mobileMenu">
-    <a href="#crypto">Crypto</a>
+    <a href="#crypto">Web 3</a>
     <a href="#music">Music</a>
     <a href="#websites">Websites</a>
-    <a href="#nfts">NFTs</a>
     <a href="#" onclick="switchToRetro()">Nostalgia</a>
   </div>
 
@@ -917,4 +895,3 @@
   </script>
 </body>
 </html>
-
