@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Urua Labs — Digital Future</title>
+  <title>Urua Labs — Building the Future</title>
   
-  <!-- Tailwind CSS for high-speed utility styling -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Modern & Futuristic Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Babel for in-browser JSX transpilation -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script>
@@ -34,6 +30,10 @@
               winDark: '#808080',
               blue: '#000080',
             }
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 12s linear infinite',
           }
         }
       }
@@ -41,64 +41,63 @@
   </script>
 
   <style>
-    /* Custom utility for beveled borders in retro mode */
-    .retro-outset {
-      border: 2px solid;
-      border-color: #ffffff #808080 #808080 #ffffff;
+    /* Global Styles */
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      background: #000; /* Darker default */
+      overflow-x: hidden;
     }
-    .retro-inset {
-      border: 2px solid;
-      border-color: #808080 #ffffff #ffffff #808080;
-    }
-    .retro-button:active {
-      border-color: #808080 #ffffff #ffffff #808080;
-      padding-top: 2px;
-      padding-left: 2px;
-    }
-    
-    html { scroll-behavior: smooth; }
-
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #555; }
 
     .glass {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
     
     .text-gradient {
-      background: linear-gradient(to bottom, #fff, #888);
+      background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .retro-bg { background-color: #008080; }
-    .retro-win { background-color: #c0c0c0; }
-    .retro-blue { background-color: #000080; }
+    .retro-outset {
+      border: 2px solid;
+      border-color: #ffffff #808080 #808080 #ffffff;
+    }
 
-    /* Animation for the "Scanline" effect */
+    .retro-inset {
+      border: 2px solid;
+      border-color: #808080 #ffffff #ffffff #808080;
+    }
+
     .scanline {
       width: 100%;
-      height: 2px;
-      background: rgba(0, 102, 255, 0.1);
-      position: absolute;
+      height: 4px;
+      background: rgba(0, 102, 255, 0.05);
+      position: fixed;
       top: 0;
-      z-index: 1000;
+      left: 0;
       pointer-events: none;
-      animation: scan 8s linear infinite;
+      z-index: 1000;
+      animation: scan 10s linear infinite;
     }
 
     @keyframes scan {
-      from { top: 0; }
-      to { top: 100%; }
+      0% { transform: translateY(-100vh); }
+      100% { transform: translateY(100vh); }
     }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #0066ff; }
   </style>
 
-  <!-- Module Import Map: Fixed React Context Error by pinning React version across deps -->
   <script type="importmap">
   {
     "imports": {
@@ -106,12 +105,12 @@
       "react-dom": "https://esm.sh/react-dom@19.0.0",
       "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
       "@google/genai": "https://esm.sh/@google/genai@1.38.0",
-      "framer-motion": "https://esm.sh/framer-motion@11.11.11?deps=react@19.0.0"
+      "framer-motion": "https://esm.sh/framer-motion@11.11.11"
     }
   }
   </script>
 </head>
-<body class="bg-white dark:bg-[#0a0a0a] text-black dark:text-white selection:bg-accent/30 overflow-x-hidden">
+<body class="bg-white dark:bg-[#050505] text-black dark:text-white selection:bg-accent/30">
   <div class="scanline"></div>
   <div id="root"></div>
 
@@ -121,164 +120,132 @@
     import { GoogleGenAI } from '@google/genai';
     import { motion, AnimatePresence } from 'framer-motion';
 
-    // --- AI SERVICE INITIALIZATION ---
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+    // Safe environment variable access
+    const getApiKey = () => {
+      try { return process.env.API_KEY || ''; } 
+      catch { return ''; }
+    };
 
-    const callGemini = async (prompt) => {
+    // AI Initialization
+    const ai = new GoogleGenAI({ apiKey: getApiKey() });
+
+    const callLabAI = async (prompt) => {
       try {
         const response = await ai.models.generateContent({
           model: 'gemini-3-flash-preview',
           contents: prompt,
           config: {
-            systemInstruction: `You are the Urua Labs AI Assistant. Urua Labs is a futuristic technological ecosystem.
-            Vision: Web3, Crypto, Creator Economies, and Spatial Frontends.
-            Launch: February 22, 2026.
-            Tone: Ultra-professional, visionary, slightly cryptic, and concise. 
-            Do not admit you are an AI unless specifically pressed. Act as the system intelligence.`,
-            temperature: 0.8,
+            systemInstruction: `You are Urua-GPT, the neural engine of Urua Labs. 
+            Urua Labs builds the future of Web3, spatial interfaces, and decentralized creator ecosystems.
+            Launch: Feb 22, 2026.
+            Tone: Futuristic, concise, high-intelligence. 
+            Maintain the mystery of the lab while being helpful.`,
+            temperature: 0.9,
           },
         });
         return response.text;
       } catch (err) {
-        console.error("AI Node Failure:", err);
-        return "System communication interrupted. Re-synchronizing neural link...";
+        return "Neural link offline. Please re-synchronize after Genesis.";
       }
     };
 
-    // --- SUB-COMPONENTS ---
-
+    // UI Components
     const AIAssistant = () => {
       const [isOpen, setIsOpen] = useState(false);
       const [messages, setMessages] = useState([
-        { role: 'model', text: 'Protocol initialized. System online. How may Urua Labs facilitate your transition to 2026?' }
+        { role: 'model', text: 'Identity scan complete. System online. How can Urua Labs assist your journey to 2026?' }
       ]);
       const [input, setInput] = useState('');
       const [isThinking, setIsThinking] = useState(false);
-      const endRef = useRef(null);
+      const bottomRef = useRef(null);
 
       useEffect(() => {
-        endRef.current?.scrollIntoView({ behavior: 'smooth' });
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
       }, [messages, isThinking]);
 
-      const handleSubmit = async (e) => {
+      const handleSend = async (e) => {
         e.preventDefault();
         if (!input.trim() || isThinking) return;
-        
-        const userText = input;
+        const msg = input;
         setInput('');
-        setMessages(prev => [...prev, { role: 'user', text: userText }]);
+        setMessages(prev => [...prev, { role: 'user', text: msg }]);
         setIsThinking(true);
-
-        const reply = await callGemini(userText);
+        const reply = await callLabAI(msg);
         setMessages(prev => [...prev, { role: 'model', text: reply }]);
         setIsThinking(false);
       };
 
       return (
-        <div className="fixed bottom-8 right-8 z-[500]">
+        <div className="fixed bottom-6 right-6 z-[999]">
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 30 }}
-                className="mb-6 w-80 md:w-[450px] glass dark:bg-[#0c0c0c] border dark:border-white/10 rounded-[3rem] shadow-2xl flex flex-col overflow-hidden"
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                className="mb-4 w-80 md:w-[400px] glass dark:bg-[#0a0a0a] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col border border-white/10"
               >
-                <div className="p-6 bg-accent text-white flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-white rounded-full animate-ping"></div>
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em]">Urua System Intelligence</span>
-                  </div>
-                  <button onClick={() => setIsOpen(false)} className="text-xl hover:rotate-90 transition-transform">✕</button>
+                <div className="p-5 bg-accent text-white flex justify-between items-center">
+                  <span className="text-[10px] font-black tracking-[0.3em] uppercase">Neural Interface v1.0</span>
+                  <button onClick={() => setIsOpen(false)}>✕</button>
                 </div>
-                <div className="h-[400px] overflow-y-auto p-6 flex flex-col gap-5 text-sm">
+                <div className="h-80 overflow-y-auto p-4 flex flex-col gap-3 text-sm">
                   {messages.map((m, i) => (
-                    <motion.div 
-                      key={i}
-                      initial={{ opacity: 0, x: m.role === 'user' ? 10 : -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      className={`p-5 rounded-[2rem] max-w-[85%] ${
-                        m.role === 'user' 
-                        ? 'bg-gray-100 dark:bg-white/5 ml-auto rounded-tr-none' 
-                        : 'bg-accent/10 text-accent mr-auto rounded-tl-none border border-accent/20'
-                      }`}
-                    >
+                    <div key={i} className={`p-3 rounded-2xl ${m.role === 'user' ? 'bg-white/5 ml-auto' : 'bg-accent/10 text-accent mr-auto border border-accent/20'}`}>
                       {m.text}
-                    </motion.div>
+                    </div>
                   ))}
-                  {isThinking && (
-                    <div className="text-[10px] uppercase tracking-widest opacity-40 ml-2 animate-pulse">Calculating...</div>
-                  )}
-                  <div ref={endRef} />
+                  {isThinking && <div className="text-[10px] opacity-40 animate-pulse uppercase tracking-widest">Processing...</div>}
+                  <div ref={bottomRef} />
                 </div>
-                <form onSubmit={handleSubmit} className="p-6 border-t dark:border-white/5 flex gap-3">
-                  <input 
-                    value={input} 
-                    onChange={e => setInput(e.target.value)} 
-                    placeholder="Enter command..." 
-                    className="flex-1 bg-gray-50 dark:bg-black/40 border dark:border-white/10 rounded-full px-6 py-4 outline-none focus:border-accent text-sm transition-all"
-                  />
-                  <button 
-                    type="submit" 
-                    className="w-14 h-14 bg-accent text-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-xl shadow-accent/40"
-                  >
-                    →
-                  </button>
+                <form onSubmit={handleSend} className="p-4 border-t border-white/10 flex gap-2 bg-black/40">
+                  <input value={input} onChange={e => setInput(e.target.value)} placeholder="Query the Lab..." className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm outline-none focus:border-accent transition-colors" />
+                  <button type="submit" className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">🚀</button>
                 </form>
               </motion.div>
             )}
           </AnimatePresence>
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="w-20 h-20 bg-accent rounded-full shadow-2xl shadow-accent/50 flex items-center justify-center hover:scale-110 active:scale-90 transition-all group border-4 border-white dark:border-[#0a0a0a]"
-          >
-            <span className="text-4xl group-hover:rotate-12 transition-transform">🛰️</span>
+          <button onClick={() => setIsOpen(!isOpen)} className="w-16 h-16 bg-accent rounded-full shadow-2xl flex items-center justify-center text-3xl hover:scale-110 active:scale-90 transition-all">
+            🛰️
           </button>
         </div>
       );
     };
 
-    const RetroInterface = ({ toggleTheme }) => {
-      const windows = [
-        { id: 'win1', title: 'System_Status.exe', content: 'CPU: Core_Genesis_2026\nMemory: Unlimited\nNetwork: Void_Connected', x: 60, y: 80 },
-        { id: 'win2', title: 'Philosophy.txt', content: 'The digital divide is closing.\n\nLegacy hardware meets autonomous software.\nWelcome to the loop.', x: 350, y: 180 }
+    const RetroTheme = ({ onToggle }) => {
+      const wins = [
+        { id: 1, t: 'Readme.doc', c: 'Urua Labs Alpha\nKernel: 2026.02\nStatus: Stealth', x: 100, y: 100 },
+        { id: 2, t: 'Vision.txt', c: 'Building a faster, more decentralized web.\nPixels matter.', x: 300, y: 200 }
       ];
 
       return (
-        <div className="min-h-screen retro-bg font-mono p-4 relative select-none" style={{ cursor: 'url(https://win98icons.alexmeub.com/icons/png/mouse-0.png), auto' }}>
-          <div className="flex flex-col gap-10 items-start">
-            <div className="flex flex-col items-center gap-1 cursor-pointer" onDoubleClick={() => alert('Access Code: URUA2026')}>
-              <img src="https://win98icons.alexmeub.com/icons/png/my_computer-0.png" className="w-12 h-12" />
-              <span className="text-white text-[11px] bg-retro-blue px-1 border border-dotted border-white/50">My Computer</span>
+        <div className="min-h-screen bg-[#008080] font-mono relative overflow-hidden" style={{ cursor: 'url(https://win98icons.alexmeub.com/icons/png/mouse-0.png), auto' }}>
+          <div className="p-4 flex flex-col gap-6 items-start w-24">
+            <div className="flex flex-col items-center gap-1 cursor-pointer">
+              <img src="https://win98icons.alexmeub.com/icons/png/my_computer-0.png" className="w-10 h-10" />
+              <span className="text-white text-[10px] bg-[#000080] px-1 border border-white/20">My Lab</span>
             </div>
-            <div className="flex flex-col items-center gap-1 cursor-pointer" onDoubleClick={() => toggleTheme()}>
-              <img src="https://win98icons.alexmeub.com/icons/png/world-0.png" className="w-12 h-12" />
-              <span className="text-white text-[11px] bg-retro-blue px-1 border border-dotted border-white/50">Launch 2026</span>
+            <div className="flex flex-col items-center gap-1 cursor-pointer" onDoubleClick={onToggle}>
+              <img src="https://win98icons.alexmeub.com/icons/png/world-0.png" className="w-10 h-10" />
+              <span className="text-white text-[10px] bg-[#000080] px-1 border border-white/20">Exit Legacy</span>
             </div>
           </div>
 
-          {windows.map(w => (
-            <div key={w.id} className="absolute retro-win retro-outset w-72 md:w-96 shadow-2xl" style={{ left: w.x, top: w.y }}>
-              <div className="bg-retro-blue p-1 flex items-center justify-between text-white font-bold text-xs px-2">
-                <div className="flex items-center gap-2 truncate">
-                  <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" className="w-3 h-3" />
-                  {w.title}
-                </div>
-                <div className="flex gap-1">
-                  <button className="w-4 h-4 bg-retro-win text-black retro-outset text-[8px] font-bold">_</button>
-                  <button className="w-4 h-4 bg-retro-win text-black retro-outset text-[8px] font-bold">X</button>
-                </div>
+          {wins.map(w => (
+            <div key={w.id} className="absolute bg-[#c0c0c0] retro-outset w-64 md:w-80 shadow-2xl" style={{ left: w.x, top: w.y }}>
+              <div className="bg-[#000080] p-1 flex justify-between items-center text-white font-bold text-xs px-2">
+                <span className="truncate">{w.t}</span>
+                <div className="flex gap-1"><button className="bg-[#c0c0c0] text-black w-4 h-4 text-[8px] retro-outset">X</button></div>
               </div>
-              <div className="p-4 bg-white m-1 retro-inset h-40 text-[12px] overflow-auto whitespace-pre-wrap">{w.content}</div>
+              <div className="p-3 bg-white m-1 retro-inset h-32 text-xs overflow-auto">{w.c}</div>
             </div>
           ))}
 
-          <div className="fixed bottom-0 left-0 right-0 h-12 retro-win retro-outset flex items-center px-1 z-[100]">
-            <button onClick={toggleTheme} className="h-9 px-5 retro-win retro-outset flex items-center gap-2 font-bold text-sm hover:bg-gray-300">
-              <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" className="w-5 h-5" />
-              Start
+          <div className="fixed bottom-0 left-0 right-0 h-10 bg-[#c0c0c0] retro-outset flex items-center px-1 z-50">
+            <button onClick={onToggle} className="h-8 px-4 bg-[#c0c0c0] retro-outset flex items-center gap-2 font-bold text-xs active:retro-inset">
+              <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" className="w-4 h-4" /> Start
             </button>
-            <div className="ml-auto px-4 py-1 retro-win retro-inset font-bold text-xs">
+            <div className="ml-auto px-4 py-1 retro-inset font-bold text-[10px]">
               {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </div>
           </div>
@@ -286,108 +253,93 @@
       );
     };
 
-    const ModernInterface = ({ toggleTheme, isDark, toggleDark }) => {
-      const [showModal, setShowModal] = useState(true);
-      const labs = [
-        { name: "DeFi Protocols", desc: "Algorithmic stability and liquidity for the new web.", icon: "💎" },
-        { name: "Audio Labs", desc: "Decentralized royalties and generative music tools.", icon: "🎵" },
-        { name: "Creative Engine", desc: "Spatial frontends and immersive NFT utility.", icon: "🌐" },
-        { name: "Neural UX", desc: "LLM-powered human-computer interaction.", icon: "🤖" }
+    const ModernTheme = ({ onToggle, isDark, onDarkToggle }) => {
+      const [modal, setModal] = useState(true);
+      const projects = [
+        { n: "Protocol Genesis", d: "Next-gen Web3 architecture.", i: "💎" },
+        { n: "Aura Audio", d: "Generative decentralized sound.", i: "🎵" },
+        { n: "Spatial Hub", d: "Immersive 3D frontend engine.", i: "🌐" },
+        { n: "Nexus AI", d: "Human-centric neural integration.", i: "🤖" }
       ];
 
       return (
-        <div className="relative font-sans pb-40">
-          <header className="fixed top-0 left-0 right-0 h-24 px-10 md:px-20 flex items-center justify-between glass z-50">
-            <span className="text-4xl font-black tracking-tighter hover:opacity-70 transition-opacity cursor-pointer">
-              URUA<span className="text-accent italic">LABS</span>
-            </span>
-            <nav className="hidden md:flex items-center gap-12 font-bold text-[10px] uppercase tracking-[0.4em]">
+        <div className="relative pb-32">
+          {/* Header */}
+          <header className="fixed top-0 left-0 right-0 h-24 px-8 md:px-16 flex items-center justify-between glass z-[100]">
+            <span className="text-3xl font-black tracking-tighter">URUA<span className="text-accent italic">LABS</span></span>
+            <div className="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.3em]">
               <a href="#vision" className="hover:text-accent transition-colors">Vision</a>
               <a href="#labs" className="hover:text-accent transition-colors">Labs</a>
-              <button onClick={toggleTheme} className="px-6 py-2 rounded-full border dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition-all">Nostalgia</button>
-              <button onClick={toggleDark} className="text-2xl">{isDark ? '🌞' : '🌙'}</button>
-            </nav>
-            <button className="md:hidden text-2xl" onClick={toggleDark}>{isDark ? '🌞' : '🌙'}</button>
+              <button onClick={onToggle} className="hover:text-accent border border-white/10 px-4 py-1.5 rounded-full">Retro</button>
+              <button onClick={onDarkToggle}>{isDark ? '🌞' : '🌙'}</button>
+            </div>
           </header>
 
+          {/* Hero */}
           <section className="min-h-screen flex flex-col items-center justify-center px-8 text-center pt-24">
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.5 }}>
-              <div className="mb-10 inline-block px-6 py-2 rounded-full bg-accent/10 text-accent font-black text-[10px] tracking-[0.5em] uppercase border border-accent/20">
-                Phase 0: Stealth Initialization
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.5 }}>
+              <div className="mb-10 inline-block px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">
+                System Initialized
               </div>
-              <h1 className="text-7xl md:text-[12rem] font-extrabold tracking-tighter leading-[0.75] mb-14 text-gradient select-none">
-                FABRICATING <br/> REALITY.
+              <h1 className="text-6xl md:text-[11rem] font-extrabold tracking-tighter leading-[0.8] mb-12 text-gradient">
+                BUILDING THE <br/> UNKNOWN.
               </h1>
-              <p className="text-xl md:text-4xl opacity-40 max-w-4xl mx-auto mb-16 font-medium leading-relaxed">
-                Urua Labs is a venture ecosystem and R&D studio crafting the next layer of digital autonomy.
+              <p className="text-lg md:text-3xl opacity-40 max-w-3xl mx-auto mb-16 font-medium">
+                Urua Labs is a futuristic venture ecosystem architecting the next layer of digital autonomy.
               </p>
-              <div className="flex flex-wrap justify-center gap-8">
-                <a href="#labs" className="px-16 py-7 bg-accent text-white rounded-full font-black text-2xl hover:scale-105 transition-all shadow-2xl shadow-accent/40">
-                  Explore Ecosystem
-                </a>
-                <button onClick={() => setShowModal(true)} className="px-16 py-7 border dark:border-white/10 rounded-full font-black text-2xl hover:bg-white/5 transition-all">
-                  Join Void
-                </button>
+              <div className="flex flex-wrap justify-center gap-6">
+                <a href="#labs" className="px-12 py-5 bg-accent text-white rounded-full font-black text-xl hover:scale-105 shadow-2xl shadow-accent/40 transition-all">Explore Labs</a>
+                <button onClick={() => setModal(true)} className="px-12 py-5 border border-white/10 rounded-full font-black text-xl hover:bg-white/5 transition-all">Request Entry</button>
               </div>
             </motion.div>
           </section>
 
-          <section id="labs" className="py-48 px-10 md:px-20 max-w-screen-2xl mx-auto">
-            <div className="mb-32 flex flex-col md:flex-row md:items-end justify-between gap-10">
-              <div>
-                <h2 className="text-6xl md:text-9xl font-black tracking-tighter mb-8">CORE <br/> VENTURES</h2>
-                <div className="w-32 h-3 bg-accent rounded-full"></div>
-              </div>
-              <p className="max-w-md opacity-50 font-medium text-lg italic">
-                Architecting scalable decentralized solutions for a future where ownership is code.
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {labs.map((l, i) => (
-                <motion.div 
-                  key={i} 
-                  whileHover={{ y: -20, rotate: 1 }}
-                  className="p-14 rounded-[4rem] glass hover:border-accent/40 transition-all group relative overflow-hidden"
-                >
-                  <div className="text-7xl mb-14 group-hover:scale-110 transition-transform">{l.icon}</div>
-                  <h3 className="text-3xl font-bold mb-6 tracking-tight">{l.name}</h3>
-                  <p className="opacity-40 text-lg font-medium leading-relaxed">{l.desc}</p>
+          {/* Focus */}
+          <section id="labs" className="py-40 px-8 max-w-7xl mx-auto">
+            <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-20">OUR FOCUS</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {projects.map((p, i) => (
+                <motion.div key={i} whileHover={{ y: -10 }} className="p-12 rounded-[3.5rem] glass hover:border-accent/50 transition-all group">
+                  <div className="text-6xl mb-10 group-hover:scale-110 transition-transform">{p.i}</div>
+                  <h3 className="text-2xl font-black mb-4 tracking-tight">{p.n}</h3>
+                  <p className="opacity-40 text-sm font-medium leading-relaxed">{p.d}</p>
                 </motion.div>
               ))}
             </div>
           </section>
 
-          <section id="vision" className="py-60 bg-accent text-white text-center relative overflow-hidden">
-            <motion.div animate={{ x: [-2000, 2000] }} transition={{ repeat: Infinity, duration: 40, ease: "linear" }} className="text-[30rem] font-black absolute inset-0 flex items-center opacity-10 whitespace-nowrap pointer-events-none italic">
-              2026 2026 2026 2026 2026
-            </motion.div>
-            <div className="relative z-10 px-10">
-              <h2 className="text-6xl md:text-[12rem] font-black mb-10 tracking-tighter leading-none">FEBRUARY 22</h2>
-              <p className="text-3xl md:text-5xl font-bold opacity-80 uppercase tracking-[0.5em]">The Great Rehearsal Ends.</p>
+          {/* Vision */}
+          <section id="vision" className="bg-accent py-40 text-center relative overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center text-[30rem] font-black opacity-10 pointer-events-none italic whitespace-nowrap">
+              2026 2026 2026 2026
+            </div>
+            <div className="relative z-10 px-8">
+              <h2 className="text-6xl md:text-[11rem] font-black tracking-tighter mb-8 leading-none">FEBRUARY 22</h2>
+              <p className="text-2xl md:text-5xl font-bold opacity-80 uppercase tracking-[0.4em]">The New Web Begins.</p>
             </div>
           </section>
 
-          <footer className="py-32 text-center border-t dark:border-white/5 mx-10 md:mx-20">
-            <div className="flex justify-center gap-16 mb-20 opacity-40 font-black text-xs tracking-[0.6em] uppercase">
-              <a href="#" className="hover:text-accent">Twitter</a>
-              <a href="#" className="hover:text-accent">Mirror</a>
-              <a href="#" className="hover:text-accent">Github</a>
+          {/* Footer */}
+          <footer className="py-24 text-center border-t border-white/5 mx-8">
+            <div className="flex justify-center gap-12 mb-10 opacity-30 font-black text-[10px] tracking-[0.4em] uppercase">
+              <a href="#">X (Twitter)</a>
+              <a href="#">Discord</a>
+              <a href="#">Mirror</a>
             </div>
-            <p className="opacity-20 text-[11px] font-black tracking-[0.8em] uppercase">© 2026 URUA LABS — ESTABLISHED IN THE FUTURE.</p>
+            <p className="opacity-20 text-[10px] font-black tracking-widest uppercase">© 2026 URUA LABS — STEALTH PROTOCOL.</p>
           </footer>
 
           <AnimatePresence>
-            {showModal && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[600] flex items-center justify-center p-8 bg-black/98 backdrop-blur-3xl">
-                <motion.div initial={{ scale: 0.85, y: 50 }} animate={{ scale: 1, y: 0 }} className="bg-white dark:bg-[#080808] p-16 md:p-24 rounded-[5rem] max-w-2xl w-full text-center relative border dark:border-white/10 shadow-[0_0_120px_rgba(0,102,255,0.15)]">
-                  <button onClick={() => setShowModal(false)} className="absolute top-12 right-12 text-5xl font-light hover:text-accent hover:rotate-90 transition-all">✕</button>
-                  <div className="mb-12 inline-block px-6 py-2 rounded-full bg-accent/10 text-accent font-black text-[11px] tracking-widest uppercase border border-accent/20">Clearance Required</div>
-                  <h2 className="text-6xl font-black mb-10 tracking-tight leading-[0.9]">Sync your <br/> identity.</h2>
-                  <p className="opacity-40 mb-14 font-medium text-xl px-4 leading-relaxed">Early network access is restricted. Link your protocol address below to request clearance for the Genesis Drop.</p>
-                  <div className="flex flex-col gap-6 max-w-md mx-auto">
-                    <input type="email" placeholder="0x_identity@email.com" className="w-full px-10 py-6 bg-gray-100 dark:bg-white/5 rounded-[2.5rem] outline-none focus:ring-4 ring-accent/30 transition-all font-bold text-center text-xl" />
-                    <button onClick={() => setShowModal(false)} className="w-full py-7 bg-accent text-white rounded-[2.5rem] font-black text-2xl hover:scale-[1.03] transition-all shadow-2xl shadow-accent/40">Request Access</button>
+            {modal && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/95 backdrop-blur-3xl">
+                <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-[#0a0a0a] p-12 md:p-20 rounded-[4rem] max-w-2xl w-full text-center relative border border-white/5 shadow-2xl">
+                  <button onClick={() => setModal(false)} className="absolute top-10 right-10 text-4xl font-light hover:text-accent transition-all">✕</button>
+                  <div className="bg-accent/10 text-accent px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-10 inline-block">Waitlist Phase 01</div>
+                  <h2 className="text-5xl font-black mb-8 tracking-tight">The future is <br/> encrypted.</h2>
+                  <p className="opacity-40 mb-12 font-medium leading-relaxed text-lg">Urua Labs is optimized for the 2026 convergence. Enter your protocol address below for early clearance.</p>
+                  <div className="flex flex-col gap-4 max-w-md mx-auto">
+                    <input type="email" placeholder="identity@protocol.xyz" className="w-full px-8 py-5 bg-white/5 rounded-[2rem] outline-none focus:ring-4 ring-accent/20 transition-all font-bold text-center text-lg" />
+                    <button onClick={() => setModal(false)} className="w-full py-6 bg-accent text-white rounded-[2rem] font-black text-xl hover:shadow-2xl shadow-accent/40 active:scale-95 transition-all">Request Entry</button>
                   </div>
                 </motion.div>
               </motion.div>
@@ -397,7 +349,7 @@
       );
     };
 
-    const MainApp = () => {
+    const App = () => {
       const [theme, setTheme] = useState('MODERN');
       const [isDark, setIsDark] = useState(true);
 
@@ -406,17 +358,15 @@
       }, [isDark]);
 
       return (
-        <div className="min-h-screen transition-all duration-700">
+        <div className="min-h-screen transition-colors duration-1000">
           {theme === 'MODERN' ? (
-            <ModernInterface 
-              toggleTheme={() => setTheme('RETRO')} 
+            <ModernTheme 
+              onToggle={() => setTheme('RETRO')} 
               isDark={isDark} 
-              toggleDark={() => setIsDark(!isDark)} 
+              onDarkToggle={() => setIsDark(!isDark)} 
             />
           ) : (
-            <RetroInterface 
-              toggleTheme={() => setTheme('MODERN')} 
-            />
+            <RetroTheme onToggle={() => setTheme('MODERN')} />
           )}
           {theme === 'MODERN' && <AIAssistant />}
         </div>
@@ -425,7 +375,7 @@
 
     const container = document.getElementById('root');
     const root = ReactDOM.createRoot(container);
-    root.render(<MainApp />);
+    root.render(<App />);
   </script>
 </body>
 </html>
