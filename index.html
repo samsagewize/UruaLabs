@@ -1,920 +1,340 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Urua Labs — Coming Soon</title>
-  <meta name="description" content="Urua Labs — Launching Febuary 22, 2026"/>
+  <title>Urua Labs — Digital Future</title>
   
+  <!-- Tailwind & Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <style>
-    :root {
-      --bg: #ffffff;
-      --text: #0f0f0f;
-      --text-light: #444;
-      --accent: #0066ff;
-      --gray: #f5f5f5;
-      --border: #e5e5e5;
-    }
-    
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0a0a0a;
-        --text: #ffffff;
-        --text-light: #cccccc;
-        --accent: #4d9aff;
-        --gray: #111;
-        --border: #222;
-      }
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      padding-bottom: 80px;
-      overflow-x: hidden;
-    }
-
-    /* Header */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 80px;
-      padding: 0 5%;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      z-index: 2000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      header {
-        background: rgba(10,10,10,0.92);
-      }
-    }
-
-    .logo {
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .nav-menu {
-      display: flex;
-      align-items: center;
-      gap: 2.2rem;
-    }
-
-    .nav-menu a {
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-
-    .nav-menu a:hover {
-      color: var(--accent);
-    }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-    }
-
-    .hamburger span {
-      width: 28px;
-      height: 3px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-
-    /* Mobile overlay menu */
-    .mobile-menu {
-      position: fixed;
-      top: 80px;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3rem;
-      transform: translateY(-100%);
-      transition: transform 0.4s ease;
-      z-index: 999;
-    }
-
-    .mobile-menu.active {
-      transform: translateY(0);
-    }
-
-    .mobile-menu a {
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    /* Bottom nav - app style (mobile only) */
-    .bottom-nav {
-      display: none;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 70px;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-top: 1px solid var(--border);
-      z-index: 1000;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .bottom-nav {
-        background: rgba(10,10,10,0.94);
-      }
-    }
-
-    .bottom-nav-inner {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      height: 100%;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .bottom-nav a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.75rem;
-      color: var(--text-light);
-      text-decoration: none;
-      gap: 4px;
-      transition: color 0.2s;
-    }
-
-    .bottom-nav a:hover,
-    .bottom-nav a.active {
-      color: var(--accent);
-    }
-
-    .bottom-nav .hamburger {
-      display: flex;
-    }
-
-    /* Hero */
-    .hero {
-      height: 100vh;
-      min-height: 720px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 5%;
-      background: linear-gradient(135deg, #f0f4ff 0%, #e6f0ff 100%);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .hero {
-        background: linear-gradient(135deg, #0a1120 0%, #001133 100%);
-      }
-    }
-
-    .hero-content {
-      max-width: 900px;
-    }
-
-    .hero h1 {
-      font-size: clamp(3.8rem, 9vw, 7.2rem);
-      font-weight: 800;
-      line-height: 0.92;
-      letter-spacing: -2px;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero p {
-      font-size: 1.5rem;
-      color: var(--text-light);
-      max-width: 640px;
-      margin: 0 auto 2.5rem;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: white;
-      padding: 12px 32px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .btn-outline {
-      border: 2px solid var(--text);
-      color: var(--text);
-      padding: 12px 32px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* Focus Section (enhanced) */
-    .focus-section {
-      background: var(--bg);
-      position: relative;
-      padding: 140px 5% 120px;
-    }
-
-    .focus-section h2 {
-      font-size: clamp(2.8rem, 6vw, 3.6rem);
-      font-weight: 800;
-      text-align: center;
-      max-width: 960px;
-      margin: 0 auto 5rem;
-      line-height: 1.05;
-      letter-spacing: -1px;
-      background: linear-gradient(90deg, var(--accent), #00d4ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 2.5rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.07);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
-      padding: 2.4rem 2rem;
-      transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.06),
-        inset 0 1px 1px rgba(255,255,255,0.08);
-      position: relative;
-      overflow: hidden;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .card {
-        background: rgba(20, 20, 30, 0.35);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: 
-          0 12px 40px rgba(0, 0, 0, 0.35),
-          inset 0 1px 1px rgba(255,255,255,0.04);
-      }
-    }
-
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      pointer-events: none;
-    }
-
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card:hover {
-      transform: translateY(-12px);
-      box-shadow: 
-        0 30px 70px rgba(0, 0, 0, 0.14),
-        inset 0 1px 1px rgba(255,255,255,0.1);
-    }
-
-    .card h3 {
-      font-size: 1.9rem;
-      font-weight: 700;
-      margin-bottom: 1.1rem;
-      background: linear-gradient(90deg, var(--text), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.4px;
-    }
-
-    .card p {
-      font-size: 1.08rem;
-      color: var(--text-light);
-      opacity: 0.92;
-      line-height: 1.6;
-    }
-
-    /* Newsletter */
-    .newsletter {
-      background: var(--accent);
-      color: white;
-      text-align: center;
-      padding: 140px 5%;
-    }
-
-    .newsletter h2 {
-      font-size: 3.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .newsletter p {
-      font-size: 1.3rem;
-      opacity: 0.9;
-      max-width: 600px;
-      margin: 0 auto 2.5rem;
-    }
-
-    .newsletter form {
-      max-width: 520px;
-      margin: 0 auto;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .newsletter input {
-      flex: 1;
-      min-width: 240px;
-      padding: 16px 20px;
-      border: none;
-      border-radius: 999px;
-      font-size: 1.1rem;
-    }
-
-    .newsletter button {
-      background: black;
-      color: white;
-      border: none;
-      padding: 16px 36px;
-      border-radius: 999px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--gray);
-      padding: 80px 5% 40px;
-      color: var(--text-light);
-      font-size: 0.95rem;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 3rem;
-      max-width: 1400px;
-      margin: 0 auto 4rem;
-    }
-
-    footer a {
-      color: var(--text-light);
-      text-decoration: none;
-      display: block;
-      margin-bottom: 0.8rem;
-    }
-
-    .copyright {
-      text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    /* Popup */
-    .construction-popup {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 3000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.6s ease;
-    }
-
-    .construction-popup.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .popup-content {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 3.5rem 2.5rem;
-      max-width: 540px;
-      width: 90%;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.5rem;
-      font-size: 2rem;
-      cursor: pointer;
-      color: var(--text-light);
-      transition: color 0.2s;
-    }
-
-    .close-btn:hover {
-      color: var(--accent);
-    }
-
-    .popup-content h1 {
-      font-size: 3.2rem;
-      margin-bottom: 1rem;
-      line-height: 1.1;
-    }
-
-    .popup-content p {
-      font-size: 1.3rem;
-      color: var(--text-light);
-      margin-bottom: 2rem;
-    }
-
-    .launch-date {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin: 1.5rem 0;
-    }
-
-    /* Mobile adjustments */
-    @media (max-width: 768px) {
-      .nav-menu {
-        display: none;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .bottom-nav {
-        display: flex;
-      }
-
-      .focus-section {
-        padding: 100px 5% 100px;
-      }
-
-      .section-grid {
-        gap: 2rem;
-      }
-
-      .card {
-        padding: 2rem 1.6rem;
-      }
-
-      .card h3 {
-        font-size: 1.75rem;
-      }
-
-      .popup-content {
-        padding: 2.5rem 1.8rem;
-      }
-
-      .popup-content h1 {
-        font-size: 2.6rem;
-      }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Under Construction Popup -->
-  <div class="construction-popup active" id="constructionPopup">
-    <div class="popup-content">
-      <span class="close-btn" onclick="closePopup()">×</span>
-      
-      <h1>Under Construction</h1>
-      <p>We're building something powerful. Stay tuned — official launch coming very soon!</p>
-      
-      <div class="launch-date">Opening January 22, 2026</div>
-      
-      <p style="font-size:1.1rem; margin-top:1.5rem;">
-        Follow us on X for updates: <strong><a href="https://x.com/UruaLabs" target="_blank" rel="noopener noreferrer">@UruaLabs</a></strong>
-      </p>
-    </div>
-  </div>
-
-  <header>
-    <a href="/" class="logo">Urua Labs</a>
-    
-    <div class="nav-menu">
-      <a href="#crypto">Web 3</a>
-      <a href="#music">Music</a>
-      <a href="#websites">Websites</a>
-      <a href="#" onclick="switchToRetro()">Nostalgia</a>
-    </div>
-
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </header>
-
-  <!-- Mobile overlay menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="#crypto">Crypto</a>
-    <a href="#music">Music</a>
-    <a href="#websites">Websites</a>
-    <a href="#nfts">NFTs</a>
-    <a href="#" onclick="switchToRetro()">Nostalgia</a>
-  </div>
-
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Building the<br>Digital Future</h1>
-      <p>Urua Labs — Powering the next wave of Blockchain tech, Music & Web Experience</p>
-      
-      <div class="hero-buttons">
-        <a href="#" class="btn-primary">Explore Now</a>
-        <a href="#" class="btn-outline">Learn More</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Bottom navigation - app feel (mobile only) -->
-  <nav class="bottom-nav">
-    <div class="bottom-nav-inner">
-      <a href="#crypto"><span>Crypto</span></a>
-      <a href="#music"><span>Music</span></a>
-      <a href="#websites"><span>Websites</span></a>
-      <a href="#nfts"><span>NFTs</span></a>
-      <div class="hamburger" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Focus Areas Section -->
-  <section class="focus-section">
-    <h2>We invest in exceptional founders shaping tomorrow —<br>across every frontier and every stage.</h2>
-
-    <div class="section-grid">
-      <div class="card">
-        <h3>Crypto & Blockchain</h3>
-        <p>Next-gen protocols, DeFi innovation, tokenomics, layer-2 scaling, and infrastructure powering the decentralized economy.</p>
-      </div>
-
-      <div class="card">
-        <h3>Music & Creator Economy</h3>
-        <p>Platforms revolutionizing music distribution, fan ownership, royalties via blockchain, and new monetization models for creators.</p>
-      </div>
-
-      <div class="card">
-        <h3>Websites & Digital Experiences</h3>
-        <p>High-performance web3 interfaces, immersive front-ends, AI-enhanced UX, and next-generation interactive digital products.</p>
-      </div>
-
-      <div class="card">
-        <h3>NFTs & Digital Collectibles</h3>
-        <p>Evolving NFT utility, generative art, identity, gaming assets, real-world-linked tokens, and the future of ownership.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="newsletter">
-    <h2>Stay ahead of the curve</h2>
-    <p>Join thousands of founders, investors and builders who read our insights every week.</p>
-    
-    <form>
-      <input type="email" placeholder="Your email address" required>
-      <button type="submit">Subscribe</button>
-    </form>
-  </section>
-
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <h4>Urua Labs</h4>
-        <p>Powering the next generation of digital innovation.</p>
-      </div>
-      <div>
-        <h4>Quick Links</h4>
-        <a href="#">Portfolio</a>
-        <a href="#">Services</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
-      </div>
-      <div>
-        <h4>Follow Us</h4>
-        <a href="#">X / Twitter</a>
-        <a href="#">Instagram</a>
-        <a href="#">Newsletter</a>
-      </div>
-    </div>
-    
-    <div class="copyright">
-      © 2026 Urua Labs. All rights reserved.
-    </div>
-  </footer>
+  <!-- Babel for JSX in-browser -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script>
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('active');
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+            mono: ['Courier New', 'monospace'],
+          },
+          colors: {
+            accent: '#0066ff',
+            retro: {
+              bg: '#008080',
+              win: '#c0c0c0',
+              winDark: '#808080',
+              blue: '#000080',
+            }
+          }
+        }
+      }
     }
+  </script>
 
-    function closePopup() {
-      document.getElementById('constructionPopup').classList.remove('active');
-    }
-
-    document.querySelectorAll('.mobile-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        document.getElementById('mobileMenu').classList.remove('active');
-      });
-    });
-
-    // Optional scroll header effect
-    window.addEventListener('scroll', () => {
-      document.body.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    function switchToRetro() {
-      const retroHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Urua Labs — Coming 2006 Style</title>
-  <meta name="description" content="Urua Labs — Launching January 22, 2026 (but feeling like 1999)"/>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap" rel="stylesheet">
-  
   <style>
-    :root {
-      --bg: #008080;              /* Teal desktop background classic */
-      --window: #c0c0c0;          /* Classic Windows gray */
-      --window-dark: #808080;
-      --highlight: #000080;
-      --text: #000000;
-      --title-bar: linear-gradient(#000080, #1084d0);
-      --border: #dfdfdf #000000 #000000 #dfdfdf;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: Tahoma, 'MS Sans Serif', Geneva, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.4;
-      height: 100vh;
-      image-rendering: pixelated;     /* crisp pixels where needed */
-      cursor: url('https://cur.cursors-4u.net/nature/nat-10/nat1004.cur'), auto; /* classic arrow cursor (or use your own) */
-    }
-
-    /* Fake Windows 98-style window */
-    .retro-window {
-      background: var(--window);
+    /* Custom utility for beveled borders in retro mode */
+    .retro-outset {
       border: 2px solid;
-      border-image: var(--border) 2;
-      border-radius: 0;
-      box-shadow: 4px 4px 0 #000;
-      margin: 40px auto;
-      max-width: 920px;
-      overflow: hidden;
-      font-size: 13px;
+      border-color: #ffffff #808080 #808080 #ffffff;
     }
-
-    .title-bar {
-      background: var(--title-bar);
-      color: white;
-      padding: 4px 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-weight: bold;
-      user-select: none;
+    .retro-inset {
+      border: 2px solid;
+      border-color: #808080 #ffffff #ffffff #808080;
     }
-
-    .title-bar-buttons span {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      background: var(--window);
-      border: 1px outset #fff;
-      text-align: center;
-      line-height: 16px;
-      margin-left: 4px;
-      font-size: 10px;
-      cursor: pointer;
+    .retro-button:active {
+      border-color: #808080 #ffffff #ffffff #808080;
+      padding-top: 2px;
+      padding-left: 2px;
     }
+    
+    html { scroll-behavior: smooth; }
 
-    .content {
-      padding: 16px;
-      background: #ffffff;
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-
-    h1 {
-      font-size: 28px;
-      color: var(--highlight);
-      margin-bottom: 12px;
-      text-shadow: 1px 1px 0 #fff;
-    }
-
-    p {
-      margin-bottom: 1.2em;
-      font-size: 14px;
-    }
-
-    .btn {
-      background: var(--window);
-      border: 2px outset #fff;
-      padding: 8px 16px;
-      margin: 8px 4px 8px 0;
-      cursor: pointer;
-      font-family: inherit;
-      box-shadow: 1px 1px 0 #000;
-    }
-
-    .btn:active {
-      border-style: inset;
-      box-shadow: none;
-    }
-
-    .focus-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 24px 0;
-    }
-
-    .retro-card {
-      background: #f0f0f0;
-      border: 2px inset #fff;
-      padding: 14px;
-      min-height: 120px;
-    }
-
-    .retro-card h3 {
-      color: #000080;
-      margin-bottom: 8px;
-      font-size: 15px;
-    }
-
-    .construction {
-      text-align: center;
-      padding: 60px 20px;
-      background: rgba(255,255,255,0.85);
-      margin: 40px auto;
-      max-width: 700px;
-      border: 4px double #000080;
-    }
-
-    .construction h1 {
-      font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    .launch-date {
-      font-size: 24px;
-      color: #c00000;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: white;
-      font-size: 12px;
-      background: #000080;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-
-    @media (max-width: 768px) {
-      .focus-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .retro-window {
-        margin: 20px 10px;
-      }
+    
+    .text-gradient {
+      background: linear-gradient(to bottom, #fff, #888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   </style>
+
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@19.0.0",
+    "react-dom": "https://esm.sh/react-dom@19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
+    "@google/genai": "https://esm.sh/@google/genai@1.38.0",
+    "framer-motion": "https://esm.sh/framer-motion@11.11.11?deps=react@19.0.0",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
 </head>
-<body>
+<body class="bg-white dark:bg-[#0a0a0a] text-black dark:text-white selection:bg-accent/30">
+  <div id="root"></div>
 
-  <div class="retro-window">
-    <div class="title-bar">
-      <span>Urua Labs – My Computer</span>
-      <div class="title-bar-buttons">
-        <span>−</span><span>□</span><span>×</span>
-      </div>
-    </div>
+  <script type="text/babel" data-type="module">
+    import React, { useState, useEffect, useRef } from 'react';
+    import ReactDOM from 'react-dom/client';
+    import { GoogleGenAI } from '@google/genai';
+    import { motion, AnimatePresence } from 'framer-motion';
 
-    <div class="content">
-      <h1>Welcome to Urua Labs</h1>
-      <p>Building the digital future… one pixel at a time.</p>
+    // --- Services ---
+    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
-      <div style="margin: 20px 0;">
-        <button class="btn">Explore</button>
-        <button class="btn">Learn More</button>
-      </div>
+    const generateLabInsight = async (prompt) => {
+      try {
+        const response = await ai.models.generateContent({
+          model: 'gemini-3-flash-preview',
+          contents: prompt,
+          config: {
+            systemInstruction: `You are the Urua Labs AI Assistant. Urua Labs is a futuristic technology studio focused on Web3, Crypto, Music, Creator Economy, and Digital Experiences. 
+            Your tone is visionary, professional, and slightly futuristic. 
+            If asked about the launch date, say it's February 22, 2026. 
+            Keep responses concise (max 2 sentences).`,
+            temperature: 0.8,
+          },
+        });
+        return response.text;
+      } catch (error) {
+        console.error("Gemini Error:", error);
+        return "The future is slightly obscured right now. Try again in a moment.";
+      }
+    };
 
-      <div class="construction">
-        <h1>Under Construction</h1>
-        <p>The site is being carefully assembled in true Y2K fashion.</p>
-        <div class="launch-date">Grand Opening: January 22, 2026</div>
-        <p style="margin-top: 20px;">
-          Follow updates: 
-          <a href="https://x.com/UruaLabs" style="color:#0000ff; text-decoration:underline;">@UruaLabs on X</a>
-        </p>
-      </div>
+    // --- Components ---
 
-      <h2 style="color:#000080; margin: 30px 0 12px;">Our Focus Areas</h2>
+    const AIAssistant = () => {
+      const [isOpen, setIsOpen] = useState(false);
+      const [messages, setMessages] = useState([
+        { role: 'model', text: 'Welcome to the lab. I can answer questions about our roadmap or vision for 2026.' }
+      ]);
+      const [input, setInput] = useState('');
+      const [isLoading, setIsLoading] = useState(false);
+      const scrollRef = useRef(null);
 
-      <div class="focus-grid">
-        <div class="retro-card">
-          <h3>Crypto & Blockchain</h3>
-          <p>Next-gen protocols, DeFi, tokenomics and layer-2 magic.</p>
+      useEffect(() => {
+        if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      }, [messages, isLoading]);
+
+      const handleSend = async (e) => {
+        e.preventDefault();
+        if (!input.trim() || isLoading) return;
+        const userMsg = input;
+        setInput('');
+        setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+        setIsLoading(true);
+        const res = await generateLabInsight(userMsg);
+        setMessages(prev => [...prev, { role: 'model', text: res }]);
+        setIsLoading(false);
+      };
+
+      return (
+        <div className="fixed bottom-6 right-6 z-[200]">
+          <AnimatePresence>
+            {isOpen && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                className="mb-4 w-80 md:w-96 bg-white dark:bg-[#111] border border-gray-200 dark:border-white/10 rounded-3xl shadow-2xl flex flex-col overflow-hidden"
+              >
+                <div className="p-4 bg-accent text-white font-bold flex items-center justify-between">
+                  <span className="text-xs uppercase tracking-widest flex items-center gap-2">
+                    <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    Lab System v1.0
+                  </span>
+                  <button onClick={() => setIsOpen(false)}>✕</button>
+                </div>
+                <div ref={scrollRef} className="h-80 overflow-y-auto p-4 flex flex-col gap-3 text-sm">
+                  {messages.map((m, i) => (
+                    <div key={i} className={`p-3 rounded-2xl ${m.role === 'user' ? 'bg-gray-100 dark:bg-white/5 ml-auto rounded-tr-none' : 'bg-accent/10 text-accent mr-auto rounded-tl-none border border-accent/20'}`}>
+                      {m.text}
+                    </div>
+                  ))}
+                  {isLoading && <div className="text-xs opacity-50 animate-pulse italic">Interrogating the future...</div>}
+                </div>
+                <form onSubmit={handleSend} className="p-4 border-t dark:border-white/5 flex gap-2">
+                  <input value={input} onChange={e => setInput(e.target.value)} placeholder="Inquire..." className="flex-1 bg-gray-50 dark:bg-black border dark:border-white/10 rounded-full px-4 py-2 outline-none focus:border-accent text-sm" />
+                  <button type="submit" className="w-10 h-10 bg-accent text-white rounded-full flex items-center justify-center">→</button>
+                </form>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <button onClick={() => setIsOpen(!isOpen)} className="w-16 h-16 bg-accent rounded-full shadow-xl shadow-accent/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+            <span className="text-3xl group-hover:rotate-12 transition-transform">🧬</span>
+          </button>
         </div>
-        <div class="retro-card">
-          <h3>Music & Creators</h3>
-          <p>Revolutionizing distribution, ownership and royalties.</p>
-        </div>
-        <div class="retro-card">
-          <h3>Websites & Experiences</h3>
-          <p>High-performance web3 + immersive digital worlds.</p>
-        </div>
-        <div class="retro-card">
-          <h3>NFTs & Collectibles</h3>
-          <p>Utility, art, identity and the future of ownership.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+      );
+    };
 
-  <footer>
-    © 2026 Urua Labs • Made with love and Windows 98 nostalgia
-  </footer>
+    const RetroTheme = ({ onThemeToggle }) => {
+      const [windows, setWindows] = useState([
+        { id: 'welcome', title: 'Readme.txt', x: 20, y: 20, content: 'Urua Labs (Build 2026.02). Welcome to the legacy terminal. Double-click any icon to initialize protocols.' },
+        { id: 'roadmap', title: 'Roadmap.doc', x: 220, y: 80, content: 'Q1 2026: The Great Convergence. Blockchain meets immersive audio-visual experiences.' }
+      ]);
 
-</body>
-</html>`;
-      document.open();
-      document.write(retroHTML);
-      document.close();
-    }
+      return (
+        <div className="min-h-screen bg-retro-bg font-mono p-4 select-none relative overflow-hidden" style={{ cursor: 'url(https://win98icons.alexmeub.com/icons/png/mouse-0.png), auto' }}>
+          <div className="flex flex-col gap-8 items-start w-24">
+            <div className="flex flex-col items-center gap-1 group cursor-pointer" onDoubleClick={() => alert('Welcome to My Lab')}>
+              <img src="https://win98icons.alexmeub.com/icons/png/my_computer-0.png" className="w-10 h-10" />
+              <span className="text-white text-[10px] bg-retro-blue px-1 border border-dotted border-white/50">My Lab</span>
+            </div>
+            <div className="flex flex-col items-center gap-1 group cursor-pointer">
+              <img src="https://win98icons.alexmeub.com/icons/png/network_neighborhood-0.png" className="w-10 h-10" />
+              <span className="text-white text-[10px] bg-retro-blue px-1 border border-dotted border-white/50">Network</span>
+            </div>
+          </div>
+
+          {windows.map(win => (
+            <div key={win.id} className="absolute bg-retro-win retro-outset w-72 md:w-96 shadow-xl" style={{ left: win.x, top: win.y }}>
+              <div className="bg-retro-blue p-1 flex items-center justify-between text-white font-bold text-xs px-2">
+                <div className="flex items-center gap-1">
+                  <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" className="w-3 h-3" />
+                  {win.title}
+                </div>
+                <div className="flex gap-1">
+                  <button className="w-4 h-4 bg-retro-win text-black retro-outset text-[8px] font-bold">_</button>
+                  <button className="w-4 h-4 bg-retro-win text-black retro-outset text-[8px] font-bold">X</button>
+                </div>
+              </div>
+              <div className="p-3 bg-white m-1 retro-inset h-32 text-xs overflow-auto">{win.content}</div>
+            </div>
+          ))}
+
+          <div className="fixed bottom-0 left-0 right-0 h-10 bg-retro-win retro-outset flex items-center px-1 z-[100]">
+            <button onClick={onThemeToggle} className="h-8 px-4 bg-retro-win retro-outset flex items-center gap-2 font-bold text-sm active:retro-inset">
+              <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" className="w-4 h-4" />
+              Modernize
+            </button>
+            <div className="ml-auto px-4 py-1 bg-retro-win retro-inset font-bold text-xs">
+              {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const ModernTheme = ({ onThemeToggle, isDarkMode, onDarkModeToggle }) => {
+      const [showPopup, setShowPopup] = useState(true);
+
+      const focus = [
+        { t: "Web3 Innovation", d: "Next-gen protocols and DeFi infrastructure.", i: "💎" },
+        { t: "Creator Economy", d: "Revolutionizing distribution & fan ownership.", i: "🎵" },
+        { t: "Digital Arts", d: "Generative NFTs and immersive front-ends.", i: "🎨" },
+        { t: "AI Synthesis", d: "Human-centric AI integration for future UX.", i: "🤖" }
+      ];
+
+      return (
+        <div className="relative overflow-x-hidden pb-20">
+          <header className="fixed top-0 left-0 right-0 h-20 px-8 flex items-center justify-between glass z-50">
+            <span className="text-2xl font-black tracking-tighter">URUA<span className="text-accent italic">LABS</span></span>
+            <nav className="hidden md:flex items-center gap-8 font-semibold text-sm">
+              <a href="#focus" className="hover:text-accent transition-colors">Lab Focus</a>
+              <button onClick={onThemeToggle} className="px-4 py-1.5 rounded-full border border-black/10 dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5">Nostalgia</button>
+              <button onClick={onDarkModeToggle} className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5">{isDarkMode ? '🌞' : '🌙'}</button>
+            </nav>
+          </header>
+
+          <section className="min-h-screen flex flex-col items-center justify-center px-8 text-center pt-20">
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+              <h1 className="text-6xl md:text-[9rem] font-extrabold tracking-tighter leading-[0.85] mb-8 text-gradient">
+                DEFINING THE <br/> BEYOND.
+              </h1>
+              <p className="text-lg md:text-2xl opacity-60 max-w-2xl mx-auto mb-12 font-medium">
+                Urua Labs is a futuristic venture studio building the core architecture for the 2026 digital ecosystem.
+              </p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <a href="#focus" className="px-10 py-5 bg-accent text-white rounded-full font-bold text-xl hover:scale-105 transition-all shadow-2xl shadow-accent/40">Explore</a>
+                <button onClick={() => setShowPopup(true)} className="px-10 py-5 border border-black/10 dark:border-white/10 rounded-full font-bold text-xl hover:bg-white/5 transition-all">Launch Info</button>
+              </div>
+            </motion.div>
+          </section>
+
+          <section id="focus" className="py-32 px-8 max-w-7xl mx-auto">
+            <h2 className="text-4xl md:text-6xl font-black mb-16 tracking-tight">LABORATORY FOCUS</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {focus.map((f, i) => (
+                <motion.div key={i} whileHover={{ y: -10 }} className="p-10 rounded-[2.5rem] glass hover:border-accent/50 transition-all group">
+                  <div className="text-5xl mb-8">{f.i}</div>
+                  <h3 className="text-2xl font-bold mb-4 group-hover:text-accent transition-colors">{f.t}</h3>
+                  <p className="opacity-60 text-sm font-medium leading-relaxed">{f.d}</p>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
+          <section className="bg-accent py-24 text-white text-center relative overflow-hidden">
+            <div className="text-[15rem] font-black absolute inset-0 flex items-center opacity-5 whitespace-nowrap pointer-events-none">2026 2026 2026 2026</div>
+            <div className="relative z-10">
+              <h2 className="text-4xl md:text-6xl font-black mb-4">FEBRUARY 22, 2026</h2>
+              <p className="text-xl font-bold opacity-80 uppercase tracking-widest">Global Protocol Launch</p>
+            </div>
+          </section>
+
+          <footer className="py-20 text-center opacity-40 text-xs font-bold uppercase tracking-widest">
+            © 2026 Urua Labs. Architecting Null.
+          </footer>
+
+          <AnimatePresence>
+            {showPopup && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-xl">
+                <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-white dark:bg-[#111] p-12 rounded-[3rem] max-w-lg w-full text-center relative border border-white/5">
+                  <button onClick={() => setShowPopup(false)} className="absolute top-8 right-8 text-3xl font-light hover:text-accent">✕</button>
+                  <div className="bg-accent/10 text-accent px-4 py-1 rounded-full text-[10px] font-black tracking-widest uppercase mb-8 inline-block">System Status: Active</div>
+                  <h2 className="text-4xl font-black mb-4 tracking-tight">The Void is Calling.</h2>
+                  <p className="opacity-60 mb-10 font-medium">Urua Labs core systems are currently under optimization for the 2026 genesis event.</p>
+                  <div className="text-4xl font-black text-accent mb-10 font-display tracking-tighter">02 . 22 . 26</div>
+                  <button onClick={() => setShowPopup(false)} className="w-full py-5 bg-accent text-white rounded-3xl font-bold text-xl hover:shadow-2xl shadow-accent/20 transition-all">Synchronize</button>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      );
+    };
+
+    const App = () => {
+      const [theme, setTheme] = useState('MODERN');
+      const [isDarkMode, setIsDarkMode] = useState(true);
+
+      useEffect(() => {
+        document.documentElement.classList.toggle('dark', isDarkMode);
+      }, [isDarkMode]);
+
+      return (
+        <div className="min-h-screen transition-colors duration-500">
+          {theme === 'MODERN' ? (
+            <ModernTheme onThemeToggle={() => setTheme('RETRO')} isDarkMode={isDarkMode} onDarkModeToggle={() => setIsDarkMode(!isDarkMode)} />
+          ) : (
+            <RetroTheme onThemeToggle={() => setTheme('MODERN')} />
+          )}
+          {theme === 'MODERN' && <AIAssistant />}
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
   </script>
 </body>
 </html>
-
