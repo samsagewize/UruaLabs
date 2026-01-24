@@ -5,13 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Urua Labs — Digital Future</title>
   
-  <!-- Tailwind & Fonts -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Babel for JSX in-browser -->
+  <!-- Babel for in-browser JSX transpilation -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script>
@@ -79,6 +81,7 @@
     .retro-blue { background-color: #000080; }
   </style>
 
+  <!-- Module Import Map: Pinned dependencies ensure consistent React version -->
   <script type="importmap">
   {
     "imports": {
@@ -100,7 +103,7 @@
     import { GoogleGenAI } from '@google/genai';
     import { motion, AnimatePresence } from 'framer-motion';
 
-    // --- AI SERVICE ---
+    // --- AI LOGIC ---
     const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
 
     const askAssistant = async (prompt) => {
@@ -109,26 +112,31 @@
           model: 'gemini-3-flash-preview',
           contents: prompt,
           config: {
-            systemInstruction: `You are the Urua Labs AI Assistant. Urua Labs is a futuristic venture studio.
-            Focus: Web3, Crypto, Music, and Next-gen Digital Experiences.
+            systemInstruction: `You are the Urua Labs AI Assistant. Urua Labs is a futuristic technology studio.
+            Focus Areas: Web3, Crypto, Music, Creator Economy, and Digital Experiences.
             Launch Date: February 22, 2026.
-            Tone: Visionary, concise, professional. Max 2 sentences per response.`,
+            Tone: Visionary, concise, professional. Max 2 sentences per response. 
+            Do not repeat that you are an AI assistant unless asked. Just be the voice of Urua Labs.`,
             temperature: 0.7,
           },
         });
         return response.text;
       } catch (error) {
-        console.error("Assistant Error:", error);
-        return "The future is currently encrypted. Please try again soon.";
+        console.error("AI Error:", error);
+        return "I encountered a minor glitch in the timeline. Please check back in a second.";
       }
     };
 
     // --- COMPONENTS ---
 
+    /** 
+     * AI Assistant Component
+     * Handles user interaction via text-based chat with Gemini.
+     */
     const AIAssistant = () => {
       const [isOpen, setIsOpen] = useState(false);
       const [messages, setMessages] = useState([
-        { role: 'model', text: 'Hello. I am the Urua Labs Interface. How can I assist your journey to 2026?' }
+        { role: 'model', text: 'Identity verified. Urua Intelligence is active. What would you like to know about our 2026 roadmap?' }
       ]);
       const [input, setInput] = useState('');
       const [loading, setLoading] = useState(false);
@@ -141,12 +149,14 @@
       const handleQuery = async (e) => {
         e.preventDefault();
         if (!input.trim() || loading) return;
-        const msg = input;
+        
+        const userMsg = input;
         setInput('');
-        setMessages(prev => [...prev, { role: 'user', text: msg }]);
+        setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
         setLoading(true);
-        const res = await askAssistant(msg);
-        setMessages(prev => [...prev, { role: 'model', text: res }]);
+
+        const responseText = await askAssistant(userMsg);
+        setMessages(prev => [...prev, { role: 'model', text: responseText }]);
         setLoading(false);
       };
 
@@ -155,63 +165,97 @@
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="mb-4 w-80 md:w-96 glass dark:bg-[#111] border dark:border-white/10 rounded-[2rem] shadow-2xl flex flex-col overflow-hidden"
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                className="mb-4 w-80 md:w-[400px] glass dark:bg-[#111] border dark:border-white/10 rounded-[2.5rem] shadow-2xl flex flex-col overflow-hidden"
               >
-                <div className="p-4 bg-accent text-white font-bold flex items-center justify-between">
-                  <span className="text-[10px] uppercase tracking-[0.2em] flex items-center gap-2">
+                <div className="p-5 bg-accent text-white font-bold flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-[0.3em] flex items-center gap-2">
                     <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                    Lab Intelligence
+                    Urua Neural Link
                   </span>
                   <button onClick={() => setIsOpen(false)} className="hover:rotate-90 transition-transform">✕</button>
                 </div>
-                <div ref={chatRef} className="h-80 overflow-y-auto p-4 flex flex-col gap-3 text-sm font-medium">
+                <div ref={chatRef} className="h-96 overflow-y-auto p-5 flex flex-col gap-4 text-sm font-medium">
                   {messages.map((m, i) => (
-                    <div key={i} className={`p-3 rounded-2xl ${m.role === 'user' ? 'bg-gray-100 dark:bg-white/5 ml-auto rounded-tr-none' : 'bg-accent/10 text-accent mr-auto rounded-tl-none border border-accent/20'}`}>
+                    <div 
+                      key={i} 
+                      className={`p-4 rounded-[1.5rem] ${
+                        m.role === 'user' 
+                          ? 'bg-gray-100 dark:bg-white/5 ml-auto rounded-tr-none text-black dark:text-white' 
+                          : 'bg-accent/10 text-accent mr-auto rounded-tl-none border border-accent/20'
+                      }`}
+                    >
                       {m.text}
                     </div>
                   ))}
-                  {loading && <div className="text-[10px] uppercase tracking-widest opacity-40 animate-pulse mt-2">Processing...</div>}
+                  {loading && (
+                    <div className="text-[10px] uppercase tracking-widest opacity-40 animate-pulse mt-2 ml-1">
+                      Generating...
+                    </div>
+                  )}
                 </div>
-                <form onSubmit={handleQuery} className="p-4 border-t dark:border-white/5 flex gap-2">
-                  <input value={input} onChange={e => setInput(e.target.value)} placeholder="Type your query..." className="flex-1 bg-gray-50 dark:bg-black/50 border dark:border-white/10 rounded-full px-4 py-2 outline-none focus:border-accent text-sm" />
-                  <button type="submit" className="w-10 h-10 bg-accent text-white rounded-full flex items-center justify-center">→</button>
+                <form onSubmit={handleQuery} className="p-5 border-t dark:border-white/5 flex gap-2">
+                  <input 
+                    value={input} 
+                    onChange={e => setInput(e.target.value)} 
+                    placeholder="Enter command..." 
+                    className="flex-1 bg-gray-50 dark:bg-black/50 border dark:border-white/10 rounded-full px-5 py-3 outline-none focus:border-accent text-sm" 
+                  />
+                  <button 
+                    type="submit" 
+                    className="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center hover:shadow-lg shadow-accent/40 active:scale-95 transition-all"
+                  >
+                    →
+                  </button>
                 </form>
               </motion.div>
             )}
           </AnimatePresence>
-          <button onClick={() => setIsOpen(!isOpen)} className="w-16 h-16 bg-accent rounded-full shadow-xl shadow-accent/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all group">
+          <button 
+            onClick={() => setIsOpen(!isOpen)} 
+            className="w-16 h-16 bg-accent rounded-full shadow-xl shadow-accent/40 flex items-center justify-center hover:scale-110 active:scale-95 transition-all group"
+          >
             <span className="text-3xl group-hover:rotate-12 transition-transform">🧬</span>
           </button>
         </div>
       );
     };
 
+    /** 
+     * Retro Theme Component
+     * A Windows 98 inspired "nostalgia mode".
+     */
     const RetroTheme = ({ onThemeToggle }) => {
       const [wins, setWins] = useState([
-        { id: 1, t: 'System.ini', c: 'Urua Labs OS v1.0\nKernel: 2026.02.22\nStatus: Optimized', x: 40, y: 40 },
-        { id: 2, t: 'Roadmap.txt', c: '1. Build Foundation\n2. Integrate Intelligence\n3. Launch the Void\n4. Profit', x: 260, y: 120 }
+        { id: 1, t: 'System.ini', c: 'Urua Labs Legacy Core\nVersion: 1999.r2\nKernel: 2026_GENESIS\n\nStatus: EMULATED', x: 50, y: 50 },
+        { id: 2, t: 'Vision.doc', c: 'THE FUTURE IS PIXELATED.\n\nOur mission is to bridge the gap between legacy systems and the autonomous future of Web3.', x: 300, y: 150 }
       ]);
 
       return (
         <div className="min-h-screen retro-bg font-mono p-4 select-none relative overflow-hidden" style={{ cursor: 'url(https://win98icons.alexmeub.com/icons/png/mouse-0.png), auto' }}>
-          <div className="flex flex-col gap-8 items-start w-24">
-            <div className="flex flex-col items-center gap-1 group cursor-pointer" onDoubleClick={() => alert('Access Denied: Requires 2026 Clearance')}>
+          {/* Desktop Icons */}
+          <div className="flex flex-col gap-10 items-start w-24">
+            <div className="flex flex-col items-center gap-1 group cursor-pointer" onDoubleClick={() => alert('Access Code: 2026')}>
               <img src="https://win98icons.alexmeub.com/icons/png/my_computer-0.png" className="w-10 h-10" />
               <span className="text-white text-[10px] bg-retro-blue px-1 border border-dotted border-white/50">My Computer</span>
             </div>
-            <div className="flex flex-col items-center gap-1 group cursor-pointer" onDoubleClick={() => alert('Empty: Recycle Bin is current')}>
+            <div className="flex flex-col items-center gap-1 group cursor-pointer" onDoubleClick={() => alert('The trash is already digitized.')}>
               <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-0.png" className="w-10 h-10" />
               <span className="text-white text-[10px] bg-retro-blue px-1 border border-dotted border-white/50">Recycle Bin</span>
             </div>
+            <div className="flex flex-col items-center gap-1 group cursor-pointer" onDoubleClick={() => onThemeToggle()}>
+              <img src="https://win98icons.alexmeub.com/icons/png/paint-0.png" className="w-10 h-10" />
+              <span className="text-white text-[10px] bg-retro-blue px-1 border border-dotted border-white/50">Switch to 2026</span>
+            </div>
           </div>
 
+          {/* Windows Overlay */}
           {wins.map(w => (
-            <div key={w.id} className="absolute retro-win retro-outset w-64 md:w-80 shadow-2xl" style={{ left: w.x, top: w.y }}>
+            <div key={w.id} className="absolute retro-win retro-outset w-72 md:w-96 shadow-2xl" style={{ left: w.x, top: w.y }}>
               <div className="bg-retro-blue p-1 flex items-center justify-between text-white font-bold text-xs px-2">
-                <div className="flex items-center gap-1 truncate max-w-[150px]">
+                <div className="flex items-center gap-2 truncate">
                   <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" className="w-3 h-3" />
                   {w.t}
                 </div>
@@ -220,16 +264,21 @@
                   <button className="w-4 h-4 bg-retro-win text-black retro-outset text-[8px] font-bold">X</button>
                 </div>
               </div>
-              <div className="p-3 bg-white m-1 retro-inset h-32 text-xs overflow-auto whitespace-pre-wrap">{w.c}</div>
+              <div className="p-4 bg-white m-1 retro-inset h-40 text-xs overflow-auto whitespace-pre-wrap">{w.c}</div>
             </div>
           ))}
 
-          <div className="fixed bottom-0 left-0 right-0 h-10 retro-win retro-outset flex items-center px-1 z-[100]">
-            <button onClick={onThemeToggle} className="h-8 px-4 retro-win retro-outset flex items-center gap-2 font-bold text-sm active:retro-inset">
-              <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" className="w-4 h-4" />
-              Modernize
+          {/* Taskbar */}
+          <div className="fixed bottom-0 left-0 right-0 h-12 retro-win retro-outset flex items-center px-1 z-[100]">
+            <button 
+              onClick={onThemeToggle} 
+              className="h-9 px-4 retro-win retro-outset flex items-center gap-2 font-bold text-sm active:retro-inset hover:bg-gray-300"
+            >
+              <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" className="w-5 h-5" />
+              Start
             </button>
-            <div className="ml-auto px-4 py-1 retro-win retro-inset font-bold text-xs">
+            <div className="flex-1"></div>
+            <div className="px-4 py-1 retro-win retro-inset font-bold text-xs border-l border-white/50">
               {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </div>
           </div>
@@ -237,95 +286,179 @@
       );
     };
 
+    /** 
+     * Modern Theme Component
+     * High-end futuristic design with Tailwind and Framer Motion.
+     */
     const ModernTheme = ({ onThemeToggle, isDark, toggleDark }) => {
       const [popup, setPopup] = useState(true);
       const focusAreas = [
-        { t: "Web3 Protocols", d: "Scalable infrastructure for the decentralized web.", i: "💎" },
-        { t: "Creative Tech", d: "Empowering creators with blockchain ownership.", i: "🎵" },
-        { t: "Immersive Web", d: "High-end interfaces and spatial digital experiences.", i: "🌐" },
-        { t: "Generative Systems", d: "AI-driven design and utility NFTs.", i: "🎨" }
+        { t: "Web3 Protocols", d: "Scalable infrastructure for the decentralized internet economy.", i: "💎" },
+        { t: "Creator Tech", d: "Next-gen platforms for ownership and distribution.", i: "🎵" },
+        { t: "The Immersive Web", d: "Spatially aware interfaces and interactive frontend experiences.", i: "🌐" },
+        { t: "AI Synthesis", d: "Integrating LLMs and generative design into daily UX.", i: "🤖" }
       ];
 
       return (
-        <div className="relative font-sans overflow-x-hidden pb-20">
-          {/* Nav */}
-          <header className="fixed top-0 left-0 right-0 h-20 px-8 flex items-center justify-between glass z-50">
-            <span className="text-2xl font-black tracking-tighter">URUA<span className="text-accent italic">LABS</span></span>
-            <nav className="hidden md:flex items-center gap-8 font-bold text-xs uppercase tracking-widest">
+        <div className="relative font-sans overflow-x-hidden pb-32">
+          {/* Navigation */}
+          <header className="fixed top-0 left-0 right-0 h-24 px-8 md:px-16 flex items-center justify-between glass z-50">
+            <span className="text-3xl font-black tracking-tighter cursor-pointer" onClick={() => window.scrollTo(0,0)}>
+              URUA<span className="text-accent italic">LABS</span>
+            </span>
+            <nav className="hidden md:flex items-center gap-10 font-bold text-[11px] uppercase tracking-[0.2em]">
               <a href="#vision" className="hover:text-accent transition-colors">Vision</a>
               <a href="#labs" className="hover:text-accent transition-colors">Labs</a>
-              <button onClick={onThemeToggle} className="px-4 py-2 rounded-full border dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5">Nostalgia</button>
-              <button onClick={toggleDark} className="text-xl p-2">{isDark ? '🌞' : '🌙'}</button>
+              <button 
+                onClick={onThemeToggle} 
+                className="px-6 py-2 rounded-full border dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 transition-all"
+              >
+                Nostalgia Mode
+              </button>
+              <button 
+                onClick={toggleDark} 
+                className="w-10 h-10 flex items-center justify-center rounded-full border dark:border-white/10 hover:bg-black/5 dark:hover:bg-white/5 text-xl"
+              >
+                {isDark ? '🌞' : '🌙'}
+              </button>
             </nav>
+            {/* Mobile simplified toggle */}
+            <button className="md:hidden text-2xl" onClick={toggleDark}>{isDark ? '🌞' : '🌙'}</button>
           </header>
 
-          {/* Hero */}
-          <section className="min-h-screen flex flex-col items-center justify-center px-8 text-center pt-20">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-              <div className="inline-block px-4 py-1 rounded-full bg-accent/10 text-accent font-bold text-[10px] tracking-[0.3em] uppercase mb-8">System: Online</div>
-              <h1 className="text-6xl md:text-[10rem] font-extrabold tracking-tighter leading-[0.8] mb-10 text-gradient">
-                THE FUTURE <br/> IS BUILT.
+          {/* Hero Section */}
+          <section className="min-h-screen flex flex-col items-center justify-center px-8 text-center pt-24">
+            <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.2, ease: "easeOut" }}>
+              <div className="inline-block px-5 py-1.5 rounded-full bg-accent/10 text-accent font-bold text-[10px] tracking-[0.4em] uppercase mb-10 border border-accent/20">
+                Urua Labs v2.0
+              </div>
+              <h1 className="text-7xl md:text-[11rem] font-extrabold tracking-tighter leading-[0.8] mb-12 text-gradient">
+                BUILDING THE <br/> UNKNOWN.
               </h1>
-              <p className="text-lg md:text-2xl opacity-60 max-w-2xl mx-auto mb-14 font-medium leading-relaxed">
-                Urua Labs is a venture studio crafting high-performance digital architecture for the 2026 convergence.
+              <p className="text-xl md:text-3xl opacity-50 max-w-3xl mx-auto mb-16 font-medium leading-relaxed">
+                Urua Labs is a futuristic venture studio and R&D lab architecting high-performance digital infrastructure.
               </p>
-              <div className="flex flex-wrap justify-center gap-5">
-                <a href="#labs" className="px-12 py-5 bg-accent text-white rounded-full font-bold text-lg hover:scale-105 transition-all shadow-2xl shadow-accent/40">Explore Labs</a>
-                <button onClick={() => setPopup(true)} className="px-12 py-5 border dark:border-white/10 rounded-full font-bold text-lg hover:bg-white/5 transition-all">Launch Phase</button>
+              <div className="flex flex-wrap justify-center gap-6">
+                <a href="#labs" className="px-14 py-6 bg-accent text-white rounded-full font-bold text-xl hover:scale-105 hover:shadow-2xl shadow-accent/40 transition-all">
+                  Our Focus
+                </a>
+                <button 
+                  onClick={() => setPopup(true)} 
+                  className="px-14 py-6 border dark:border-white/10 rounded-full font-bold text-xl hover:bg-black/5 dark:hover:bg-white/5 transition-all"
+                >
+                  Clearance
+                </button>
               </div>
             </motion.div>
           </section>
 
-          {/* Focus Areas */}
-          <section id="labs" className="py-32 px-8 max-w-7xl mx-auto">
-            <div className="mb-20">
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter mb-4">OUR FOCUS</h2>
-              <div className="w-20 h-2 bg-accent rounded-full"></div>
+          {/* Focus Area Section */}
+          <section id="labs" className="py-40 px-8 md:px-16 max-w-7xl mx-auto">
+            <div className="mb-24 flex items-end justify-between">
+              <div>
+                <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-6">LABS & <br/> VENTURES</h2>
+                <div className="w-24 h-2 bg-accent rounded-full"></div>
+              </div>
+              <div className="hidden lg:block text-right opacity-40 text-sm font-bold tracking-widest uppercase">
+                Est. 2026 / Project 01
+              </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {focusAreas.map((f, i) => (
-                <motion.div key={i} whileHover={{ y: -10 }} className="p-10 rounded-[3rem] glass hover:border-accent/40 transition-all group relative overflow-hidden">
-                  <div className="text-5xl mb-10 group-hover:scale-110 transition-transform inline-block">{f.i}</div>
-                  <h3 className="text-2xl font-bold mb-4">{f.t}</h3>
-                  <p className="opacity-50 text-sm font-medium leading-relaxed">{f.d}</p>
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  whileHover={{ y: -15, scale: 1.02 }} 
+                  className="p-12 rounded-[3.5rem] glass hover:border-accent/40 transition-all group relative overflow-hidden"
+                >
+                  <div className="text-6xl mb-12 group-hover:rotate-12 transition-transform inline-block">{f.i}</div>
+                  <h3 className="text-2xl font-bold mb-6 tracking-tight">{f.t}</h3>
+                  <p className="opacity-50 text-base font-medium leading-relaxed">{f.d}</p>
+                  
+                  {/* Decorative number */}
+                  <div className="absolute -bottom-6 -right-6 text-9xl font-black italic opacity-5 select-none">
+                    {i + 1}
+                  </div>
                 </motion.div>
               ))}
             </div>
           </section>
 
-          {/* Countdown */}
-          <section className="bg-accent py-24 text-white text-center relative overflow-hidden">
-            <motion.div animate={{ x: [-1000, 1000] }} transition={{ repeat: Infinity, duration: 20, ease: "linear" }} className="text-[20rem] font-black absolute inset-0 flex items-center opacity-10 whitespace-nowrap pointer-events-none select-none">
-              2026 2026 2026 2026 2026 2026
+          {/* Vision Section */}
+          <section id="vision" className="py-40 bg-accent text-white text-center relative overflow-hidden">
+            <motion.div 
+              animate={{ x: [-2000, 2000] }} 
+              transition={{ repeat: Infinity, duration: 30, ease: "linear" }} 
+              className="text-[25rem] font-black absolute inset-0 flex items-center opacity-10 whitespace-nowrap pointer-events-none select-none italic"
+            >
+              GENESIS GENESIS GENESIS GENESIS
             </motion.div>
-            <div className="relative z-10">
-              <h2 className="text-5xl md:text-8xl font-black mb-6 tracking-tighter">FEB 22, 2026</h2>
-              <p className="text-xl font-bold opacity-80 uppercase tracking-[0.5em]">Phase One: Genesis</p>
+            <div className="relative z-10 px-8">
+              <h2 className="text-6xl md:text-[10rem] font-black mb-8 tracking-tighter">FEB 22, 2026</h2>
+              <p className="text-2xl md:text-4xl font-bold opacity-80 uppercase tracking-[0.4em] max-w-4xl mx-auto leading-tight">
+                THE GLOBAL CONVERGENCE BEGINS.
+              </p>
             </div>
           </section>
 
           {/* Footer */}
-          <footer className="py-20 text-center">
-            <div className="flex justify-center gap-10 mb-10 opacity-40 font-bold text-[10px] tracking-widest uppercase">
-              <a href="#" className="hover:text-accent">X</a>
-              <a href="#" className="hover:text-accent">Discord</a>
-              <a href="#" className="hover:text-accent">Telegram</a>
+          <footer className="py-24 text-center border-t border-black/5 dark:border-white/5 mx-8 md:mx-16">
+            <div className="flex justify-center gap-12 mb-16 opacity-40 font-bold text-[11px] tracking-[0.3em] uppercase">
+              <a href="#" className="hover:text-accent transition-colors">X (Twitter)</a>
+              <a href="#" className="hover:text-accent transition-colors">Discord</a>
+              <a href="#" className="hover:text-accent transition-colors">Mirror.xyz</a>
             </div>
-            <p className="opacity-30 text-[10px] font-bold">© 2026 URUA LABS. ALL RIGHTS RESERVED.</p>
+            <p className="opacity-30 text-[10px] font-bold tracking-[0.2em] uppercase">
+              © 2026 URUA LABS — THE FUTURE IS A PROTOCOL.
+            </p>
           </footer>
 
-          {/* Launch Modal */}
+          {/* Launch Clearance Popup */}
           <AnimatePresence>
             {popup && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/95 backdrop-blur-2xl">
-                <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-white dark:bg-[#0a0a0a] p-12 rounded-[4rem] max-w-lg w-full text-center relative border dark:border-white/5 shadow-[0_0_100px_rgba(0,102,255,0.1)]">
-                  <button onClick={() => setPopup(false)} className="absolute top-8 right-10 text-3xl font-light hover:text-accent transition-colors">✕</button>
-                  <div className="inline-block px-4 py-1 rounded-full bg-accent/10 text-accent font-black text-[10px] tracking-widest uppercase mb-8">Waitlist: Active</div>
-                  <h2 className="text-4xl font-black mb-6 tracking-tight">Access is being granted.</h2>
-                  <p className="opacity-50 mb-12 font-medium leading-relaxed">Urua Labs is currently in stealth optimization mode. Enter your email to receive early clearance for our 2026 drop.</p>
-                  <div className="flex flex-col gap-4">
-                    <input type="email" placeholder="Email Address" className="w-full px-6 py-4 bg-gray-100 dark:bg-white/5 rounded-3xl outline-none focus:ring-2 ring-accent/50 transition-all font-bold" />
-                    <button onClick={() => setPopup(false)} className="w-full py-5 bg-accent text-white rounded-[2rem] font-black text-xl hover:shadow-2xl shadow-accent/20 transition-all">Request Clearance</button>
+              <motion.div 
+                initial={{ opacity: 0 }} 
+                animate={{ opacity: 1 }} 
+                exit={{ opacity: 0 }} 
+                className="fixed inset-0 z-[300] flex items-center justify-center p-6 bg-black/95 backdrop-blur-3xl"
+              >
+                <motion.div 
+                  initial={{ scale: 0.9, y: 30 }} 
+                  animate={{ scale: 1, y: 0 }} 
+                  className="bg-white dark:bg-[#0a0a0a] p-12 md:p-16 rounded-[4.5rem] max-w-xl w-full text-center relative border dark:border-white/5 shadow-2xl"
+                >
+                  <button 
+                    onClick={() => setPopup(false)} 
+                    className="absolute top-10 right-12 text-4xl font-light hover:text-accent transition-all hover:rotate-90"
+                  >
+                    ✕
+                  </button>
+                  
+                  <div className="inline-block px-5 py-1.5 rounded-full bg-accent/10 text-accent font-black text-[10px] tracking-widest uppercase mb-10 border border-accent/20">
+                    Waitlist Phase: 01
+                  </div>
+                  
+                  <h2 className="text-5xl font-black mb-8 tracking-tight leading-[0.9]">The Void is <br/> inviting you.</h2>
+                  <p className="opacity-50 mb-12 font-medium leading-relaxed text-lg px-4">
+                    Urua Labs is currently operating in stealth optimization mode. Enter your digital identifier to receive early clearance for the 2026 genesis event.
+                  </p>
+                  
+                  <div className="flex flex-col gap-4 max-w-md mx-auto">
+                    <input 
+                      type="email" 
+                      placeholder="Protocol Address (Email)" 
+                      className="w-full px-8 py-5 bg-gray-100 dark:bg-white/5 rounded-[2rem] outline-none focus:ring-4 ring-accent/20 transition-all font-bold text-center" 
+                    />
+                    <button 
+                      onClick={() => setPopup(false)} 
+                      className="w-full py-6 bg-accent text-white rounded-[2rem] font-black text-xl hover:scale-[1.02] hover:shadow-2xl shadow-accent/40 active:scale-95 transition-all"
+                    >
+                      Request Clearance
+                    </button>
                   </div>
                 </motion.div>
               </motion.div>
@@ -335,6 +468,10 @@
       );
     };
 
+    /** 
+     * Main App Shell
+     * Manages global state for theme selection and dark mode.
+     */
     const App = () => {
       const [mode, setMode] = useState('MODERN');
       const [isDark, setIsDark] = useState(true);
@@ -346,16 +483,24 @@
       return (
         <div className="min-h-screen transition-colors duration-500">
           {mode === 'MODERN' ? (
-            <ModernTheme onThemeToggle={() => setMode('RETRO')} isDark={isDark} toggleDark={() => setIsDark(!isDark)} />
+            <ModernTheme 
+              onThemeToggle={() => setMode('RETRO')} 
+              isDark={isDark} 
+              toggleDark={() => setIsDark(!isDark)} 
+            />
           ) : (
-            <RetroTheme onThemeToggle={() => setMode('MODERN')} />
+            <RetroTheme 
+              onThemeToggle={() => setMode('MODERN')} 
+            />
           )}
           {mode === 'MODERN' && <AIAssistant />}
         </div>
       );
     };
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
+    // Mount the application
+    const rootElement = document.getElementById('root');
+    const root = ReactDOM.createRoot(rootElement);
     root.render(<App />);
   </script>
 </body>
