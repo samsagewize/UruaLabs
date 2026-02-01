@@ -109,6 +109,15 @@
       -webkit-user-select: none;
       touch-action: manipulation;
       filter: drop-shadow(0 12px 22px rgba(0,0,0,0.55));
+      animation: penguin-run-path 18s linear infinite;
+    }
+
+    @keyframes penguin-run-path {
+      0%   { transform: translate(0, 0); }
+      25%  { transform: translate(calc(-100vw + 120px), 0); }
+      50%  { transform: translate(calc(-100vw + 120px), calc(-100vh + 120px)); }
+      75%  { transform: translate(0, calc(-100vh + 120px)); }
+      100% { transform: translate(0, 0); }
     }
 
     #penguin-mascot button {
@@ -191,6 +200,7 @@
 
     /* Reduce motion support */
     @media (prefers-reduced-motion: reduce) {
+      #penguin-mascot { animation: none; }
       #penguin-mascot button { animation: none; }
     }
   </style>
@@ -215,17 +225,28 @@
   <div id="penguin-mascot" aria-label="Penguin, Urua Labs assistant">
     <div id="penguin-bubble" role="status" aria-live="polite"></div>
     <button id="penguin-btn" title="Penguin (click me)">
-      <!-- Simple inline SVG penguin -->
-      <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M32 8c-9.7 0-16 9.7-16 21.6C16 44.4 22.2 56 32 56s16-11.6 16-26.4C48 17.7 41.7 8 32 8z" fill="#0B0B0B"/>
-        <path d="M32 18c-6.2 0-10.3 6.5-10.3 14.7C21.7 42.9 25.7 51 32 51s10.3-8.1 10.3-18.3C42.3 24.5 38.2 18 32 18z" fill="#F2F4F8" opacity="0.95"/>
-        <path d="M22 28c-3.8 2.3-6.8 5.8-7.6 9.7-.7 3.3 1.2 6.3 4.6 6.8 3.4.6 6.8-1.4 7.6-4.9.7-3.2-.6-8.3-4.6-11.6z" fill="#0B0B0B"/>
-        <path d="M42 28c3.8 2.3 6.8 5.8 7.6 9.7.7 3.3-1.2 6.3-4.6 6.8-3.4.6-6.8-1.4-7.6-4.9-.7-3.2.6-8.3 4.6-11.6z" fill="#0B0B0B"/>
-        <path d="M32 33l-7 4.2c-.6.4-.5 1.3.2 1.5l6.8 2.1 6.8-2.1c.7-.2.8-1.2.2-1.5L32 33z" fill="#FFB000"/>
-        <circle cx="26" cy="26" r="3" fill="#fff"/>
-        <circle cx="38" cy="26" r="3" fill="#fff"/>
-        <circle cx="26.8" cy="26.7" r="1.4" fill="#111"/>
-        <circle cx="38.8" cy="26.7" r="1.4" fill="#111"/>
+      <!-- Pixel-ish inline SVG penguin (keeps the page lightweight) -->
+      <svg width="44" height="44" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="image-rendering: pixelated; shape-rendering: crispEdges;">
+        <!-- body -->
+        <rect x="6" y="2" width="4" height="1" fill="#0B0B0B"/>
+        <rect x="5" y="3" width="6" height="1" fill="#0B0B0B"/>
+        <rect x="4" y="4" width="8" height="1" fill="#0B0B0B"/>
+        <rect x="4" y="5" width="8" height="7" fill="#0B0B0B"/>
+        <rect x="5" y="12" width="6" height="2" fill="#0B0B0B"/>
+        <!-- belly -->
+        <rect x="6" y="6" width="4" height="5" fill="#F2F4F8"/>
+        <rect x="5" y="7" width="1" height="3" fill="#F2F4F8"/>
+        <rect x="10" y="7" width="1" height="3" fill="#F2F4F8"/>
+        <!-- eyes -->
+        <rect x="6" y="5" width="1" height="1" fill="#fff"/>
+        <rect x="9" y="5" width="1" height="1" fill="#fff"/>
+        <rect x="7" y="5" width="1" height="1" fill="#111"/>
+        <rect x="10" y="5" width="1" height="1" fill="#111"/>
+        <!-- beak -->
+        <rect x="7" y="7" width="2" height="1" fill="#FFB000"/>
+        <!-- feet -->
+        <rect x="5" y="14" width="3" height="1" fill="#FFB000"/>
+        <rect x="8" y="14" width="3" height="1" fill="#FFB000"/>
       </svg>
     </button>
   </div>
@@ -255,26 +276,24 @@
         hideTimer = setTimeout(() => bubble.classList.remove('show'), 3600);
       };
 
-      // Tiny wander (subtle)
-      const wander = () => {
-        const dx = (Math.random() * 10 - 5);
-        const dy = (Math.random() * 6 - 3);
-        mascot.style.transform = `translate(${dx}px, ${dy}px)`;
+      const pauseRun = (ms) => {
+        mascot.style.animationPlayState = 'paused';
+        btn.style.animationPlayState = 'paused';
+        setTimeout(() => {
+          mascot.style.animationPlayState = 'running';
+          btn.style.animationPlayState = 'running';
+        }, ms);
       };
 
       btn.addEventListener('click', () => {
         show(LINES[i % LINES.length]);
         i++;
-        wander();
+        pauseRun(1200);
       });
 
       // Say hi once, a moment after load
       window.addEventListener('load', () => {
         setTimeout(() => show(LINES[0]), 900);
-        setInterval(() => {
-          // only auto-wander when bubble isn't visible
-          if (!bubble.classList.contains('show')) wander();
-        }, 5200);
       });
     })();
   </script>
