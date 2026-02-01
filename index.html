@@ -211,7 +211,8 @@
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href="#services" class="px-10 py-5 bg-accent text-white rounded-full font-black text-lg hover:opacity-90 transition-all">Explore Services</a>
-        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Email Urua Labs</a>
+        <a href="#projects" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Projects</a>
+        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Work for Hire</a>
       </div>
     </section>
 
@@ -281,6 +282,32 @@
             <a href="https://www.youtube.com/@samsagewize" target="_blank" rel="noreferrer" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm">YouTube</a>
             <a href="https://open.spotify.com/artist/3o7QHIT3xAl7YM7nd9QiTk" target="_blank" rel="noreferrer" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm">Spotify</a>
             <a href="https://music.apple.com/us/artist/sam-sage/1022465537" target="_blank" rel="noreferrer" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm">Apple Music</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects (Products + Integrations) -->
+    <section id="projects" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+        <div>
+          <h2 class="text-5xl md:text-7xl font-black tracking-tighter">PROJECTS</h2>
+          <p class="mt-6 opacity-40 max-w-2xl font-medium">Products we’ve built — available to buy, license, or integrate into your business.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="mailto:urualabs@gmail.com?subject=Projects%20%2F%20Work%20for%20Hire" class="px-8 py-4 bg-accent text-white rounded-full font-black text-base hover:opacity-90 transition-all">Work for Hire</a>
+          <a href="#services" class="px-8 py-4 border border-white/10 rounded-full font-black text-base hover:bg-white/5 transition-all">See Services</a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Product</div>
+          <div class="mt-3 text-2xl font-black">Cold Call Extension</div>
+          <div class="mt-3 opacity-60 text-sm">A cold call extension for businesses — buy the idea, or integrate it into your team’s workflow.</div>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="https://cold-call-extension.vercel.app" target="_blank" rel="noreferrer" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">View Demo</a>
+            <a href="mailto:urualabs@gmail.com?subject=Cold%20Call%20Extension%20Integration" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Integrate / Buy</a>
           </div>
         </div>
       </div>
@@ -476,6 +503,10 @@
           return `Email <b>urualabs@gmail.com</b> — tell us what you want built, timeline, and budget.`;
         }
 
+        if (q.includes('project') || q.includes('product') || q.includes('cold call') || q.includes('extension')) {
+          return `Projects: <b>Cold Call Extension</b> (demo) at <b>cold-call-extension.vercel.app</b>. You can buy the idea or integrate it — email <b>urualabs@gmail.com</b>.`;
+        }
+
         if (q.includes('service') || q.includes('website') || q.includes('web dev') || q.includes('ai') || q.includes('smart contract') || q.includes('nft')) {
           return `Services: <b>Website Development</b>, <b>AI Programming</b>, <b>NFT Creation</b>, <b>Smart Contract Deployment</b>. Want a quote? Email <b>urualabs@gmail.com</b>.`;
         }
@@ -492,7 +523,7 @@
           return `I’m <b>Penguin</b> — the tiny assistant running around urualabs.com. I point you to the right place and how to contact URU.`;
         }
 
-        return `I can help with: <b>services</b>, <b>Bitcoin portfolio</b>, <b>music</b>, or <b>contact</b>. Try asking: “How do I hire you?”`; 
+        return `I can help with: <b>services</b>, <b>projects</b>, <b>Bitcoin portfolio</b>, <b>music</b>, or <b>contact</b>. Try asking: “What projects do you have?”`; 
       };
 
       // Menu button opens chat
