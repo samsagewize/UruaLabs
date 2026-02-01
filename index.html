@@ -313,6 +313,16 @@
             <a href="mailto:urualabs@gmail.com?subject=Cold%20Call%20Extension%20Integration" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Integrate / Buy</a>
           </div>
         </div>
+
+        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Service</div>
+          <div class="mt-3 text-2xl font-black">PingWin</div>
+          <div class="mt-3 opacity-60 text-sm">We help install an OpenClaw-powered assistant for your business — tuned to your workflows and goals.</div>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="#services" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">What it can do</a>
+            <a href="mailto:urualabs@gmail.com?subject=PingWin%20(OpenClaw)%20Setup&body=Hi%20Urua%20Labs%2C%0A%0AI%20want%20help%20installing%20a%20PingWin%20(OpenClaw)%20assistant%20for%20my%20business.%0A%0A-%20Business%20type%3A%0A-%20Goals%3A%0A-%20Tools%20we%20use%20(Gmail%2C%20calendar%2C%20CRM%2C%20etc.)%3A%0A-%20Timeline%3A%0A%0AThanks%2C" class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">Install PingWin</a>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -507,6 +517,10 @@
           return `Email <b>urualabs@gmail.com</b> — tell us what you want built, timeline, and budget.`;
         }
 
+        if (q.includes('pingwin') || q.includes('openclaw') || q.includes('assistant for my business')) {
+          return `PingWin: we help install an <b>OpenClaw-powered business assistant</b> tuned to your workflows. Want setup help? Email <b>urualabs@gmail.com</b> with what tools you use and your goals.`;
+        }
+
         if (q.includes('project') || q.includes('product') || q.includes('cold call') || q.includes('extension')) {
           return `Projects: <b>Cold Call Extension</b> (demo) at <b>cold-call-extension.vercel.app</b>. You can buy the idea or integrate it — email <b>urualabs@gmail.com</b>.`;
         }
@@ -524,7 +538,7 @@
         }
 
         if (q.includes('penguin') || q.includes('who are you')) {
-          return `I’m <b>Penguin</b> — the tiny assistant running around urualabs.com. I point you to the right place and how to contact URU.`;
+          return `I’m <b>Pingwin</b> — the tiny assistant on urualabs.com. I point you to the right place and how to contact URU.`;
         }
 
         return `I can help with: <b>services</b>, <b>projects</b>, <b>Bitcoin portfolio</b>, <b>music</b>, or <b>contact</b>. Try asking: “What projects do you have?”`; 
