@@ -348,6 +348,24 @@
   <!-- Penguin mascot -->
   <div id="penguin-mascot" aria-label="Penguin, Urua Labs assistant">
     <div id="penguin-bubble" role="status" aria-live="polite"></div>
+
+    <!-- Mini chat panel (curated Q&A; no AI keys) -->
+    <div id="penguin-chat" class="glass" aria-label="Penguin chat" style="display:none; position:absolute; right:86px; bottom:12px; width:320px; max-width: calc(100vw - 140px); border-radius: 22px; overflow:hidden;">
+      <div style="padding:10px 12px; background: rgba(0, 102, 255, 0.14); border-bottom: 1px solid rgba(255,255,255,0.10); display:flex; align-items:center; justify-content:space-between; gap:10px;">
+        <div style="font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; font-weight:900; letter-spacing:0.12em; font-size:10px; text-transform:uppercase;">Penguin Chat</div>
+        <button id="penguin-chat-close" title="Close" style="all:unset; cursor:pointer; font-weight:900; opacity:0.8; padding:4px 8px; border:1px solid rgba(255,255,255,0.12); border-radius:999px;">✕</button>
+      </div>
+      <div id="penguin-chat-log" style="max-height:240px; overflow:auto; padding:12px; display:flex; flex-direction:column; gap:10px;">
+        <div style="align-self:flex-start; background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:10px 12px; font-size:12px; line-height:1.35;">
+          <b>Penguin:</b> Ask me about services, Bitcoin collections, music, or how to contact URU.
+        </div>
+      </div>
+      <form id="penguin-chat-form" style="display:flex; gap:8px; padding:10px; border-top: 1px solid rgba(255,255,255,0.10); background: rgba(0,0,0,0.35);">
+        <input id="penguin-chat-input" placeholder="Ask a question…" style="flex:1; background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); color: rgba(255,255,255,0.92); border-radius:999px; padding:10px 12px; outline:none; font-size:12px;" />
+        <button type="submit" style="all:unset; cursor:pointer; background:#0066ff; color:white; font-weight:900; border-radius:999px; padding:10px 14px; font-size:12px;">Send</button>
+      </form>
+    </div>
+
     <button id="penguin-btn" title="Penguin (click me)">
       <!-- Pixel-ish inline SVG penguin -->
       <svg width="44" height="44" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="image-rendering: pixelated; shape-rendering: crispEdges;">
@@ -381,6 +399,13 @@
       const btn = document.getElementById('penguin-btn');
       const bubble = document.getElementById('penguin-bubble');
       const menuBtn = document.getElementById('penguin-menu');
+
+      const chat = document.getElementById('penguin-chat');
+      const chatClose = document.getElementById('penguin-chat-close');
+      const chatLog = document.getElementById('penguin-chat-log');
+      const chatForm = document.getElementById('penguin-chat-form');
+      const chatInput = document.getElementById('penguin-chat-input');
+
       if (!mascot || !btn || !bubble) return;
 
       const LINES = [
@@ -415,24 +440,88 @@
         pauseRun(1200);
       });
 
-      const showMenuHelp = () => {
-        // A tiny “chat” that is just curated info + directions.
-        show({
-          t: 'PENGUIN HELP',
-          m: `Try these: <br/>
-              • <b>Services</b> → websites, AI, smart contracts, creative builds<br/>
-              • <b>Blockchain</b> → Bitcoin collections (Ordinals)<br/>
-              • <b>Questions?</b> Email <b>urualabs@gmail.com</b>`
-        });
-        pauseRun(1600);
+      const openChat = () => {
+        if (!chat) return;
+        chat.style.display = 'block';
+        bubble.classList.remove('show');
+        pauseRun(900);
+        setTimeout(() => chatInput?.focus(), 0);
       };
 
+      const closeChat = () => {
+        if (!chat) return;
+        chat.style.display = 'none';
+      };
+
+      const addMsg = (who, text, side) => {
+        if (!chatLog) return;
+        const el = document.createElement('div');
+        el.style.alignSelf = side === 'right' ? 'flex-end' : 'flex-start';
+        el.style.background = side === 'right' ? 'rgba(0, 102, 255, 0.18)' : 'rgba(255,255,255,0.06)';
+        el.style.border = '1px solid rgba(255,255,255,0.10)';
+        el.style.borderRadius = '16px';
+        el.style.padding = '10px 12px';
+        el.style.fontSize = '12px';
+        el.style.lineHeight = '1.35';
+        el.style.maxWidth = '92%';
+        el.innerHTML = `<b>${who}:</b> ${text}`;
+        chatLog.appendChild(el);
+        chatLog.scrollTop = chatLog.scrollHeight;
+      };
+
+      const answer = (qRaw) => {
+        const q = (qRaw || '').toLowerCase();
+
+        if (q.includes('email') || q.includes('contact') || q.includes('hire') || q.includes('quote')) {
+          return `Email <b>urualabs@gmail.com</b> — tell us what you want built, timeline, and budget.`;
+        }
+
+        if (q.includes('service') || q.includes('website') || q.includes('web dev') || q.includes('ai') || q.includes('smart contract') || q.includes('nft')) {
+          return `Services: <b>Website Development</b>, <b>AI Programming</b>, <b>NFT Creation</b>, <b>Smart Contract Deployment</b>. Want a quote? Email <b>urualabs@gmail.com</b>.`;
+        }
+
+        if (q.includes('bitcoin') || q.includes('ordinals') || q.includes('inscription') || q.includes('magic eden') || q.includes('ordinookis') || q.includes('rare78')) {
+          return `Bitcoin creations: <b>Ordinookis</b> + <b>Rare78</b> on Magic Eden. Ask about builds/collections at <b>urualabs@gmail.com</b>.`;
+        }
+
+        if (q.includes('music') || q.includes('sam sage') || q.includes('song')) {
+          return `Music: Sam Sage on YouTube/Spotify/Apple Music. Visit <b>samsage.com</b> or hit <b>Request a Song</b> in the Music section.`;
+        }
+
+        if (q.includes('penguin') || q.includes('who are you')) {
+          return `I’m <b>Penguin</b> — the tiny assistant running around urualabs.com. I point you to the right place and how to contact URU.`;
+        }
+
+        return `I can help with: <b>services</b>, <b>Bitcoin portfolio</b>, <b>music</b>, or <b>contact</b>. Try asking: “How do I hire you?”`; 
+      };
+
+      // Menu button opens chat
       if (menuBtn) {
         menuBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          showMenuHelp();
+          openChat();
         });
       }
+
+      // Clicking Penguin also opens chat (still cycles bubbles too)
+      btn.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        openChat();
+      });
+
+      chatClose?.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeChat();
+      });
+
+      chatForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = chatInput?.value?.trim();
+        if (!q) return;
+        addMsg('You', q, 'right');
+        chatInput.value = '';
+        addMsg('Penguin', answer(q), 'left');
+      });
 
       window.addEventListener('load', () => {
         setTimeout(() => show(LINES[0]), 900);
