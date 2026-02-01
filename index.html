@@ -439,11 +439,11 @@
 
     const ModernTheme = ({ onToggle, isDark, onDarkToggle }) => {
       const [modal, setModal] = useState(true);
-      const projects = [
-        { n: "Protocol Genesis", d: "Next-gen Web3 architecture.", i: "💎" },
-        { n: "Aura Audio", d: "Generative decentralized sound.", i: "🎵" },
-        { n: "Spatial Hub", d: "Immersive 3D frontend engine.", i: "🌐" },
-        { n: "Nexus AI", d: "Human-centric neural integration.", i: "🤖" }
+      const services = [
+        { n: "Websites for Small Business", d: "Fast, modern sites that look premium and convert.", i: "🖥️" },
+        { n: "AI Services", d: "Automations, chat experiences, and practical AI tooling.", i: "🧠" },
+        { n: "Smart Contracts", d: "Deploy + integrate contracts safely, with real UX.", i: "⛓️" },
+        { n: "Creative Projects", d: "Interactive builds, music-driven experiences, and experiments.", i: "🧪" }
       ];
 
       return (
@@ -481,9 +481,32 @@
 
           {/* Focus */}
           <section id="labs" className="py-40 px-8 max-w-7xl mx-auto">
-            <h2 className="text-5xl md:text-8xl font-black tracking-tighter mb-20">OUR FOCUS</h2>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+              <div>
+                <h2 className="text-5xl md:text-8xl font-black tracking-tighter">SERVICES</h2>
+                <p className="mt-6 opacity-40 max-w-2xl font-medium">
+                  Urua Labs builds websites, AI workflows, and web3 systems — with creative edge and real delivery.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry"
+                  className="px-8 py-4 bg-accent text-white rounded-full font-black text-base hover:opacity-90 transition-all"
+                >
+                  Email Urua Labs
+                </a>
+                <button
+                  onClick={() => setModal(true)}
+                  className="px-8 py-4 border border-white/10 rounded-full font-black text-base hover:bg-white/5 transition-all"
+                >
+                  Request a Quote
+                </button>
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {projects.map((p, i) => (
+              {services.map((p, i) => (
                 <motion.div key={i} whileHover={{ y: -10 }} className="p-12 rounded-[3.5rem] glass hover:border-accent/50 transition-all group">
                   <div className="text-6xl mb-10 group-hover:scale-110 transition-transform">{p.i}</div>
                   <h3 className="text-2xl font-black mb-4 tracking-tight">{p.n}</h3>
@@ -581,12 +604,17 @@
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/95 backdrop-blur-3xl">
                 <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-[#0a0a0a] p-12 md:p-20 rounded-[4rem] max-w-2xl w-full text-center relative border border-white/5 shadow-2xl">
                   <button onClick={() => setModal(false)} className="absolute top-10 right-10 text-4xl font-light hover:text-accent transition-all">✕</button>
-                  <div className="bg-accent/10 text-accent px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-10 inline-block">Waitlist Phase 01</div>
-                  <h2 className="text-5xl font-black mb-8 tracking-tight">The future is <br/> encrypted.</h2>
-                  <p className="opacity-40 mb-12 font-medium leading-relaxed text-lg">Urua Labs is optimized for the 2026 convergence. Enter your protocol address below for early clearance.</p>
+                  <div className="bg-accent/10 text-accent px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-10 inline-block">Quote Request</div>
+                  <h2 className="text-5xl font-black mb-8 tracking-tight">Build with Urua Labs</h2>
+                  <p className="opacity-40 mb-10 font-medium leading-relaxed text-lg">Tell us what you need (web, AI, smart contracts, or a creative build). We’ll reply fast.</p>
                   <div className="flex flex-col gap-4 max-w-md mx-auto">
-                    <input type="email" placeholder="identity@protocol.xyz" className="w-full px-8 py-5 bg-white/5 rounded-[2rem] outline-none focus:ring-4 ring-accent/20 transition-all font-bold text-center text-lg" />
-                    <button onClick={() => setModal(false)} className="w-full py-6 bg-accent text-white rounded-[2rem] font-black text-xl hover:shadow-2xl shadow-accent/40 active:scale-95 transition-all">Request Entry</button>
+                    <a
+                      href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request&body=Hi%20Urua%20Labs%2C%0A%0AI%27m%20interested%20in%3A%20(web%20dev%20%2F%20AI%20%2F%20smart%20contracts%20%2F%20creative)%0A%0ATimeline%3A%0ABudget%3A%0ALinks%3A%0A%0AThanks%2C"
+                      className="w-full py-6 bg-accent text-white rounded-[2rem] font-black text-xl hover:shadow-2xl shadow-accent/40 active:scale-95 transition-all text-center"
+                    >
+                      Email urualabs@gmail.com
+                    </a>
+                    <button onClick={() => setModal(false)} className="w-full py-5 border border-white/10 rounded-[2rem] font-black text-base hover:bg-white/5 transition-all">Not ready? Explore the site</button>
                   </div>
                 </motion.div>
               </motion.div>
