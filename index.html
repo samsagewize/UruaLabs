@@ -454,6 +454,7 @@
             <div className="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.3em]">
               <a href="#vision" className="hover:text-accent transition-colors">Vision</a>
               <a href="#labs" className="hover:text-accent transition-colors">Labs</a>
+              <a href="#music" className="hover:text-accent transition-colors">Music</a>
               <button onClick={onToggle} className="hover:text-accent border border-white/10 px-4 py-1.5 rounded-full">Retro</button>
               <button onClick={onDarkToggle}>{isDark ? '🌞' : '🌙'}</button>
             </div>
@@ -489,6 +490,68 @@
                   <p className="opacity-40 text-sm font-medium leading-relaxed">{p.d}</p>
                 </motion.div>
               ))}
+            </div>
+          </section>
+
+          {/* Music (Sam Sage) */}
+          <section id="music" className="py-28 md:py-36 px-8 max-w-7xl mx-auto">
+            <div className="glass rounded-[3.5rem] p-10 md:p-16 border border-white/10">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+                <div>
+                  <div className="inline-block mb-6 px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">
+                    Sam Sage
+                  </div>
+                  <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.95]">MUSIC CATALOG</h2>
+                  <p className="mt-6 opacity-50 max-w-2xl font-medium">
+                    Follow the sound across worlds — releases, experiments, and creator energy.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-3">
+                  <a
+                    href="https://www.youtube.com/@samsagewize"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm"
+                  >
+                    YouTube
+                  </a>
+                  <a
+                    href="https://open.spotify.com/artist/3o7QHIT3xAl7YM7nd9QiTk"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm"
+                  >
+                    Spotify
+                  </a>
+                  <a
+                    href="https://music.apple.com/us/artist/sam-sage/1022465537"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-6 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-sm"
+                  >
+                    Apple Music
+                  </a>
+                </div>
+              </div>
+
+              <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+                  <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Start here</div>
+                  <div className="mt-3 text-2xl font-black">Top Tracks</div>
+                  <div className="mt-3 opacity-50 text-sm">We’ll curate this next with your best 3–10 links.</div>
+                </div>
+                <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+                  <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">For humans</div>
+                  <div className="mt-3 text-2xl font-black">Services</div>
+                  <div className="mt-3 opacity-50 text-sm">Creator work across projects — coming online in phases.</div>
+                </div>
+                <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+                  <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">For web3</div>
+                  <div className="mt-3 text-2xl font-black">Cred</div>
+                  <div className="mt-3 opacity-50 text-sm">On-chain + experimental work — we’ll link projects next.</div>
+                </div>
+              </div>
             </div>
           </section>
 
