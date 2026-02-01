@@ -86,16 +86,10 @@
       -webkit-user-select: none;
       touch-action: manipulation;
       filter: drop-shadow(0 12px 22px rgba(0,0,0,0.55));
-      animation: penguin-run-path 18s linear infinite;
+      /* stays parked */
     }
 
-    @keyframes penguin-run-path {
-      0%   { transform: translate(0, 0); }
-      25%  { transform: translate(calc(-100vw + 120px), 0); }
-      50%  { transform: translate(calc(-100vw + 120px), calc(-100vh + 120px)); }
-      75%  { transform: translate(0, calc(-100vh + 120px)); }
-      100% { transform: translate(0, 0); }
-    }
+    /* penguin-run-path removed: Penguin stays parked bottom-right */
 
     #penguin-mascot button {
       all: unset;
