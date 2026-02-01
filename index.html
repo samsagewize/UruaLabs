@@ -96,6 +96,103 @@
     ::-webkit-scrollbar-track { background: #000; }
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     ::-webkit-scrollbar-thumb:hover { background: #0066ff; }
+
+    /* Penguin (site mascot) */
+    #penguin-mascot {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 2000;
+      width: 74px;
+      height: 74px;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      filter: drop-shadow(0 12px 22px rgba(0,0,0,0.55));
+    }
+
+    #penguin-mascot button {
+      all: unset;
+      width: 74px;
+      height: 74px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      transition: transform 180ms ease, border-color 180ms ease;
+      animation: penguin-bob 2200ms ease-in-out infinite;
+    }
+
+    #penguin-mascot button:hover {
+      transform: translateY(-2px) rotate(-1deg) scale(1.02);
+      border-color: rgba(0, 102, 255, 0.6);
+    }
+
+    #penguin-mascot button:active {
+      transform: translateY(0px) scale(0.98);
+    }
+
+    @keyframes penguin-bob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+
+    #penguin-bubble {
+      position: absolute;
+      right: 86px;
+      bottom: 12px;
+      max-width: 260px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: rgba(10, 10, 10, 0.85);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.92);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: 12px;
+      line-height: 1.35;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.65);
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    #penguin-bubble.show {
+      opacity: 1;
+      transform: translateY(0px);
+    }
+
+    #penguin-bubble .title {
+      display: block;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 10px;
+      opacity: 0.75;
+      margin-bottom: 4px;
+    }
+
+    #penguin-bubble:after {
+      content: "";
+      position: absolute;
+      right: -6px;
+      bottom: 16px;
+      width: 12px;
+      height: 12px;
+      background: rgba(10, 10, 10, 0.85);
+      border-right: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      transform: rotate(-45deg);
+    }
+
+    /* Reduce motion support */
+    @media (prefers-reduced-motion: reduce) {
+      #penguin-mascot button { animation: none; }
+    }
   </style>
 
   <script type="importmap">
@@ -113,6 +210,74 @@
 <body class="bg-white dark:bg-[#050505] text-black dark:text-white selection:bg-accent/30">
   <div class="scanline"></div>
   <div id="root"></div>
+
+  <!-- Penguin (site mascot) lives outside React so it's always available -->
+  <div id="penguin-mascot" aria-label="Penguin, Urua Labs assistant">
+    <div id="penguin-bubble" role="status" aria-live="polite"></div>
+    <button id="penguin-btn" title="Penguin (click me)">
+      <!-- Simple inline SVG penguin -->
+      <svg width="44" height="44" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M32 8c-9.7 0-16 9.7-16 21.6C16 44.4 22.2 56 32 56s16-11.6 16-26.4C48 17.7 41.7 8 32 8z" fill="#0B0B0B"/>
+        <path d="M32 18c-6.2 0-10.3 6.5-10.3 14.7C21.7 42.9 25.7 51 32 51s10.3-8.1 10.3-18.3C42.3 24.5 38.2 18 32 18z" fill="#F2F4F8" opacity="0.95"/>
+        <path d="M22 28c-3.8 2.3-6.8 5.8-7.6 9.7-.7 3.3 1.2 6.3 4.6 6.8 3.4.6 6.8-1.4 7.6-4.9.7-3.2-.6-8.3-4.6-11.6z" fill="#0B0B0B"/>
+        <path d="M42 28c3.8 2.3 6.8 5.8 7.6 9.7.7 3.3-1.2 6.3-4.6 6.8-3.4.6-6.8-1.4-7.6-4.9-.7-3.2.6-8.3 4.6-11.6z" fill="#0B0B0B"/>
+        <path d="M32 33l-7 4.2c-.6.4-.5 1.3.2 1.5l6.8 2.1 6.8-2.1c.7-.2.8-1.2.2-1.5L32 33z" fill="#FFB000"/>
+        <circle cx="26" cy="26" r="3" fill="#fff"/>
+        <circle cx="38" cy="26" r="3" fill="#fff"/>
+        <circle cx="26.8" cy="26.7" r="1.4" fill="#111"/>
+        <circle cx="38.8" cy="26.7" r="1.4" fill="#111"/>
+      </svg>
+    </button>
+  </div>
+
+  <script>
+    (function () {
+      const mascot = document.getElementById('penguin-mascot');
+      const btn = document.getElementById('penguin-btn');
+      const bubble = document.getElementById('penguin-bubble');
+
+      if (!mascot || !btn || !bubble) return;
+
+      const LINES = [
+        { t: 'PENGUIN', m: "Waddup. Welcome to Urua Labs." },
+        { t: 'PENGUIN', m: "Need music, creator services, or web3 cred? I got you." },
+        { t: 'PENGUIN', m: "Scroll a bit — the lab’s focus is hiding in plain sight." },
+        { t: 'PENGUIN', m: "Pro tip: small moves shipped daily beat big dreams ‘someday’." },
+        { t: 'PENGUIN', m: "Click me again. I’m friendly. Mostly." },
+      ];
+
+      let i = 0;
+      let hideTimer = null;
+      const show = (line) => {
+        bubble.innerHTML = `<span class="title">${line.t}</span>${line.m}`;
+        bubble.classList.add('show');
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => bubble.classList.remove('show'), 3600);
+      };
+
+      // Tiny wander (subtle)
+      const wander = () => {
+        const dx = (Math.random() * 10 - 5);
+        const dy = (Math.random() * 6 - 3);
+        mascot.style.transform = `translate(${dx}px, ${dy}px)`;
+      };
+
+      btn.addEventListener('click', () => {
+        show(LINES[i % LINES.length]);
+        i++;
+        wander();
+      });
+
+      // Say hi once, a moment after load
+      window.addEventListener('load', () => {
+        setTimeout(() => show(LINES[0]), 900);
+        setInterval(() => {
+          // only auto-wander when bubble isn't visible
+          if (!bubble.classList.contains('show')) wander();
+        }, 5200);
+      });
+    })();
+  </script>
 
   <script type="text/babel" data-type="module">
     import React, { useState, useEffect, useRef } from 'react';
