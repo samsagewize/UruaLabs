@@ -4,13 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Urua Labs — Building the Future</title>
-  
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <script>
     tailwind.config = {
@@ -24,30 +22,19 @@
           },
           colors: {
             accent: '#0066ff',
-            retro: {
-              bg: '#008080',
-              win: '#c0c0c0',
-              winDark: '#808080',
-              blue: '#000080',
-            }
           },
-          animation: {
-            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'spin-slow': 'spin 12s linear infinite',
-          }
         }
       }
     }
   </script>
 
   <style>
-    /* Global Styles */
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      background: #000; /* Darker default */
+      background: #000;
       overflow-x: hidden;
     }
 
@@ -57,21 +44,11 @@
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    
+
     .text-gradient {
       background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-    }
-
-    .retro-outset {
-      border: 2px solid;
-      border-color: #ffffff #808080 #808080 #ffffff;
-    }
-
-    .retro-inset {
-      border: 2px solid;
-      border-color: #808080 #ffffff #ffffff #808080;
     }
 
     .scanline {
@@ -198,34 +175,133 @@
       transform: rotate(-45deg);
     }
 
-    /* Reduce motion support */
     @media (prefers-reduced-motion: reduce) {
       #penguin-mascot { animation: none; }
       #penguin-mascot button { animation: none; }
     }
   </style>
-
-  <script type="importmap">
-  {
-    "imports": {
-      "react": "https://esm.sh/react@19.0.0",
-      "react-dom": "https://esm.sh/react-dom@19.0.0",
-      "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-      "@google/genai": "https://esm.sh/@google/genai@1.38.0",
-      "framer-motion": "https://esm.sh/framer-motion@11.11.11"
-    }
-  }
-  </script>
 </head>
 <body class="bg-white dark:bg-[#050505] text-black dark:text-white selection:bg-accent/30">
   <div class="scanline"></div>
-  <div id="root"></div>
 
-  <!-- Penguin (site mascot) lives outside React so it's always available -->
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 h-24 px-8 md:px-16 flex items-center justify-between glass z-[100]">
+    <a href="#top" class="text-3xl font-black tracking-tighter">URUA<span class="text-accent italic">LABS</span></a>
+    <nav class="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.3em]">
+      <a href="#services" class="hover:text-accent transition-colors">Services</a>
+      <a href="#music" class="hover:text-accent transition-colors">Music</a>
+      <a href="#vision" class="hover:text-accent transition-colors">Vision</a>
+      <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="hover:text-accent transition-colors">Email</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main id="top" class="pt-24">
+    <section class="min-h-[92vh] flex flex-col items-center justify-center px-8 text-center">
+      <div class="mb-10 inline-block px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">
+        System Initialized
+      </div>
+      <h1 class="text-6xl md:text-[9rem] font-extrabold tracking-tighter leading-[0.8] mb-10 text-gradient">
+        BUILDING THE <br/> UNKNOWN.
+      </h1>
+      <p class="text-lg md:text-2xl opacity-40 max-w-3xl mx-auto mb-12 font-medium">
+        Websites, AI systems, smart contracts, and creative builds — shipped with taste.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#services" class="px-10 py-5 bg-accent text-white rounded-full font-black text-lg hover:opacity-90 transition-all">Explore Services</a>
+        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Email Urua Labs</a>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+        <div>
+          <h2 class="text-5xl md:text-7xl font-black tracking-tighter">SERVICES</h2>
+          <p class="mt-6 opacity-40 max-w-2xl font-medium">
+            Hire Urua Labs for web development, AI programming, NFT creation, and smart contract deployment.
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request" class="px-8 py-4 bg-accent text-white rounded-full font-black text-base hover:opacity-90 transition-all">Request a Quote</a>
+          <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-8 py-4 border border-white/10 rounded-full font-black text-base hover:bg-white/5 transition-all">Email</a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Website Development</div>
+          <ul class="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
+            <li>• Landing pages + full small business websites</li>
+            <li>• Mobile-first design, SEO basics, fast hosting</li>
+            <li>• Vercel deploy + custom domains</li>
+          </ul>
+        </div>
+        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">AI Programmer</div>
+          <ul class="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
+            <li>• Automation + workflow tooling</li>
+            <li>• AI features for websites/apps (safely)</li>
+            <li>• Integrations: docs, forms, chat, back office</li>
+          </ul>
+        </div>
+        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">NFT Creator</div>
+          <ul class="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
+            <li>• NFT drops + mint pages</li>
+            <li>• Metadata, reveal flows, and collector UX</li>
+            <li>• Token-gated content / communities</li>
+          </ul>
+        </div>
+        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Smart Contract Deployment</div>
+          <ul class="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
+            <li>• Deploy + verify contracts</li>
+            <li>• Frontend integrations + wallet flows</li>
+            <li>• Safety-first: testnets, reviews, staged launches</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Music -->
+    <section id="music" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
+      <div class="glass rounded-[3.5rem] p-10 md:p-16 border border-white/10">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+          <div>
+            <div class="inline-block mb-6 px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">Sam Sage</div>
+            <h2 class="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95]">MUSIC CATALOG</h2>
+            <p class="mt-6 opacity-50 max-w-2xl font-medium">Follow the sound across worlds — releases, experiments, and creator energy.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href="https://www.youtube.com/@samsagewize" target="_blank" rel="noreferrer" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm">YouTube</a>
+            <a href="https://open.spotify.com/artist/3o7QHIT3xAl7YM7nd9QiTk" target="_blank" rel="noreferrer" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm">Spotify</a>
+            <a href="https://music.apple.com/us/artist/sam-sage/1022465537" target="_blank" rel="noreferrer" class="px-6 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-sm">Apple Music</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vision -->
+    <section id="vision" class="bg-accent py-32 text-center relative overflow-hidden">
+      <div class="absolute inset-0 flex items-center justify-center text-[18rem] md:text-[30rem] font-black opacity-10 pointer-events-none italic whitespace-nowrap">2026 2026 2026</div>
+      <div class="relative z-10 px-8">
+        <h2 class="text-5xl md:text-[8rem] font-black tracking-tighter mb-6 leading-none">FEBRUARY 22</h2>
+        <p class="text-xl md:text-3xl font-bold opacity-80 uppercase tracking-[0.3em]">The New Web Begins.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 text-center border-t border-white/5 mx-8">
+      <p class="opacity-20 text-[10px] font-black tracking-widest uppercase">© 2026 URUA LABS</p>
+    </footer>
+  </main>
+
+  <!-- Penguin mascot -->
   <div id="penguin-mascot" aria-label="Penguin, Urua Labs assistant">
     <div id="penguin-bubble" role="status" aria-live="polite"></div>
     <button id="penguin-btn" title="Penguin (click me)">
-      <!-- Pixel-ish inline SVG penguin (keeps the page lightweight) -->
+      <!-- Pixel-ish inline SVG penguin -->
       <svg width="44" height="44" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="image-rendering: pixelated; shape-rendering: crispEdges;">
         <!-- body -->
         <rect x="6" y="2" width="4" height="1" fill="#0B0B0B"/>
@@ -256,24 +332,23 @@
       const mascot = document.getElementById('penguin-mascot');
       const btn = document.getElementById('penguin-btn');
       const bubble = document.getElementById('penguin-bubble');
-
       if (!mascot || !btn || !bubble) return;
 
       const LINES = [
-        { t: 'PENGUIN', m: "Waddup. Welcome to Urua Labs." },
-        { t: 'PENGUIN', m: "Need music, creator services, or web3 cred? I got you." },
-        { t: 'PENGUIN', m: "Scroll a bit — the lab’s focus is hiding in plain sight." },
-        { t: 'PENGUIN', m: "Pro tip: small moves shipped daily beat big dreams ‘someday’." },
-        { t: 'PENGUIN', m: "Click me again. I’m friendly. Mostly." },
+        { t: 'PENGUIN', m: 'Waddup. Welcome to Urua Labs.' },
+        { t: 'PENGUIN', m: 'Need a website, AI automation, or web3 build? Email us.' },
+        { t: 'PENGUIN', m: 'Scroll for services. I run this place. Literally.' },
+        { t: 'PENGUIN', m: 'Small moves shipped daily beat big dreams “someday”.' },
       ];
 
       let i = 0;
       let hideTimer = null;
+
       const show = (line) => {
         bubble.innerHTML = `<span class="title">${line.t}</span>${line.m}`;
         bubble.classList.add('show');
         clearTimeout(hideTimer);
-        hideTimer = setTimeout(() => bubble.classList.remove('show'), 3600);
+        hideTimer = setTimeout(() => bubble.classList.remove('show'), 3800);
       };
 
       const pauseRun = (ms) => {
@@ -291,402 +366,10 @@
         pauseRun(1200);
       });
 
-      // Say hi once, a moment after load
       window.addEventListener('load', () => {
         setTimeout(() => show(LINES[0]), 900);
       });
     })();
-  </script>
-
-  <script type="text/babel" data-type="module">
-    import React, { useState, useEffect, useRef } from 'react';
-    import ReactDOM from 'react-dom/client';
-    import { GoogleGenAI } from '@google/genai';
-    import { motion, AnimatePresence } from 'framer-motion';
-
-    // Safe environment variable access
-    const getApiKey = () => {
-      try { return process.env.API_KEY || ''; } 
-      catch { return ''; }
-    };
-
-    // AI Initialization
-    const ai = new GoogleGenAI({ apiKey: getApiKey() });
-
-    const callLabAI = async (prompt) => {
-      try {
-        const response = await ai.models.generateContent({
-          model: 'gemini-3-flash-preview',
-          contents: prompt,
-          config: {
-            systemInstruction: `You are Urua-GPT, the neural engine of Urua Labs. 
-            Urua Labs builds the future of Web3, spatial interfaces, and decentralized creator ecosystems.
-            Launch: Feb 22, 2026.
-            Tone: Futuristic, concise, high-intelligence. 
-            Maintain the mystery of the lab while being helpful.`,
-            temperature: 0.9,
-          },
-        });
-        return response.text;
-      } catch (err) {
-        return "Neural link offline. Please re-synchronize after Genesis.";
-      }
-    };
-
-    // UI Components
-    const AIAssistant = () => {
-      const [isOpen, setIsOpen] = useState(false);
-      const [messages, setMessages] = useState([
-        { role: 'model', text: 'Identity scan complete. System online. How can Urua Labs assist your journey to 2026?' }
-      ]);
-      const [input, setInput] = useState('');
-      const [isThinking, setIsThinking] = useState(false);
-      const bottomRef = useRef(null);
-
-      useEffect(() => {
-        bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
-      }, [messages, isThinking]);
-
-      const handleSend = async (e) => {
-        e.preventDefault();
-        if (!input.trim() || isThinking) return;
-        const msg = input;
-        setInput('');
-        setMessages(prev => [...prev, { role: 'user', text: msg }]);
-        setIsThinking(true);
-        const reply = await callLabAI(msg);
-        setMessages(prev => [...prev, { role: 'model', text: reply }]);
-        setIsThinking(false);
-      };
-
-      return (
-        <div className="fixed bottom-6 right-6 z-[999]">
-          <AnimatePresence>
-            {isOpen && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                className="mb-4 w-80 md:w-[400px] glass dark:bg-[#0a0a0a] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col border border-white/10"
-              >
-                <div className="p-5 bg-accent text-white flex justify-between items-center">
-                  <span className="text-[10px] font-black tracking-[0.3em] uppercase">Neural Interface v1.0</span>
-                  <button onClick={() => setIsOpen(false)}>✕</button>
-                </div>
-                <div className="h-80 overflow-y-auto p-4 flex flex-col gap-3 text-sm">
-                  {messages.map((m, i) => (
-                    <div key={i} className={`p-3 rounded-2xl ${m.role === 'user' ? 'bg-white/5 ml-auto' : 'bg-accent/10 text-accent mr-auto border border-accent/20'}`}>
-                      {m.text}
-                    </div>
-                  ))}
-                  {isThinking && <div className="text-[10px] opacity-40 animate-pulse uppercase tracking-widest">Processing...</div>}
-                  <div ref={bottomRef} />
-                </div>
-                <form onSubmit={handleSend} className="p-4 border-t border-white/10 flex gap-2 bg-black/40">
-                  <input value={input} onChange={e => setInput(e.target.value)} placeholder="Query the Lab..." className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-2 text-sm outline-none focus:border-accent transition-colors" />
-                  <button type="submit" className="w-10 h-10 bg-accent rounded-full flex items-center justify-center">🚀</button>
-                </form>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <button onClick={() => setIsOpen(!isOpen)} className="w-16 h-16 bg-accent rounded-full shadow-2xl flex items-center justify-center text-3xl hover:scale-110 active:scale-90 transition-all">
-            🛰️
-          </button>
-        </div>
-      );
-    };
-
-    const RetroTheme = ({ onToggle }) => {
-      const wins = [
-        { id: 1, t: 'Readme.doc', c: 'Urua Labs Alpha\nKernel: 2026.02\nStatus: Stealth', x: 100, y: 100 },
-        { id: 2, t: 'Vision.txt', c: 'Building a faster, more decentralized web.\nPixels matter.', x: 300, y: 200 }
-      ];
-
-      return (
-        <div className="min-h-screen bg-[#008080] font-mono relative overflow-hidden" style={{ cursor: 'url(https://win98icons.alexmeub.com/icons/png/mouse-0.png), auto' }}>
-          <div className="p-4 flex flex-col gap-6 items-start w-24">
-            <div className="flex flex-col items-center gap-1 cursor-pointer">
-              <img src="https://win98icons.alexmeub.com/icons/png/my_computer-0.png" className="w-10 h-10" />
-              <span className="text-white text-[10px] bg-[#000080] px-1 border border-white/20">My Lab</span>
-            </div>
-            <div className="flex flex-col items-center gap-1 cursor-pointer" onDoubleClick={onToggle}>
-              <img src="https://win98icons.alexmeub.com/icons/png/world-0.png" className="w-10 h-10" />
-              <span className="text-white text-[10px] bg-[#000080] px-1 border border-white/20">Exit Legacy</span>
-            </div>
-          </div>
-
-          {wins.map(w => (
-            <div key={w.id} className="absolute bg-[#c0c0c0] retro-outset w-64 md:w-80 shadow-2xl" style={{ left: w.x, top: w.y }}>
-              <div className="bg-[#000080] p-1 flex justify-between items-center text-white font-bold text-xs px-2">
-                <span className="truncate">{w.t}</span>
-                <div className="flex gap-1"><button className="bg-[#c0c0c0] text-black w-4 h-4 text-[8px] retro-outset">X</button></div>
-              </div>
-              <div className="p-3 bg-white m-1 retro-inset h-32 text-xs overflow-auto">{w.c}</div>
-            </div>
-          ))}
-
-          <div className="fixed bottom-0 left-0 right-0 h-10 bg-[#c0c0c0] retro-outset flex items-center px-1 z-50">
-            <button onClick={onToggle} className="h-8 px-4 bg-[#c0c0c0] retro-outset flex items-center gap-2 font-bold text-xs active:retro-inset">
-              <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" className="w-4 h-4" /> Start
-            </button>
-            <div className="ml-auto px-4 py-1 retro-inset font-bold text-[10px]">
-              {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-            </div>
-          </div>
-        </div>
-      );
-    };
-
-    const ModernTheme = ({ onToggle, isDark, onDarkToggle }) => {
-      const [modal, setModal] = useState(true);
-      const services = [
-        { n: "Websites for Small Business", d: "Fast, modern sites that look premium and convert.", i: "🖥️" },
-        { n: "AI Services", d: "Automations, chat experiences, and practical AI tooling.", i: "🧠" },
-        { n: "Smart Contracts", d: "Deploy + integrate contracts safely, with real UX.", i: "⛓️" },
-        { n: "Creative Projects", d: "Interactive builds, music-driven experiences, and experiments.", i: "🧪" }
-      ];
-
-      return (
-        <div className="relative pb-32">
-          {/* Header */}
-          <header className="fixed top-0 left-0 right-0 h-24 px-8 md:px-16 flex items-center justify-between glass z-[100]">
-            <span className="text-3xl font-black tracking-tighter">URUA<span className="text-accent italic">LABS</span></span>
-            <div className="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.3em]">
-              <a href="#vision" className="hover:text-accent transition-colors">Vision</a>
-              <a href="#labs" className="hover:text-accent transition-colors">Labs</a>
-              <a href="#music" className="hover:text-accent transition-colors">Music</a>
-              <button onClick={onToggle} className="hover:text-accent border border-white/10 px-4 py-1.5 rounded-full">Retro</button>
-              <button onClick={onDarkToggle}>{isDark ? '🌞' : '🌙'}</button>
-            </div>
-          </header>
-
-          {/* Hero */}
-          <section className="min-h-screen flex flex-col items-center justify-center px-8 text-center pt-24">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.5 }}>
-              <div className="mb-10 inline-block px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">
-                System Initialized
-              </div>
-              <h1 className="text-6xl md:text-[11rem] font-extrabold tracking-tighter leading-[0.8] mb-12 text-gradient">
-                BUILDING THE <br/> UNKNOWN.
-              </h1>
-              <p className="text-lg md:text-3xl opacity-40 max-w-3xl mx-auto mb-16 font-medium">
-                Urua Labs is a futuristic venture ecosystem architecting the next layer of digital autonomy.
-              </p>
-              <div className="flex flex-wrap justify-center gap-6">
-                <a href="#labs" className="px-12 py-5 bg-accent text-white rounded-full font-black text-xl hover:scale-105 shadow-2xl shadow-accent/40 transition-all">Explore Labs</a>
-                <button onClick={() => setModal(true)} className="px-12 py-5 border border-white/10 rounded-full font-black text-xl hover:bg-white/5 transition-all">Request Entry</button>
-              </div>
-            </motion.div>
-          </section>
-
-          {/* Focus */}
-          <section id="labs" className="py-40 px-8 max-w-7xl mx-auto">
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
-              <div>
-                <h2 className="text-5xl md:text-8xl font-black tracking-tighter">SERVICES</h2>
-                <p className="mt-6 opacity-40 max-w-2xl font-medium">
-                  Urua Labs builds websites, AI workflows, and web3 systems — with creative edge and real delivery.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry"
-                  className="px-8 py-4 bg-accent text-white rounded-full font-black text-base hover:opacity-90 transition-all"
-                >
-                  Email Urua Labs
-                </a>
-                <button
-                  onClick={() => setModal(true)}
-                  className="px-8 py-4 border border-white/10 rounded-full font-black text-base hover:bg-white/5 transition-all"
-                >
-                  Request a Quote
-                </button>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {services.map((p, i) => (
-                <motion.div key={i} whileHover={{ y: -10 }} className="p-12 rounded-[3.5rem] glass hover:border-accent/50 transition-all group">
-                  <div className="text-6xl mb-10 group-hover:scale-110 transition-transform">{p.i}</div>
-                  <h3 className="text-2xl font-black mb-4 tracking-tight">{p.n}</h3>
-                  <p className="opacity-40 text-sm font-medium leading-relaxed">{p.d}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Service details */}
-            <div className="mt-10 grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-                <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Website Development</div>
-                <ul className="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
-                  <li>• Landing pages + full small business websites</li>
-                  <li>• Mobile-first design, SEO basics, fast hosting</li>
-                  <li>• Vercel deploy + custom domains</li>
-                </ul>
-              </div>
-              <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-                <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">AI Programmer</div>
-                <ul className="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
-                  <li>• Automation + workflow tooling</li>
-                  <li>• AI features for websites/apps (safely)</li>
-                  <li>• Integrations: docs, forms, chat, back office</li>
-                </ul>
-              </div>
-              <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-                <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">NFT Creator</div>
-                <ul className="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
-                  <li>• NFT drops + mint pages</li>
-                  <li>• Metadata, reveal flows, and collector UX</li>
-                  <li>• Token-gated content / communities</li>
-                </ul>
-              </div>
-              <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-                <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Smart Contract Deployment</div>
-                <ul className="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
-                  <li>• Deploy + verify contracts</li>
-                  <li>• Frontend integrations + wallet flows</li>
-                  <li>• Safety-first: testnets, reviews, staged launches</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* Music (Sam Sage) */}
-          <section id="music" className="py-28 md:py-36 px-8 max-w-7xl mx-auto">
-            <div className="glass rounded-[3.5rem] p-10 md:p-16 border border-white/10">
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
-                <div>
-                  <div className="inline-block mb-6 px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">
-                    Sam Sage
-                  </div>
-                  <h2 className="text-4xl md:text-7xl font-black tracking-tighter leading-[0.95]">MUSIC CATALOG</h2>
-                  <p className="mt-6 opacity-50 max-w-2xl font-medium">
-                    Follow the sound across worlds — releases, experiments, and creator energy.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-3">
-                  <a
-                    href="https://www.youtube.com/@samsagewize"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm"
-                  >
-                    YouTube
-                  </a>
-                  <a
-                    href="https://open.spotify.com/artist/3o7QHIT3xAl7YM7nd9QiTk"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm"
-                  >
-                    Spotify
-                  </a>
-                  <a
-                    href="https://music.apple.com/us/artist/sam-sage/1022465537"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="px-6 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-sm"
-                  >
-                    Apple Music
-                  </a>
-                </div>
-              </div>
-
-              <div className="mt-10 grid grid-cols-1 lg:grid-cols-3 gap-4">
-                <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-                  <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Start here</div>
-                  <div className="mt-3 text-2xl font-black">Top Tracks</div>
-                  <div className="mt-3 opacity-50 text-sm">We’ll curate this next with your best 3–10 links.</div>
-                </div>
-                <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-                  <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">For humans</div>
-                  <div className="mt-3 text-2xl font-black">Services</div>
-                  <div className="mt-3 opacity-50 text-sm">Creator work across projects — coming online in phases.</div>
-                </div>
-                <div className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-                  <div className="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">For web3</div>
-                  <div className="mt-3 text-2xl font-black">Cred</div>
-                  <div className="mt-3 opacity-50 text-sm">On-chain + experimental work — we’ll link projects next.</div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Vision */}
-          <section id="vision" className="bg-accent py-40 text-center relative overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center text-[30rem] font-black opacity-10 pointer-events-none italic whitespace-nowrap">
-              2026 2026 2026 2026
-            </div>
-            <div className="relative z-10 px-8">
-              <h2 className="text-6xl md:text-[11rem] font-black tracking-tighter mb-8 leading-none">FEBRUARY 22</h2>
-              <p className="text-2xl md:text-5xl font-bold opacity-80 uppercase tracking-[0.4em]">The New Web Begins.</p>
-            </div>
-          </section>
-
-          {/* Footer */}
-          <footer className="py-24 text-center border-t border-white/5 mx-8">
-            <div className="flex justify-center gap-12 mb-10 opacity-30 font-black text-[10px] tracking-[0.4em] uppercase">
-              <a href="#">X (Twitter)</a>
-              <a href="#">Discord</a>
-              <a href="#">Mirror</a>
-            </div>
-            <p className="opacity-20 text-[10px] font-black tracking-widest uppercase">© 2026 URUA LABS — STEALTH PROTOCOL.</p>
-          </footer>
-
-          <AnimatePresence>
-            {modal && (
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-black/95 backdrop-blur-3xl">
-                <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} className="bg-[#0a0a0a] p-12 md:p-20 rounded-[4rem] max-w-2xl w-full text-center relative border border-white/5 shadow-2xl">
-                  <button onClick={() => setModal(false)} className="absolute top-10 right-10 text-4xl font-light hover:text-accent transition-all">✕</button>
-                  <div className="bg-accent/10 text-accent px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest uppercase mb-10 inline-block">Quote Request</div>
-                  <h2 className="text-5xl font-black mb-8 tracking-tight">Build with Urua Labs</h2>
-                  <p className="opacity-40 mb-10 font-medium leading-relaxed text-lg">Tell us what you need (web, AI, smart contracts, or a creative build). We’ll reply fast.</p>
-                  <div className="flex flex-col gap-4 max-w-md mx-auto">
-                    <a
-                      href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request&body=Hi%20Urua%20Labs%2C%0A%0AI%27m%20interested%20in%3A%20(web%20dev%20%2F%20AI%20%2F%20smart%20contracts%20%2F%20creative)%0A%0ATimeline%3A%0ABudget%3A%0ALinks%3A%0A%0AThanks%2C"
-                      className="w-full py-6 bg-accent text-white rounded-[2rem] font-black text-xl hover:shadow-2xl shadow-accent/40 active:scale-95 transition-all text-center"
-                    >
-                      Email urualabs@gmail.com
-                    </a>
-                    <button onClick={() => setModal(false)} className="w-full py-5 border border-white/10 rounded-[2rem] font-black text-base hover:bg-white/5 transition-all">Not ready? Explore the site</button>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      );
-    };
-
-    const App = () => {
-      const [theme, setTheme] = useState('MODERN');
-      const [isDark, setIsDark] = useState(true);
-
-      useEffect(() => {
-        document.documentElement.classList.toggle('dark', isDark);
-      }, [isDark]);
-
-      return (
-        <div className="min-h-screen transition-colors duration-1000">
-          {theme === 'MODERN' ? (
-            <ModernTheme 
-              onToggle={() => setTheme('RETRO')} 
-              isDark={isDark} 
-              onDarkToggle={() => setIsDark(!isDark)} 
-            />
-          ) : (
-            <RetroTheme onToggle={() => setTheme('MODERN')} />
-          )}
-          {theme === 'MODERN' && <AIAssistant />}
-        </div>
-      );
-    };
-
-    const container = document.getElementById('root');
-    const root = ReactDOM.createRoot(container);
-    root.render(<App />);
   </script>
 </body>
 </html>
