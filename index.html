@@ -38,6 +38,75 @@
       overflow-x: hidden;
     }
 
+    /* Mobile app-like bottom nav */
+    #mobile-bottom-nav {
+      display: none;
+    }
+
+    @media (max-width: 767px) {
+      body {
+        padding-bottom: 92px; /* space for bottom nav */
+      }
+
+      #mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        z-index: 1600;
+        height: 64px;
+        border-radius: 22px;
+        background: rgba(10, 10, 10, 0.72);
+        border: 1px solid rgba(255,255,255,0.12);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        padding: 10px 12px;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      #mobile-bottom-nav a,
+      #mobile-bottom-nav button {
+        all: unset;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.04);
+        color: rgba(255,255,255,0.92);
+        font-weight: 900;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      }
+
+      #mobile-bottom-nav .home {
+        width: 54px;
+        height: 54px;
+        background: #0066ff;
+        border-color: rgba(0, 102, 255, 0.9);
+        box-shadow: 0 14px 40px rgba(0, 102, 255, 0.25);
+      }
+
+      #mobile-bottom-nav .label {
+        font-size: 9px;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.75;
+        margin-top: 3px;
+      }
+
+      #mobile-bottom-nav .item {
+        display: grid;
+        place-items: center;
+        gap: 2px;
+      }
+    }
+
     .glass {
       background: rgba(255, 255, 255, 0.02);
       backdrop-filter: blur(20px);
@@ -199,6 +268,30 @@
       <button id="penguin-menu-mobile" class="px-3 py-2 rounded-full border border-white/10 font-black text-xs hover:bg-white/5">PingWin</button>
     </div>
   </header>
+
+  <!-- Mobile bottom nav (app-like) -->
+  <nav id="mobile-bottom-nav" aria-label="Mobile navigation">
+    <a href="#services" class="item" title="Services">
+      <div>🛠</div>
+      <div class="label">Services</div>
+    </a>
+    <a href="#projects" class="item" title="Projects">
+      <div>🧩</div>
+      <div class="label">Projects</div>
+    </a>
+    <a href="#top" class="home item" title="Home">
+      <div>⌂</div>
+      <div class="label" style="opacity:0.95;">Home</div>
+    </a>
+    <a href="#blockchain" class="item" title="Blockchain">
+      <div>⛓</div>
+      <div class="label">Chain</div>
+    </a>
+    <button id="mobile-pingwin" class="item" title="PingWin">
+      <div>🐧</div>
+      <div class="label">PingWin</div>
+    </button>
+  </nav>
 
   <!-- Hero -->
   <main id="top" class="pt-24">
@@ -574,6 +667,14 @@
       const menuBtnMobile = document.getElementById('penguin-menu-mobile');
       if (menuBtnMobile) {
         menuBtnMobile.addEventListener('click', (e) => {
+          e.preventDefault();
+          openChat();
+        });
+      }
+
+      const bottomPingwin = document.getElementById('mobile-pingwin');
+      if (bottomPingwin) {
+        bottomPingwin.addEventListener('click', (e) => {
           e.preventDefault();
           openChat();
         });
