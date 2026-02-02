@@ -331,7 +331,7 @@
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
         <div>
           <h2 class="text-5xl md:text-7xl font-black tracking-tighter">BLOCKCHAIN PORTFOLIO</h2>
-          <p class="mt-6 opacity-40 max-w-2xl font-medium">Organized by chain. Starting with Bitcoin creations.</p>
+          <p class="mt-6 opacity-40 max-w-2xl font-medium">Organized by chain. Bitcoin collections + Solana token drops.</p>
         </div>
         <div class="flex flex-wrap gap-3">
           <a href="mailto:urualabs@gmail.com?subject=Bitcoin%20Creation%20Inquiry" class="px-8 py-4 border border-white/10 rounded-full font-black text-base hover:bg-white/5 transition-all">Ask about Bitcoin builds</a>
@@ -348,6 +348,7 @@
             <a href="mailto:urualabs@gmail.com?subject=Ordinookis%20Inquiry" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Ask about it</a>
           </div>
         </div>
+
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Bitcoin • Ordinals</div>
           <div class="mt-3 text-2xl font-black">Rare78</div>
@@ -357,10 +358,16 @@
             <a href="mailto:urualabs@gmail.com?subject=Rare78%20Inquiry" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Ask about it</a>
           </div>
         </div>
+
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Bitcoin</div>
-          <div class="mt-3 text-2xl font-black">Wallet UX + Integrations</div>
-          <div class="mt-3 opacity-60 text-sm">Simple UX that normal people can use: buy, view, verify, and share. (Add examples.)</div>
+          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Solana • Token</div>
+          <div class="mt-3 text-2xl font-black">PingWin</div>
+          <div class="mt-3 opacity-60 text-sm">A PingWin token created by URU — part of the Urua Labs story.</div>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href="https://bags.fm/FVku66NdAeXMHyatQ9dzHqsirxwnVARWPEeLNWSLBAGS" target="_blank" rel="noreferrer" class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">View on bags.fm</a>
+            <a href="mailto:urualabs@gmail.com?subject=PingWin%20Token%20(Solana)%20Inquiry" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Ask about it</a>
+          </div>
+          <div class="mt-6 text-[10px] opacity-60 font-black tracking-[0.35em] uppercase">FVku66Nd…LBAGS</div>
         </div>
       </div>
     </section>
@@ -527,6 +534,10 @@
 
         if (q.includes('service') || q.includes('website') || q.includes('web dev') || q.includes('ai') || q.includes('smart contract') || q.includes('nft')) {
           return `Services: <b>Website Development</b>, <b>AI Programming</b>, <b>NFT Creation</b>, <b>Smart Contract Deployment</b>. Want a quote? Email <b>urualabs@gmail.com</b>.`;
+        }
+
+        if (q.includes('solana') || q.includes('bags') || q.includes('bags.fm') || q.includes('fvku66') || q.includes('token')) {
+          return `Solana: the <b>PingWin</b> token is live on <b>bags.fm</b>. Ask about it at <b>urualabs@gmail.com</b>.`;
         }
 
         if (q.includes('bitcoin') || q.includes('ordinals') || q.includes('inscription') || q.includes('magic eden') || q.includes('ordinookis') || q.includes('rare78')) {
