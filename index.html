@@ -362,9 +362,10 @@
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Solana • Token</div>
           <div class="mt-3 text-2xl font-black">PingWin</div>
-          <div class="mt-3 opacity-60 text-sm">The AI Assistance From Openclaw that lives in Urua Labs</div>
+          <div class="mt-3 opacity-60 text-sm">PingWin is the mascot + operating system of Urua Labs — born from the terminal where the assistant runs.</div>
           <div class="mt-5 flex flex-wrap gap-3">
             <a href="https://bags.fm/FVku66NdAeXMHyatQ9dzHqsirxwnVARWPEeLNWSLBAGS" target="_blank" rel="noreferrer" class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">View on bags.fm</a>
+            <button onclick="window.PINGWIN_OPEN_CHAT && window.PINGWIN_OPEN_CHAT()" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">PingWin Lore</button>
             <a href="mailto:urualabs@gmail.com?subject=PingWin%20Token%20(Solana)%20Inquiry" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Ask about it</a>
           </div>
           <div class="mt-6 text-[10px] opacity-60 font-black tracking-[0.35em] uppercase">FVku66Nd…LBAGS</div>
@@ -496,6 +497,9 @@
         setTimeout(() => chatInput?.focus(), 0);
       };
 
+      // Allow HTML buttons elsewhere on the page to open chat
+      window.PINGWIN_OPEN_CHAT = openChat;
+
       const closeChat = () => {
         if (!chat) return;
         chat.style.display = 'none';
@@ -522,6 +526,10 @@
 
         if (q.includes('email') || q.includes('contact') || q.includes('hire') || q.includes('quote')) {
           return `Email <b>urualabs@gmail.com</b> — tell us what you want built, timeline, and budget.`;
+        }
+
+        if (q.includes('lore') || q.includes('origin') || q.includes('name') || q.includes('why pingwin') || q.includes('what is pingwin')) {
+          return `PingWin lore: the name came from the terminal/host where the assistant runs — <b>penguin</b> → <b>pingwin</b>. It became the mascot + operating system of Urua Labs: ship daily, stay honest, keep momentum.`;
         }
 
         if (q.includes('pingwin') || q.includes('openclaw') || q.includes('assistant for my business')) {
