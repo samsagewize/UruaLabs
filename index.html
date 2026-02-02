@@ -366,6 +366,22 @@
           </ul>
         </div>
       </div>
+
+      <!-- Get a quote (fast) -->
+      <div class="mt-10 glass rounded-[3.5rem] p-10 md:p-14 border border-white/10">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <div>
+            <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Get a quote (fast)</div>
+            <div class="mt-3 text-3xl md:text-4xl font-black tracking-tight">Tell us your idea → we price it.</div>
+            <div class="mt-3 opacity-50 font-medium">No fixed pricing. Email a few details and we’ll reply with a plan + quote.</div>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href="mailto:urualabs@gmail.com?subject=Website%20Quote%20Request&body=Hi%20Urua%20Labs%2C%0A%0AI%20want%20a%20website.%0A%0A-%20Business%2Fbrand%3A%0A-%20Goal%20(leads%2C%20sales%2C%20portfolio%2C%20etc.)%3A%0A-%20Pages%20needed%3A%0A-%20Examples%20you%20like%3A%0A-%20Timeline%3A%0A-%20Budget%20range%20(optional)%3A%0A%0AThanks%2C" class="px-6 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-sm">Website Quote</a>
+            <a href="mailto:urualabs@gmail.com?subject=PingWin%20Setup%20Quote&body=Hi%20Urua%20Labs%2C%0A%0AI%20want%20PingWin%20installed%20for%20my%20business.%0A%0A-%20Business%20type%3A%0A-%20Goals%3A%0A-%20Tools%20we%20use%20(Gmail%2C%20calendar%2C%20CRM%2C%20etc.)%3A%0A-%20Timeline%3A%0A%0AThanks%2C" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm">PingWin Setup</a>
+            <a href="mailto:urualabs@gmail.com?subject=Web3%20%2F%20Smart%20Contract%20Quote&body=Hi%20Urua%20Labs%2C%0A%0AI%20need%20help%20with%20web3%20or%20smart%20contracts.%0A%0A-%20Chain%3A%0A-%20What%20you%20want%20built%3A%0A-%20Links%2Fdocs%3A%0A-%20Timeline%3A%0A-%20Budget%20range%20(optional)%3A%0A%0AThanks%2C" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-sm">Web3 Quote</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Music -->
@@ -691,8 +707,8 @@
       const answer = (qRaw) => {
         const q = (qRaw || '').toLowerCase();
 
-        if (q.includes('email') || q.includes('contact') || q.includes('hire') || q.includes('quote')) {
-          return `Email <b>urualabs@gmail.com</b> — tell us what you want built, timeline, and budget.`;
+        if (q.includes('email') || q.includes('contact') || q.includes('hire') || q.includes('quote') || q.includes('pricing') || q.includes('price')) {
+          return `We price by project. Fastest path: email <b>urualabs@gmail.com</b> with your idea + timeline. Use the <b>Website Quote</b> / <b>PingWin Setup</b> / <b>Web3 Quote</b> buttons in Services.`;
         }
 
         if (q.includes('lore') || q.includes('origin') || q.includes('name') || q.includes('why pingwin') || q.includes('what is pingwin')) {
