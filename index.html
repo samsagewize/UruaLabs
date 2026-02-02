@@ -153,9 +153,14 @@
       height: 74px;
       user-select: none;
       -webkit-user-select: none;
-      touch-action: manipulation;
+      touch-action: none; /* allow drag */
       filter: drop-shadow(0 12px 22px rgba(0,0,0,0.55));
-      /* stays parked */
+      /* draggable */
+      cursor: grab;
+    }
+
+    #penguin-mascot.dragging {
+      cursor: grabbing;
     }
 
     /* penguin-run-path removed: Penguin stays parked bottom-right */
@@ -576,7 +581,76 @@
         }, ms);
       };
 
+      // Drag + drop PingWin
+      let dragging = false;
+      let dragMoved = false;
+      let dragOffsetX = 0;
+      let dragOffsetY = 0;
+
+      const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+      const ensureLeftTop = () => {
+        // Convert from right/bottom anchoring to left/top once, for predictable dragging.
+        const rect = mascot.getBoundingClientRect();
+        mascot.style.left = `${rect.left}px`;
+        mascot.style.top = `${rect.top}px`;
+        mascot.style.right = 'auto';
+        mascot.style.bottom = 'auto';
+      };
+
+      const onPointerDown = (e) => {
+        // Only left click / primary touch
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        dragging = true;
+        dragMoved = false;
+        mascot.classList.add('dragging');
+        ensureLeftTop();
+        const rect = mascot.getBoundingClientRect();
+        dragOffsetX = e.clientX - rect.left;
+        dragOffsetY = e.clientY - rect.top;
+        try { mascot.setPointerCapture(e.pointerId); } catch {}
+      };
+
+      const onPointerMove = (e) => {
+        if (!dragging) return;
+        dragMoved = true;
+        const maxX = window.innerWidth - mascot.offsetWidth;
+        const maxY = window.innerHeight - mascot.offsetHeight;
+        const x = clamp(e.clientX - dragOffsetX, 0, maxX);
+        const y = clamp(e.clientY - dragOffsetY, 0, maxY);
+        mascot.style.left = `${x}px`;
+        mascot.style.top = `${y}px`;
+      };
+
+      const onPointerUp = (e) => {
+        if (!dragging) return;
+        dragging = false;
+        mascot.classList.remove('dragging');
+        try { mascot.releasePointerCapture(e.pointerId); } catch {}
+        // Persist position
+        try {
+          localStorage.setItem('PINGWIN_POS', JSON.stringify({ left: mascot.style.left, top: mascot.style.top }));
+        } catch {}
+      };
+
+      mascot.addEventListener('pointerdown', onPointerDown);
+      window.addEventListener('pointermove', onPointerMove, { passive: true });
+      window.addEventListener('pointerup', onPointerUp, { passive: true });
+
+      // Restore saved position
+      try {
+        const saved = JSON.parse(localStorage.getItem('PINGWIN_POS') || 'null');
+        if (saved?.left && saved?.top) {
+          mascot.style.left = saved.left;
+          mascot.style.top = saved.top;
+          mascot.style.right = 'auto';
+          mascot.style.bottom = 'auto';
+        }
+      } catch {}
+
       btn.addEventListener('click', () => {
+        // If user dragged, don't treat as a click
+        if (dragMoved) return;
         show(LINES[i % LINES.length]);
         i++;
         pauseRun(1200);
