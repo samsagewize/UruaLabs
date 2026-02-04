@@ -545,11 +545,15 @@
     <div id="penguin-chat" class="glass" aria-label="Penguin chat" style="display:none; position:absolute; right:86px; bottom:12px; width:320px; max-width: min(92vw, 360px); border-radius: 22px; overflow:hidden;">
       <div style="padding:10px 12px; background: rgba(0, 102, 255, 0.14); border-bottom: 1px solid rgba(255,255,255,0.10); display:flex; align-items:center; justify-content:space-between; gap:10px;">
         <div style="font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; font-weight:900; letter-spacing:0.12em; font-size:10px; text-transform:uppercase;">PingWin (powered)</div>
-        <button id="penguin-chat-close" title="Close" style="all:unset; cursor:pointer; font-weight:900; opacity:0.8; padding:4px 8px; border:1px solid rgba(255,255,255,0.12); border-radius:999px;">✕</button>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <a id="pingwin-login" href="/api/auth/login" style="text-decoration:none; padding:6px 10px; border:1px solid rgba(255,255,255,0.12); border-radius:999px; font-weight:900; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color: rgba(255,255,255,0.9);">Sign in</a>
+          <button id="pingwin-logout" title="Logout" style="all:unset; cursor:pointer; font-weight:900; opacity:0.8; padding:6px 10px; border:1px solid rgba(255,255,255,0.12); border-radius:999px; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; display:none;">Logout</button>
+          <button id="penguin-chat-close" title="Close" style="all:unset; cursor:pointer; font-weight:900; opacity:0.8; padding:4px 8px; border:1px solid rgba(255,255,255,0.12); border-radius:999px;">✕</button>
+        </div>
       </div>
       <div id="penguin-chat-log" style="max-height:240px; overflow:auto; padding:12px; display:flex; flex-direction:column; gap:10px;">
         <div style="align-self:flex-start; background: rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); border-radius:16px; padding:10px 12px; font-size:12px; line-height:1.35;">
-          <b>PingWin:</b> This site is powered by PingWin. Ask about services, projects, Bitcoin collections, music, or how to contact URU.
+          <b>PingWin:</b> Owner chat. Please sign in with GitHub to talk to me.
         </div>
       </div>
       <form id="penguin-chat-form" style="display:flex; gap:8px; padding:10px; border-top: 1px solid rgba(255,255,255,0.10); background: rgba(0,0,0,0.35);">
@@ -597,6 +601,8 @@
       const chatLog = document.getElementById('penguin-chat-log');
       const chatForm = document.getElementById('penguin-chat-form');
       const chatInput = document.getElementById('penguin-chat-input');
+      const loginBtn = document.getElementById('pingwin-login');
+      const logoutBtn = document.getElementById('pingwin-logout');
 
       if (!mascot || !btn || !bubble) return;
 
@@ -733,46 +739,25 @@
         chatLog.scrollTop = chatLog.scrollHeight;
       };
 
-      const answer = (qRaw) => {
-        const q = (qRaw || '').toLowerCase();
+      const setAuthedUI = (authed, login = '') => {
+        if (loginBtn) loginBtn.style.display = authed ? 'none' : 'inline-block';
+        if (logoutBtn) logoutBtn.style.display = authed ? 'inline-block' : 'none';
+        if (chatInput) chatInput.disabled = !authed;
+        if (chatInput) chatInput.placeholder = authed ? 'Ask PingWin…' : 'Sign in to chat (GitHub)';
+      };
 
-        if (q.includes('email') || q.includes('contact') || q.includes('hire') || q.includes('quote') || q.includes('pricing') || q.includes('price')) {
-          return `We price by project. Fastest path: email <b>urualabs@gmail.com</b> with your idea + timeline. Use the <b>Website Quote</b> / <b>PingWin Setup</b> / <b>Web3 Quote</b> buttons in Services.`;
+      const checkAuth = async () => {
+        try {
+          const r = await fetch('/api/auth/me');
+          const j = await r.json();
+          if (j.authed) {
+            setAuthedUI(true, j.login);
+          } else {
+            setAuthedUI(false);
+          }
+        } catch {
+          setAuthedUI(false);
         }
-
-        if (q.includes('lore') || q.includes('origin') || q.includes('name') || q.includes('why pingwin') || q.includes('what is pingwin')) {
-          return `PingWin lore: the name came from the terminal/host where the assistant runs — <b>penguin</b> → <b>pingwin</b>. It became the mascot + operating system of Urua Labs: ship daily, stay honest, keep momentum.`;
-        }
-
-        if (q.includes('pingwin') || q.includes('openclaw') || q.includes('assistant for my business')) {
-          return `PingWin: we help install an <b>OpenClaw-powered business assistant</b> tuned to your workflows. Want setup help? Email <b>urualabs@gmail.com</b> with what tools you use and your goals.`;
-        }
-
-        if (q.includes('project') || q.includes('product') || q.includes('cold call') || q.includes('extension')) {
-          return `Projects: <b>Cold Call Extension</b> (demo) at <b>cold-call-extension.vercel.app</b>. You can buy the idea or integrate it — email <b>urualabs@gmail.com</b>.`;
-        }
-
-        if (q.includes('service') || q.includes('website') || q.includes('web dev') || q.includes('ai') || q.includes('smart contract') || q.includes('nft')) {
-          return `Services: <b>Website Development</b>, <b>AI Programming</b>, <b>NFT Creation</b>, <b>Smart Contract Deployment</b>. Want a quote? Email <b>urualabs@gmail.com</b>.`;
-        }
-
-        if (q.includes('solana') || q.includes('bags') || q.includes('bags.fm') || q.includes('fvku66') || q.includes('token')) {
-          return `Solana: the <b>PingWin</b> token is live on <b>bags.fm</b>. Ask about it at <b>urualabs@gmail.com</b>.`;
-        }
-
-        if (q.includes('bitcoin') || q.includes('ordinals') || q.includes('inscription') || q.includes('magic eden') || q.includes('ordinookis') || q.includes('rare78')) {
-          return `Bitcoin creations: <b>Ordinookis</b> + <b>Rare78</b> on Magic Eden. Ask about builds/collections at <b>urualabs@gmail.com</b>.`;
-        }
-
-        if (q.includes('music') || q.includes('sam sage') || q.includes('song')) {
-          return `Music: Sam Sage on YouTube/Spotify/Apple Music. Visit <b>samsage.com</b> or hit <b>Request a Song</b> in the Music section.`;
-        }
-
-        if (q.includes('penguin') || q.includes('who are you')) {
-          return `I’m <b>Pingwin</b> — the tiny assistant on urualabs.com. I point you to the right place and how to contact URU.`;
-        }
-
-        return `I can help with: <b>services</b>, <b>projects</b>, <b>Bitcoin portfolio</b>, <b>music</b>, or <b>contact</b>. Try asking: “What projects do you have?”`; 
       };
 
       // Menu button opens chat
@@ -810,17 +795,46 @@
         closeChat();
       });
 
-      chatForm?.addEventListener('submit', (e) => {
+      logoutBtn?.addEventListener('click', async (e) => {
+        e.preventDefault();
+        try { await fetch('/api/auth/logout'); } catch {}
+        setAuthedUI(false);
+        addMsg('PingWin', 'Logged out.', 'left');
+      });
+
+      chatForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
         const q = chatInput?.value?.trim();
         if (!q) return;
         addMsg('You', q, 'right');
         chatInput.value = '';
-        addMsg('Penguin', answer(q), 'left');
+
+        // Authenticated server chat
+        try {
+          const r = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ message: q }),
+          });
+          if (r.status === 401) {
+            setAuthedUI(false);
+            addMsg('PingWin', 'Please sign in with GitHub to chat.', 'left');
+            return;
+          }
+          const j = await r.json();
+          addMsg('PingWin', j.reply || '(no reply)', 'left');
+        } catch (err) {
+          addMsg('PingWin', 'Chat server offline. Try again in a moment.', 'left');
+        }
       });
 
       window.addEventListener('load', () => {
         setTimeout(() => show(LINES[0]), 900);
+        checkAuth();
+        // If user arrives after OAuth redirect, open chat.
+        if (window.location.hash === '#pingwin-chat') {
+          openChat();
+        }
       });
     })();
   </script>
