@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PingWin — Urua Labs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Space+Grotesk:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { colors: { accent: '#0066ff' }, fontFamily: { sans: ['Inter','sans-serif'], display: ['Space Grotesk','sans-serif'] } } }
+    }
+  </script>
+  <style>
+    html, body { height: 100%; background: #050505; }
+    .glass { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+  </style>
+</head>
+<body class="text-white font-sans">
+  <header class="sticky top-0 z-50 glass">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="/" class="font-black tracking-tight text-xl">URUA<span class="text-accent italic">LABS</span></a>
+      <div class="flex gap-2">
+        <a id="login" href="/api/auth/login" class="px-4 py-2 rounded-full bg-accent font-black text-sm">Sign in</a>
+        <button id="logout" class="px-4 py-2 rounded-full border border-white/10 font-black text-sm hidden">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-6">
+    <div class="mb-6">
+      <div class="inline-block px-4 py-2 rounded-full glass text-xs font-black tracking-[0.35em] uppercase opacity-80">PingWin • Owner Chat</div>
+      <h1 class="mt-4 text-4xl md:text-6xl font-black tracking-tighter">Talk to PingWin</h1>
+      <p class="mt-3 opacity-60 max-w-2xl">Private chat for URU. Sign in with GitHub to unlock.</p>
+    </div>
+
+    <div class="glass rounded-3xl overflow-hidden">
+      <div class="px-4 py-3 border-b border-white/10 flex items-center justify-between">
+        <div class="text-xs font-black tracking-[0.35em] uppercase opacity-70">Session</div>
+        <div id="status" class="text-xs opacity-60">Checking auth…</div>
+      </div>
+
+      <div id="log" class="h-[58vh] overflow-auto p-4 flex flex-col gap-3">
+        <div class="self-start max-w-[92%] rounded-2xl px-4 py-3 bg-white/5 border border-white/10 text-sm leading-relaxed">
+          <b>PingWin:</b> Sign in first. Then ask about Urua Labs services, projects, blockchain portfolio, or marketing.
+        </div>
+      </div>
+
+      <form id="form" class="p-3 border-t border-white/10 bg-black/30 flex gap-2">
+        <input id="input" class="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-3 text-sm outline-none focus:border-accent" placeholder="Sign in to chat…" disabled />
+        <button id="send" type="submit" class="px-5 py-3 rounded-full bg-accent font-black text-sm disabled:opacity-40" disabled>Send</button>
+      </form>
+    </div>
+
+    <div class="mt-5 text-xs opacity-40">
+      Tip: if login fails, check Vercel env vars: GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SESSION_SECRET, OWNER_GITHUB_LOGIN, PUBLIC_BASE_URL.
+    </div>
+  </main>
+
+  <script>
+    const logEl = document.getElementById('log');
+    const statusEl = document.getElementById('status');
+    const inputEl = document.getElementById('input');
+    const sendEl = document.getElementById('send');
+    const formEl = document.getElementById('form');
+    const logoutEl = document.getElementById('logout');
+
+    const addMsg = (who, text, side) => {
+      const wrap = document.createElement('div');
+      wrap.className = (side === 'right') ? 'self-end max-w-[92%]' : 'self-start max-w-[92%]';
+      const bubble = document.createElement('div');
+      bubble.className = (side === 'right')
+        ? 'rounded-2xl px-4 py-3 bg-accent/20 border border-white/10 text-sm leading-relaxed'
+        : 'rounded-2xl px-4 py-3 bg-white/5 border border-white/10 text-sm leading-relaxed';
+      bubble.innerHTML = `<b>${who}:</b> ${text}`;
+      wrap.appendChild(bubble);
+      logEl.appendChild(wrap);
+      logEl.scrollTop = logEl.scrollHeight;
+    };
+
+    const setAuthed = (authed, login) => {
+      if (authed) {
+        statusEl.textContent = `Authed as ${login}`;
+        inputEl.disabled = false;
+        sendEl.disabled = false;
+        inputEl.placeholder = 'Ask PingWin…';
+        logoutEl.classList.remove('hidden');
+      } else {
+        statusEl.textContent = 'Not signed in';
+        inputEl.disabled = true;
+        sendEl.disabled = true;
+        inputEl.placeholder = 'Sign in to chat…';
+        logoutEl.classList.add('hidden');
+      }
+    };
+
+    async function checkAuth() {
+      try {
+        const r = await fetch('/api/auth/me');
+        const j = await r.json();
+        setAuthed(!!j.authed, j.login || '');
+      } catch {
+        setAuthed(false);
+      }
+    }
+
+    logoutEl.addEventListener('click', async () => {
+      try { await fetch('/api/auth/logout'); } catch {}
+      addMsg('PingWin', 'Logged out.', 'left');
+      await checkAuth();
+    });
+
+    formEl.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const q = (inputEl.value || '').trim();
+      if (!q) return;
+      addMsg('You', q, 'right');
+      inputEl.value = '';
+      try {
+        const r = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ message: q }),
+        });
+        if (r.status === 401) {
+          addMsg('PingWin', 'Please sign in with GitHub first.', 'left');
+          await checkAuth();
+          return;
+        }
+        const j = await r.json();
+        addMsg('PingWin', j.reply || '(no reply)', 'left');
+      } catch {
+        addMsg('PingWin', 'Server error. Try again.', 'left');
+      }
+    });
+
+    window.addEventListener('load', checkAuth);
+  </script>
+</body>
+</html>

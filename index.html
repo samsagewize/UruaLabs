@@ -264,13 +264,13 @@
       <a href="#music" class="hover:text-accent transition-colors">Music</a>
       <a href="#vision" class="hover:text-accent transition-colors">Vision</a>
       <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="hover:text-accent transition-colors">Email</a>
-      <button id="penguin-menu" class="hover:text-accent transition-colors">PingWin</button>
+      <a href="/pingwin.html" class="hover:text-accent transition-colors">PingWin</a>
     </nav>
 
     <!-- Mobile quick actions -->
     <div class="md:hidden flex items-center gap-2">
       <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-3 py-2 rounded-full bg-accent text-white font-black text-xs">Email</a>
-      <button id="penguin-menu-mobile" class="px-3 py-2 rounded-full border border-white/10 font-black text-xs hover:bg-white/5">PingWin</button>
+      <a href="/pingwin.html" class="px-3 py-2 rounded-full border border-white/10 font-black text-xs hover:bg-white/5">PingWin</a>
     </div>
   </header>
 
@@ -761,20 +761,11 @@
       };
 
       // Menu button opens chat
-      if (menuBtn) {
-        menuBtn.addEventListener('click', (e) => {
-          e.preventDefault();
-          openChat();
-        });
-      }
+      // PingWin nav now links to /pingwin.html (owner chat page)
+      // Keep the in-page chat accessible via mascot double-click / bottom nav.
 
       const menuBtnMobile = document.getElementById('penguin-menu-mobile');
-      if (menuBtnMobile) {
-        menuBtnMobile.addEventListener('click', (e) => {
-          e.preventDefault();
-          openChat();
-        });
-      }
+      // (menuBtnMobile is now an <a>, so no click handler)
 
       const bottomPingwin = document.getElementById('mobile-pingwin');
       if (bottomPingwin) {
