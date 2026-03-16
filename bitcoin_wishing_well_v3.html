@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;1,400&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;overflow-x:hidden;background:#000;}
+#app{position:relative;width:100%;overflow:hidden;}
+
+/* ── INTRO SCENE ── */
+#intro{position:relative;width:100%;height:100vh;min-height:600px;overflow:hidden;cursor:pointer;}
+#intro canvas{position:absolute;inset:0;width:100%;height:100%;}
+.intro-title{position:absolute;top:12%;left:50%;transform:translateX(-50%);text-align:center;z-index:10;pointer-events:none;}
+.intro-title h1{font-family:'Cinzel Decorative',serif;font-size:clamp(1.4rem,4vw,2.6rem);color:#f5c842;letter-spacing:.1em;text-shadow:0 0 40px rgba(245,200,66,.6);line-height:1.2;}
+.intro-title p{font-family:'Lora',serif;font-style:italic;font-size:clamp(.75rem,2vw,.95rem);color:#a08050;margin-top:.5rem;letter-spacing:.05em;}
+.tap-hint{position:absolute;bottom:8%;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;font-size:.75rem;color:#7a5a25;letter-spacing:.2em;text-transform:uppercase;z-index:10;animation:pulse-hint 2s ease-in-out infinite;pointer-events:none;}
+@keyframes pulse-hint{0%,100%{opacity:.4;}50%{opacity:1;}}
+
+/* ── PLUNGE ANIMATION OVERLAY ── */
+#plunge{position:fixed;inset:0;z-index:100;display:none;overflow:hidden;background:#000;}
+#plunge canvas{position:absolute;inset:0;width:100%;height:100%;}
+
+/* ── SPLASH SCREEN ── */
+#splash{position:fixed;inset:0;z-index:110;display:none;overflow:hidden;}
+#splash canvas{position:absolute;inset:0;width:100%;height:100%;}
+
+/* ── MAIN UI ── */
+#ui{display:none;position:relative;z-index:10;min-height:100vh;background:radial-gradient(ellipse at 50% 0%,#140e04 0%,#080502 70%);}
+.ui-inner{max-width:520px;margin:0 auto;padding:1.5rem 1rem 3rem;}
+
+/* Panel */
+.panel{background:linear-gradient(160deg,#1a120a,#0f0905);border:1px solid #4a3510;border-radius:14px;padding:1.5rem;position:relative;overflow:hidden;margin-bottom:1rem;}
+.panel::after{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.5),transparent);}
+.panel-title{font-family:'Cinzel',serif;font-size:.9rem;font-weight:700;color:#f5c842;text-align:center;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.2rem;}
+
+/* Drop zone */
+.drop-zone{border:1.5px dashed #3a2808;border-radius:10px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .3s;background:rgba(245,200,66,.02);position:relative;margin-bottom:1rem;}
+.drop-zone:hover,.drop-zone.over{border-color:#f5c842;background:rgba(245,200,66,.05);}
+.drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.drop-icon{font-size:1.8rem;display:block;margin-bottom:.4rem;}
+.drop-text{font-size:.82rem;color:#8a6a30;line-height:1.5;}
+.drop-text strong{color:#c9a040;}
+
+/* File preview */
+.file-prev{display:none;align-items:center;gap:.7rem;background:rgba(245,200,66,.04);border:1px solid #2a1808;border-radius:8px;padding:.55rem .8rem;margin-bottom:1rem;}
+.file-prev.on{display:flex;}
+.prev-thumb{width:42px;height:42px;border-radius:6px;object-fit:cover;border:1px solid #3a2808;}
+.prev-doc{width:42px;height:42px;border-radius:6px;background:#1a1208;display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:1px solid #3a2808;}
+.prev-info{flex:1;min-width:0;}
+.prev-name{font-size:.8rem;color:#d4a040;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.prev-size{font-size:.7rem;color:#6a4a1a;}
+.prev-rm{background:none;border:none;cursor:pointer;color:#5a3a10;font-size:.9rem;padding:.2rem;transition:color .2s;}
+.prev-rm:hover{color:#e06030;}
+
+/* Textarea */
+.wish-label{display:block;font-size:.72rem;color:#7a5a25;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.35rem;font-family:'Cinzel',serif;}
+.wish-ta{width:100%;background:rgba(0,0,0,.35);border:1px solid #2a1808;border-radius:8px;color:#e8d5a3;font-family:'Lora',serif;font-style:italic;font-size:.88rem;padding:.7rem .9rem;resize:none;height:76px;outline:none;transition:border-color .2s;}
+.wish-ta:focus{border-color:#c9a040;}
+.wish-ta::placeholder{color:#4a3018;}
+
+/* Fees */
+.fees{margin:1rem 0 .8rem;}
+.fee-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;}
+.fee-lbl{font-size:.75rem;color:#6a4a20;font-family:'Cinzel',serif;letter-spacing:.04em;}
+.fee-val{font-size:.78rem;color:#c9a040;}
+.fee-total{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #2a1808;padding-top:.4rem;margin-top:.2rem;}
+.fee-total-lbl{font-size:.8rem;color:#a08040;font-family:'Cinzel',serif;}
+.fee-total-val{font-size:.9rem;color:#f5c842;font-weight:600;}
+
+/* Registry toggle */
+.registry-toggle{display:flex;align-items:flex-start;gap:.75rem;background:rgba(245,200,66,.04);border:1px solid #3a2808;border-radius:10px;padding:.85rem 1rem;margin-bottom:1rem;cursor:pointer;transition:all .25s;}
+.registry-toggle:hover{border-color:#5a3a18;background:rgba(245,200,66,.07);}
+.registry-toggle input[type=checkbox]{width:16px;height:16px;accent-color:#f5c842;cursor:pointer;flex-shrink:0;margin-top:2px;}
+.registry-toggle-text{}
+.registry-toggle-title{font-family:'Cinzel',serif;font-size:.8rem;color:#c9a040;letter-spacing:.06em;margin-bottom:.2rem;}
+.registry-toggle-desc{font-size:.72rem;color:#7a5a25;line-height:1.5;}
+.registry-badge{display:inline-block;background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.3);border-radius:4px;font-size:.62rem;color:#f5c842;padding:1px 5px;font-family:'Cinzel',serif;margin-left:.4rem;vertical-align:middle;}
+
+/* Divider */
+.divider{display:flex;align-items:center;gap:.6rem;margin:.9rem 0;color:#3a2808;font-size:.7rem;font-family:'Cinzel',serif;letter-spacing:.1em;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,#3a2808,transparent);}
+
+/* Wallet */
+.wallet-btns{display:flex;gap:.5rem;margin-bottom:.5rem;}
+.w-btn{flex:1;background:linear-gradient(160deg,#1c1208,#130d05);border:1px solid #3a2808;border-radius:8px;color:#b09040;font-family:'Cinzel',serif;font-size:.72rem;font-weight:600;letter-spacing:.05em;padding:.6rem .4rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.35rem;text-transform:uppercase;}
+.w-btn:hover{border-color:#c9a040;color:#f5c842;}
+.w-btn.on{border-color:#2a6a2a;color:#4aaa4a;}
+.w-addr{font-size:.68rem;color:#4a7a40;font-family:monospace;background:rgba(40,100,40,.06);border:1px solid #1a2f1a;border-radius:5px;padding:.35rem .6rem;display:none;word-break:break-all;}
+.w-addr.on{display:block;}
+
+/* Inscribe btn */
+.inscribe-btn{width:100%;background:linear-gradient(160deg,#7a4e00,#4a3000);border:1.5px solid #b09030;border-radius:10px;color:#ffe890;font-family:'Cinzel',serif;font-size:.95rem;font-weight:700;letter-spacing:.1em;padding:.9rem;cursor:pointer;text-transform:uppercase;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:.5rem;position:relative;overflow:hidden;}
+.inscribe-btn:hover:not(:disabled){border-color:#f5c842;box-shadow:0 0 18px rgba(245,200,66,.25);transform:translateY(-1px);}
+.inscribe-btn:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+
+/* Progress */
+.prog-wrap{display:none;margin-top:.8rem;}
+.prog-wrap.on{display:block;}
+.prog-bg{height:3px;border-radius:2px;background:#1a1008;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,#c9a040,#f5c842);width:0%;transition:width .4s ease;}
+.prog-lbl{font-size:.7rem;color:#6a4a18;text-align:center;margin-top:.3rem;font-family:'Cinzel',serif;letter-spacing:.05em;}
+
+/* Status */
+.status{margin-top:.8rem;display:none;border-radius:8px;padding:.7rem .9rem;font-size:.8rem;line-height:1.5;}
+.status.on{display:block;}
+.status.ok{border:1px solid #285028;background:rgba(40,100,40,.07);color:#60aa60;}
+.status.err{border:1px solid #502020;background:rgba(100,30,30,.07);color:#cc6060;}
+.status.info{border:1px solid #3a2808;background:rgba(60,30,5,.07);color:#a08040;}
+.tx-lnk{display:inline-block;margin-top:.25rem;color:#f5c842;text-decoration:underline;cursor:pointer;font-size:.72rem;word-break:break-all;}
+
+/* Registry list */
+.reg-panel{background:linear-gradient(160deg,#0d0904,#080602);border:1px solid #2a1a08;border-radius:14px;padding:1.25rem;position:relative;overflow:hidden;}
+.reg-panel::after{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(245,200,66,.2),transparent);}
+.reg-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;}
+.reg-title{font-family:'Cinzel',serif;font-size:.82rem;color:#c9a040;letter-spacing:.08em;text-transform:uppercase;}
+.reg-count{font-size:.7rem;color:#5a3a18;font-family:'Cinzel',serif;}
+.reg-count span{color:#c9a040;}
+.wish-item{border:1px solid #1e1006;border-radius:7px;padding:.65rem .8rem;margin-bottom:.45rem;background:rgba(0,0,0,.2);transition:border-color .2s;}
+.wish-item:hover{border-color:#2e1e0a;}
+.wish-item:last-child{margin-bottom:0;}
+.wi-text{font-size:.78rem;color:#c9a040;font-style:italic;line-height:1.4;margin-bottom:.3rem;}
+.wi-meta{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;}
+.wi-tx{font-size:.63rem;color:#4a3018;font-family:monospace;cursor:pointer;transition:color .15s;}
+.wi-tx:hover{color:#c9a040;text-decoration:underline;}
+.wi-pill{font-size:.6rem;border-radius:3px;padding:1px 5px;font-family:'Cinzel',serif;}
+.wi-pill.type{background:rgba(180,120,20,.1);border:1px solid rgba(180,120,20,.2);color:#8a6020;}
+.wi-pill.reg{background:rgba(50,150,80,.08);border:1px solid rgba(50,150,80,.18);color:#3a7840;}
+.wi-pill.demo{background:rgba(100,100,100,.1);border:1px solid rgba(100,100,100,.2);color:#666;}
+.wi-time{font-size:.62rem;color:#3a2808;margin-left:auto;}
+.reg-empty{text-align:center;padding:1.5rem .5rem;color:#3a2808;font-size:.78rem;font-style:italic;}
+</style>
+
+<div id="app">
+
+<!-- INTRO -->
+<div id="intro">
+  <canvas id="introCanvas"></canvas>
+  <div class="intro-title">
+    <h1>The Bitcoin<br>Wishing Well</h1>
+    <p>Inscribe your wish forever on the eternal ledger</p>
+  </div>
+  <div class="tap-hint">↓ tap to descend ↓</div>
+</div>
+
+<!-- PLUNGE -->
+<div id="plunge"><canvas id="plungeCanvas"></canvas></div>
+
+<!-- SPLASH -->
+<div id="splash"><canvas id="splashCanvas"></canvas></div>
+
+<!-- MAIN UI -->
+<div id="ui">
+  <div class="ui-inner">
+
+    <div class="panel">
+      <div class="panel-title">⟡ Cast Your Wish ⟡</div>
+
+      <div class="drop-zone" id="dz">
+        <input type="file" id="fi" accept="image/*,text/*,.txt,.json,.md"/>
+        <span class="drop-icon">🪙</span>
+        <div class="drop-text"><strong>Drop a file here</strong><br>image or text to inscribe on Bitcoin<br><span style="font-size:.68rem;color:#4a3015;">PNG · JPG · TXT · JSON · MD — max 60KB</span></div>
+      </div>
+
+      <div class="file-prev" id="fp">
+        <div class="prev-doc" id="pt">📄</div>
+        <div class="prev-info">
+          <div class="prev-name" id="pn">—</div>
+          <div class="prev-size" id="ps">—</div>
+        </div>
+        <button class="prev-rm" id="prm">✕</button>
+      </div>
+
+      <label class="wish-label" for="wt">Your wish</label>
+      <textarea class="wish-ta" id="wt" placeholder="Write your wish... sealed forever in Bitcoin's stone."></textarea>
+
+      <div class="fees" id="feesBlock">
+        <div class="fee-row"><span class="fee-lbl">Inscription size</span><span class="fee-val" id="fSize">0 B</span></div>
+        <div class="fee-row"><span class="fee-lbl">Network fee (~10 sats/vB)</span><span class="fee-val" id="fNet">— sats</span></div>
+        <div class="fee-row" id="regFeeRow" style="display:none"><span class="fee-lbl">Registry fee</span><span class="fee-val">2,000 sats</span></div>
+        <div class="fee-total"><span class="fee-total-lbl">Est. Total</span><span class="fee-total-val" id="fTotal">— sats</span></div>
+      </div>
+
+      <!-- Registry opt-in -->
+      <label class="registry-toggle">
+        <input type="checkbox" id="regCheck"/>
+        <div class="registry-toggle-text">
+          <div class="registry-toggle-title">Register for Future Marketplace <span class="registry-badge">+2,000 sats</span></div>
+          <div class="registry-toggle-desc">Add your wish to the on-chain registry so it can be indexed and listed in the Bitcoin Wishing Well marketplace when it launches.</div>
+        </div>
+      </label>
+
+      <div class="divider">Connect Wallet</div>
+
+      <div style="margin-bottom:1.2rem;">
+        <div class="wallet-btns">
+          <button class="w-btn" id="xBtn" onclick="connectXverse()"><span>🔶</span> Xverse</button>
+          <button class="w-btn" id="uBtn" onclick="connectUnisat()"><span>🔷</span> UniSat</button>
+        </div>
+        <div class="w-addr" id="wAddr"></div>
+      </div>
+
+      <button class="inscribe-btn" id="ib" disabled onclick="makeWish()">🪙 Make Your Wish &amp; Inscribe</button>
+
+      <div class="prog-wrap" id="pw"><div class="prog-bg"><div class="prog-fill" id="pf"></div></div><div class="prog-lbl" id="pl">Preparing...</div></div>
+      <div class="status" id="st"></div>
+    </div>
+
+    <!-- Registry -->
+    <div class="reg-panel">
+      <div class="reg-head">
+        <div class="reg-title">📜 The Wish Registry</div>
+        <div class="reg-count">Wishes: <span id="wc">0</span></div>
+      </div>
+      <div id="wl"><div class="reg-empty">No wishes yet. Be the first to cast yours into eternity.</div></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+const DEV_ADDR='3FxKYyYJcxn6Tx2RvQM8szTzYKTQYskgWq';
+const REG_FEE=2000;
+const REG_KEY='bww_registry_v1';
+
+/* ============================
+   INTRO CANVAS — well exterior
+   ============================ */
+const introC=document.getElementById('introCanvas');
+const introCtx=introC.getContext('2d');
+let introW,introH,introStars=[],introT=0,plunging=false;
+
+function resizeIntro(){
+  introW=introC.width=introC.offsetWidth;
+  introH=introC.height=introC.offsetHeight;
+}
+
+function makeStars(){
+  introStars=[];
+  for(let i=0;i<120;i++){
+    introStars.push({x:Math.random(),y:Math.random()*.6,r:Math.random()*1.5+.3,t:Math.random()*Math.PI*2,sp:Math.random()*.02+.005});
+  }
+}
+
+function drawIntro(){
+  introCtx.clearRect(0,0,introW,introH);
+  // Sky gradient
+  const sky=introCtx.createLinearGradient(0,0,0,introH*.7);
+  sky.addColorStop(0,'#01050d');
+  sky.addColorStop(1,'#0a0d05');
+  introCtx.fillStyle=sky;introCtx.fillRect(0,0,introW,introH*.7);
+  // Ground
+  const gnd=introCtx.createLinearGradient(0,introH*.65,0,introH);
+  gnd.addColorStop(0,'#0f0d06');gnd.addColorStop(1,'#060401');
+  introCtx.fillStyle=gnd;introCtx.fillRect(0,introH*.65,introW,introH*.35);
+  // Stars
+  introStars.forEach(s=>{
+    const op=.3+Math.sin(introT*s.sp*60+s.t)*.4+.3;
+    introCtx.beginPath();introCtx.arc(s.x*introW,s.y*introH,s.r,0,Math.PI*2);
+    introCtx.fillStyle=`rgba(255,255,240,${Math.max(0,Math.min(1,op))})`;introCtx.fill();
+  });
+  // Moon
+  introCtx.beginPath();introCtx.arc(introW*.82,introH*.12,introW*.038,0,Math.PI*2);
+  introCtx.fillStyle='#f0e8b0';introCtx.fill();
+  introCtx.beginPath();introCtx.arc(introW*.84,introH*.11,introW*.032,0,Math.PI*2);
+  introCtx.fillStyle='#01050d';introCtx.fill();
+
+  // Well structure
+  const cx=introW/2,cy=introH*.7,wr=introW*.18,wh=introH*.28;
+  // Ground shadow
+  introCtx.beginPath();introCtx.ellipse(cx,cy+wh*.05,wr*1.3,.04*introH,0,0,Math.PI*2);
+  introCtx.fillStyle='rgba(0,0,0,.5)';introCtx.fill();
+  // Barrel
+  const bGrad=introCtx.createLinearGradient(cx-wr,0,cx+wr,0);
+  bGrad.addColorStop(0,'#1e1810');bGrad.addColorStop(.3,'#3a3020');bGrad.addColorStop(.7,'#2e2518');bGrad.addColorStop(1,'#181208');
+  introCtx.fillStyle=bGrad;
+  introCtx.beginPath();introCtx.moveTo(cx-wr,cy);introCtx.lineTo(cx-wr*.85,cy+wh);introCtx.lineTo(cx+wr*.85,cy+wh);introCtx.lineTo(cx+wr,cy);introCtx.closePath();introCtx.fill();
+  // Stone lines on barrel
+  introCtx.strokeStyle='rgba(0,0,0,.4)';introCtx.lineWidth=1;
+  for(let i=1;i<6;i++){
+    const yy=cy+wh*(i/6);
+    const xOff=wr*(1-.07*i);
+    introCtx.beginPath();introCtx.moveTo(cx-xOff,yy);introCtx.lineTo(cx+xOff,yy);introCtx.stroke();
+  }
+  // Rim ellipse
+  introCtx.beginPath();introCtx.ellipse(cx,cy,wr,wr*.22,0,0,Math.PI*2);
+  introCtx.fillStyle='#2e2416';introCtx.fill();
+  introCtx.strokeStyle='#5a4828';introCtx.lineWidth=2;introCtx.stroke();
+  // Inner dark
+  introCtx.beginPath();introCtx.ellipse(cx,cy,wr*.88,wr*.18,0,0,Math.PI*2);
+  introCtx.fillStyle='#05030a';introCtx.fill();
+  // Water glow inside
+  const glow=introCtx.createRadialGradient(cx,cy,0,cx,cy,wr*.6);
+  glow.addColorStop(0,'rgba(40,120,200,.25)');glow.addColorStop(1,'rgba(0,0,0,0)');
+  introCtx.beginPath();introCtx.ellipse(cx,cy,wr*.88,wr*.18,0,0,Math.PI*2);
+  introCtx.fillStyle=glow;introCtx.fill();
+  // BTC glyph floating in well
+  const btcAlpha=.4+Math.sin(introT*1.5)*.25;
+  introCtx.fillStyle=`rgba(245,200,66,${btcAlpha})`;
+  introCtx.font=`bold ${introW*.045}px sans-serif`;introCtx.textAlign='center';introCtx.textBaseline='middle';
+  introCtx.fillText('₿',cx,cy+wr*.04);
+  // Pillars
+  const ph=wh*.75,pw=introW*.035;
+  const pilGrad=introCtx.createLinearGradient(0,0,pw*2,0);
+  pilGrad.addColorStop(0,'#181008');pilGrad.addColorStop(.5,'#3a2a15');pilGrad.addColorStop(1,'#181008');
+  [[cx-wr*.78,cy-wh*.12],[cx+wr*.78-pw*2,cy-wh*.12]].forEach(([px,py])=>{
+    introCtx.fillStyle=pilGrad;introCtx.fillRect(px,py,pw*2,ph);
+    introCtx.fillStyle='#4a3820';introCtx.fillRect(px-pw*.3,py-pw*.4,pw*2.6,pw*.8);
+    introCtx.fillStyle='#2e2010';introCtx.fillRect(px-pw*.3,py+ph,pw*2.6,pw*.8);
+    // stone lines on pillar
+    introCtx.strokeStyle='rgba(0,0,0,.35)';introCtx.lineWidth=.8;
+    for(let i=1;i<5;i++){const yy=py+ph*i/5;introCtx.beginPath();introCtx.moveTo(px,yy);introCtx.lineTo(px+pw*2,yy);introCtx.stroke();}
+  });
+  // Roof
+  introCtx.beginPath();
+  introCtx.moveTo(cx-wr*1.15,cy-ph*.88);introCtx.lineTo(cx,cy-wh*.95);introCtx.lineTo(cx+wr*1.15,cy-ph*.88);
+  introCtx.closePath();
+  const roofG=introCtx.createLinearGradient(0,cy-wh*.95,0,cy-ph*.88);
+  roofG.addColorStop(0,'#5a3510');roofG.addColorStop(1,'#2a1808');
+  introCtx.fillStyle=roofG;introCtx.fill();
+  introCtx.strokeStyle='#7a5020';introCtx.lineWidth=1.5;introCtx.stroke();
+  // Shingles
+  introCtx.strokeStyle='rgba(30,10,0,.5)';introCtx.lineWidth=.8;
+  for(let i=1;i<6;i++){
+    const t2=i/6;
+    introCtx.beginPath();
+    introCtx.moveTo(cx-wr*1.15*(1-t2),cy-ph*.88-(wh*.07*t2));
+    introCtx.lineTo(cx+wr*1.15*(1-t2),cy-ph*.88-(wh*.07*t2));
+    introCtx.stroke();
+  }
+  // Crossbeam
+  introCtx.fillStyle='#3a2010';introCtx.fillRect(cx-wr*.7,cy-wh*.1,wr*1.4,pw*.55);
+  // Rope
+  introCtx.strokeStyle='rgba(140,110,60,.6)';introCtx.lineWidth=2;introCtx.setLineDash([5,3]);
+  introCtx.beginPath();introCtx.moveTo(cx,cy-wh*.1);introCtx.lineTo(cx,cy);introCtx.stroke();
+  introCtx.setLineDash([]);
+  // Moss patches
+  introCtx.fillStyle='rgba(40,70,25,.5)';
+  [[cx-wr*.7,cy+pw],[cx-wr*.4,cy-pw*.5],[cx+wr*.5,cy+pw]].forEach(([mx,my])=>{
+    introCtx.beginPath();introCtx.ellipse(mx,my,pw*2,pw*.6,0,0,Math.PI*2);introCtx.fill();
+  });
+  // Fireflies
+  if(!plunging){
+    for(let i=0;i<6;i++){
+      const fx=cx+Math.sin(introT*.7+i*1.8)*wr*1.8;
+      const fy=cy-ph*.3+Math.cos(introT*.5+i*2.3)*wh*.3;
+      const fa=.3+Math.sin(introT*2+i)*.3;
+      introCtx.beginPath();introCtx.arc(fx,fy,2,0,Math.PI*2);
+      introCtx.fillStyle=`rgba(200,240,100,${Math.max(0,fa)})`;introCtx.fill();
+    }
+  }
+  introT+=.016;
+}
+
+function introLoop(){if(!plunging){requestAnimationFrame(introLoop);drawIntro();}}
+
+/* ============================
+   PLUNGE ANIMATION
+   ============================ */
+const plungeEl=document.getElementById('plunge');
+const plungeC=document.getElementById('plungeCanvas');
+const plungeCtx=plungeC.getContext('2d');
+let plungeT=0,plungeDone=false;
+
+function resizePlunge(){plungeC.width=plungeC.offsetWidth;plungeC.height=plungeC.offsetHeight;}
+
+function drawPlunge(t){
+  const W=plungeC.width,H=plungeC.height;
+  plungeCtx.clearRect(0,0,W,H);
+  // t: 0→1, we zoom into well tunnel
+  const progress=Math.min(1,t);
+  // Background — getting darker
+  const bg=`hsl(30,15%,${Math.max(0,8-progress*8)}%)`;
+  plungeCtx.fillStyle=bg;plungeCtx.fillRect(0,0,W,H);
+
+  // Tunnel rings — perspective stone well shaft
+  const cx=W/2,cy=H/2;
+  const numRings=18;
+  for(let i=0;i<numRings;i++){
+    const depth=(i/numRings+progress*.8)%1;
+    const ease=Math.pow(depth,1.6);
+    const r=ease*W*.7;
+    const alpha=depth*(1-depth*depth)*2.5;
+    // Stone ring
+    const hue=25+i*3;
+    const lit=8+depth*18;
+    plungeCtx.beginPath();plungeCtx.ellipse(cx,cy,r,r*.38,0,0,Math.PI*2);
+    plungeCtx.strokeStyle=`hsla(${hue},25%,${lit}%,${Math.min(1,alpha*.8)})`;
+    plungeCtx.lineWidth=Math.max(.5,depth*6);plungeCtx.stroke();
+    // Stone texture marks
+    if(i%3===0&&depth>.2){
+      for(let j=0;j<6;j++){
+        const ang=j/6*Math.PI*2+i*.5;
+        const rx=cx+Math.cos(ang)*r*.95,ry=cy+Math.sin(ang)*r*.38*.95;
+        plungeCtx.beginPath();plungeCtx.arc(rx,ry,depth*2.5,0,Math.PI*2);
+        plungeCtx.fillStyle=`hsla(${hue},20%,${lit+5}%,${alpha*.4})`;plungeCtx.fill();
+      }
+    }
+  }
+
+  // Moss patches on walls
+  for(let i=0;i<8;i++){
+    const d2=((i*.13+progress*.6)%1);
+    const ang=-Math.PI/2+Math.sin(i*2.4)*.8+(i*.7);
+    const rad=Math.pow(d2,1.5)*W*.65;
+    const ex=cx+Math.cos(ang)*rad,ey=cy+Math.sin(ang)*rad*.38;
+    plungeCtx.beginPath();plungeCtx.ellipse(ex,ey,rad*.06,rad*.03,ang,0,Math.PI*2);
+    plungeCtx.fillStyle=`rgba(30,60,20,${d2*.5})`;plungeCtx.fill();
+  }
+
+  // Water glow at center — brightens as we approach
+  const waterGlow=Math.pow(progress,2.5);
+  const wg=plungeCtx.createRadialGradient(cx,cy,0,cx,cy,W*.35);
+  wg.addColorStop(0,`rgba(40,130,220,${waterGlow*.7})`);
+  wg.addColorStop(.5,`rgba(20,80,160,${waterGlow*.3})`);
+  wg.addColorStop(1,'rgba(0,0,0,0)');
+  plungeCtx.fillStyle=wg;plungeCtx.fillRect(0,0,W,H);
+
+  // BTC symbol at the bottom
+  const btcScale=Math.pow(progress,.5)*1.2;
+  const btcAlpha=Math.min(1,progress*2-.5);
+  if(btcAlpha>0){
+    plungeCtx.save();
+    plungeCtx.translate(cx,cy);plungeCtx.scale(btcScale,btcScale);
+    plungeCtx.fillStyle=`rgba(245,200,66,${btcAlpha})`;
+    plungeCtx.font=`bold ${W*.08}px sans-serif`;
+    plungeCtx.textAlign='center';plungeCtx.textBaseline='middle';
+    plungeCtx.fillText('₿',0,0);plungeCtx.restore();
+  }
+
+  // Vignette
+  const vig=plungeCtx.createRadialGradient(cx,cy,W*.15,cx,cy,W*.75);
+  vig.addColorStop(0,'rgba(0,0,0,0)');vig.addColorStop(1,`rgba(0,0,0,${.7+progress*.2})`);
+  plungeCtx.fillStyle=vig;plungeCtx.fillRect(0,0,W,H);
+
+  // Speed streaks
+  for(let i=0;i<24;i++){
+    const ang=i/24*Math.PI*2;
+    const len=progress*W*.12+.02;
+    const dist=W*.08+Math.sin(i*.7+plungeT)*W*.05;
+    plungeCtx.beginPath();
+    plungeCtx.moveTo(cx+Math.cos(ang)*dist,cy+Math.sin(ang)*dist*.38);
+    plungeCtx.lineTo(cx+Math.cos(ang)*(dist+len),cy+Math.sin(ang)*(dist+len)*.38);
+    plungeCtx.strokeStyle=`rgba(180,200,255,${progress*.15})`;
+    plungeCtx.lineWidth=.8;plungeCtx.stroke();
+  }
+}
+
+/* ============================
+   SPLASH CANVAS
+   ============================ */
+const splashEl=document.getElementById('splash');
+const splashC=document.getElementById('splashCanvas');
+const splashCtx=splashC.getContext('2d');
+let splashT=0,splashDroplets=[],splashRipples=[];
+
+function resizeSplash(){splashC.width=splashC.offsetWidth;splashC.height=splashC.offsetHeight;}
+
+function initSplash(){
+  splashDroplets=[];splashRipples=[];splashT=0;
+  const W=splashC.width,H=splashC.height;
+  const cx=W/2,cy=H/2;
+  for(let i=0;i<60;i++){
+    const ang=Math.random()*Math.PI*2;
+    const spd=1.5+Math.random()*6;
+    splashDroplets.push({
+      x:cx,y:cy,vx:Math.cos(ang)*spd*(1+Math.random()),vy:Math.sin(ang)*spd*.5-3-Math.random()*4,
+      r:.8+Math.random()*2.5,life:1,decay:.012+Math.random()*.018,g:.15
+    });
+  }
+  for(let i=0;i<5;i++){
+    splashRipples.push({r:5+i*8,maxR:W*.5,life:1,decay:.022-i*.003,cx,cy});
+  }
+}
+
+function drawSplash(){
+  const W=splashC.width,H=splashC.height;
+  splashCtx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2;
+  // Dark underwater bg fading
+  const bgA=Math.max(0,1-splashT*.04);
+  splashCtx.fillStyle=`rgba(2,8,20,${bgA})`;splashCtx.fillRect(0,0,W,H);
+  // Water surface
+  const waterY=cy+H*.08;
+  const waterGrad=splashCtx.createLinearGradient(0,waterY-30,0,H);
+  waterGrad.addColorStop(0,`rgba(20,80,160,${Math.max(0,.7-splashT*.015)})`);
+  waterGrad.addColorStop(1,`rgba(5,20,60,${Math.max(0,.9-splashT*.01)})`);
+  splashCtx.fillStyle=waterGrad;
+  splashCtx.beginPath();
+  splashCtx.moveTo(0,waterY);
+  for(let x=0;x<=W;x+=8){
+    const wave=Math.sin(x*.04+splashT*.3)*6*Math.max(0,1-splashT*.03);
+    splashCtx.lineTo(x,waterY+wave);
+  }
+  splashCtx.lineTo(W,H);splashCtx.lineTo(0,H);splashCtx.closePath();splashCtx.fill();
+  // Ripples
+  splashRipples.forEach(r=>{
+    r.r+=3+r.r*.04;r.life-=r.decay;
+    if(r.life<=0)return;
+    splashCtx.beginPath();splashCtx.ellipse(r.cx,r.cy+H*.08,r.r,r.r*.3,0,0,Math.PI*2);
+    splashCtx.strokeStyle=`rgba(100,180,255,${r.life*.5})`;splashCtx.lineWidth=1.5;splashCtx.stroke();
+  });
+  // Droplets
+  splashDroplets.forEach(d=>{
+    d.x+=d.vx;d.y+=d.vy;d.vy+=d.g;d.life-=d.decay;
+    if(d.life<=0)return;
+    splashCtx.beginPath();splashCtx.ellipse(d.x,d.y,d.r,d.r*.6,Math.atan2(d.vy,d.vx),0,Math.PI*2);
+    splashCtx.fillStyle=`rgba(100,180,255,${d.life*.7})`;splashCtx.fill();
+  });
+  // Gold particles (BTC coins)
+  for(let i=0;i<8;i++){
+    const ang=(i/8)*Math.PI*2+splashT*.1;
+    const dist=30+Math.sin(splashT*.4+i)*20+splashT*1.5;
+    const px=cx+Math.cos(ang)*dist,py=cy+H*.08-Math.abs(Math.sin(splashT*.3+i))*60+splashT*.5;
+    const pa=Math.max(0,1-splashT*.04);
+    splashCtx.beginPath();splashCtx.arc(px,py,4,0,Math.PI*2);
+    splashCtx.fillStyle=`rgba(245,200,66,${pa*.8})`;splashCtx.fill();
+  }
+  // Central flash
+  if(splashT<15){
+    const flashA=Math.max(0,(15-splashT)/15);
+    const fg=splashCtx.createRadialGradient(cx,cy+H*.08,0,cx,cy+H*.08,W*.4);
+    fg.addColorStop(0,`rgba(150,220,255,${flashA*.6})`);fg.addColorStop(1,'rgba(0,0,0,0)');
+    splashCtx.fillStyle=fg;splashCtx.fillRect(0,0,W,H);
+  }
+  // BTC emerging
+  const btcA=Math.max(0,Math.min(1,(splashT-20)/20));
+  if(btcA>0){
+    splashCtx.fillStyle=`rgba(245,200,66,${btcA})`;
+    splashCtx.font=`bold ${W*.12}px sans-serif`;
+    splashCtx.textAlign='center';splashCtx.textBaseline='middle';
+    splashCtx.fillText('₿',cx,cy);
+  }
+  splashT++;
+}
+
+/* ============================
+   ORCHESTRATOR
+   ============================ */
+function startPlunge(){
+  if(plunging)return;
+  plunging=true;
+  plungeEl.style.display='block';
+  resizePlunge();
+  let pT=0;
+  function pLoop(){
+    pT+=.018;
+    plungeT=pT;
+    drawPlunge(pT);
+    if(pT<1.05){requestAnimationFrame(pLoop);}
+    else{
+      // Start splash
+      plungeEl.style.display='none';
+      splashEl.style.display='block';
+      resizeSplash();
+      initSplash();
+      let sFrames=0;
+      function sLoop(){
+        drawSplash();sFrames++;
+        if(sFrames<90){requestAnimationFrame(sLoop);}
+        else{
+          // Fade to UI
+          splashEl.style.opacity=1;
+          let fo=1;
+          function fadeOut(){
+            fo-=.06;splashEl.style.opacity=fo;
+            if(fo>0){requestAnimationFrame(fadeOut);}
+            else{
+              splashEl.style.display='none';splashEl.style.opacity=1;
+              document.getElementById('intro').style.display='none';
+              document.getElementById('ui').style.display='block';
+              document.getElementById('ui').style.opacity=0;
+              let fi=0;
+              function fadeIn(){fi+=.06;document.getElementById('ui').style.opacity=fi;if(fi<1)requestAnimationFrame(fadeIn);}
+              requestAnimationFrame(fadeIn);
+              renderRegistry(loadRegistry());
+            }
+          }
+          requestAnimationFrame(fadeOut);
+        }
+      }
+      requestAnimationFrame(sLoop);
+    }
+  }
+  requestAnimationFrame(pLoop);
+}
+
+window.addEventListener('resize',()=>{resizeIntro();makeStars();});
+document.getElementById('intro').addEventListener('click',startPlunge);
+resizeIntro();makeStars();
+requestAnimationFrame(introLoop);
+
+/* ============================
+   APP LOGIC
+   ============================ */
+let selFile=null,walAddr=null,walType=null;
+
+function fmtBytes(b){if(b<1024)return b+' B';return (b/1024).toFixed(1)+' KB';}
+function fmtSats(s){return s.toLocaleString()+' sats';}
+
+function updateFees(sz){
+  document.getElementById('fSize').textContent=fmtBytes(sz);
+  const net=Math.round((150+sz)*10);
+  document.getElementById('fNet').textContent=fmtSats(net);
+  const regOn=document.getElementById('regCheck').checked;
+  const tot=net+(regOn?REG_FEE:0);
+  document.getElementById('fTotal').textContent=fmtSats(tot);
+  document.getElementById('regFeeRow').style.display=regOn?'':'none';
+}
+
+document.getElementById('regCheck').addEventListener('change',()=>{
+  const sz=selFile?selFile.size:new TextEncoder().encode(document.getElementById('wt').value).length;
+  updateFees(sz);
+});
+
+function handleFile(f){
+  if(!f)return;
+  if(f.size>60*1024){showStatus('err','File too large. Max 60KB.');return;}
+  selFile=f;
+  document.getElementById('pn').textContent=f.name;
+  document.getElementById('ps').textContent=fmtBytes(f.size);
+  const pt=document.getElementById('pt');
+  if(f.type.startsWith('image/')){
+    const rd=new FileReader();
+    rd.onload=(e)=>{
+      const img=document.createElement('img');
+      img.className='prev-thumb';img.src=e.target.result;img.alt='';
+      pt.replaceWith(img);
+    };rd.readAsDataURL(f);
+  } else {pt.textContent='📄';}
+  document.getElementById('fp').classList.add('on');
+  document.getElementById('dz').style.display='none';
+  updateFees(f.size);checkReady();
+}
+
+document.getElementById('fi').addEventListener('change',e=>{if(e.target.files[0])handleFile(e.target.files[0]);});
+const dz=document.getElementById('dz');
+dz.addEventListener('dragover',e=>{e.preventDefault();dz.classList.add('over');});
+dz.addEventListener('dragleave',()=>dz.classList.remove('over'));
+dz.addEventListener('drop',e=>{e.preventDefault();dz.classList.remove('over');if(e.dataTransfer.files[0])handleFile(e.dataTransfer.files[0]);});
+document.getElementById('prm').addEventListener('click',()=>{
+  selFile=null;document.getElementById('fi').value='';
+  document.getElementById('fp').classList.remove('on');
+  document.getElementById('dz').style.display='';
+  updateFees(0);checkReady();
+});
+document.getElementById('wt').addEventListener('input',function(){
+  if(!selFile)updateFees(new TextEncoder().encode(this.value).length);
+  checkReady();
+});
+
+function checkReady(){
+  const has=(selFile||document.getElementById('wt').value.trim().length>0)&&walAddr;
+  document.getElementById('ib').disabled=!has;
+}
+
+async function connectXverse(){
+  const b=document.getElementById('xBtn');b.textContent='⏳ Connecting...';
+  try{
+    if(window.XverseProviders||window.BitcoinProvider){
+      const p=window.XverseProviders?.BitcoinProvider||window.BitcoinProvider;
+      const r=await p.request('getAccounts',{purposes:['ordinals','payment'],message:'Bitcoin Wishing Well'});
+      const a=r?.result?.addresses?.find(x=>x.purpose==='ordinals')?.address||r?.result?.addresses?.[0]?.address;
+      if(a){setWallet('xverse',a,b);return;}
+    }
+  }catch(e){}
+  setWallet('xverse','bc1p'+rndHex(38),b,true);
+}
+
+async function connectUnisat(){
+  const b=document.getElementById('uBtn');b.textContent='⏳ Connecting...';
+  try{
+    if(window.unisat){
+      const a=await window.unisat.requestAccounts();
+      if(a&&a[0]){setWallet('unisat',a[0],b);return;}
+    }
+  }catch(e){}
+  setWallet('unisat','bc1q'+rndHex(38),b,true);
+}
+
+function rndHex(n){return Array.from({length:n},()=>'0123456789abcdef'[Math.floor(Math.random()*16)]).join('');}
+
+function setWallet(type,addr,btn,demo){
+  walType=type;walAddr=addr;
+  const nm=type==='xverse'?'Xverse':'UniSat';
+  btn.innerHTML=`<span>✓</span> ${nm}${demo?' (Demo)':''}`;btn.classList.add('on');
+  const oId=type==='xverse'?'uBtn':'xBtn';
+  const oNm=type==='xverse'?'UniSat':'Xverse';
+  const oIc=type==='xverse'?'🔷':'🔶';
+  const oB=document.getElementById(oId);
+  oB.classList.remove('on');oB.innerHTML=`<span>${oIc}</span> ${oNm}`;
+  const sh=addr.substring(0,12)+'...'+addr.substring(addr.length-6);
+  const wa=document.getElementById('wAddr');
+  wa.textContent=(demo?'[Demo] ':'')+sh;wa.classList.add('on');
+  if(demo)showStatus('info','No wallet detected. Running in demo mode.');
+  else hideStatus();
+  checkReady();
+}
+
+async function makeWish(){
+  const wt=document.getElementById('wt').value.trim();
+  if(!selFile&&!wt)return;
+  document.getElementById('ib').disabled=true;
+  const regOn=document.getElementById('regCheck').checked;
+  showProg(0,'Preparing inscription envelope...');
+  try{
+    let ct,cb;
+    if(selFile){ct=selFile.type||'application/octet-stream';cb=await toB64(selFile);}
+    else{ct='text/plain;charset=utf-8';cb=btoa(unescape(encodeURIComponent(wt)));}
+    const meta={wish:wt||'[file]',contentType:ct,app:'bitcoin-wishing-well-v1'};
+    if(regOn){meta.registry=true;meta.registryFee=REG_FEE;}
+    if(selFile&&wt){meta.file={name:selFile.name,type:selFile.type,data:cb};}
+    const payload={contentType:'application/json',content:btoa(JSON.stringify(meta))};
+
+    showProg(25,'Building transactions...');await wait(500);
+    showProg(45,'Signing with wallet...');await wait(600);
+    let wTx,rTx;
+    if(walType==='unisat'&&window.unisat){
+      const r=await window.unisat.inscribeContent(payload);
+      wTx=r?.txId||r?.inscriptionId;
+      if(regOn){const r2=await window.unisat.sendBitcoin(DEV_ADDR,REG_FEE);rTx=r2?.txId||r2;}
+    }else if(walType==='xverse'&&(window.XverseProviders||window.BitcoinProvider)){
+      const p=window.XverseProviders?.BitcoinProvider||window.BitcoinProvider;
+      const r=await p.request('ord_inscribeContent',{...payload,recipientAddress:walAddr});
+      wTx=r?.result?.txId;
+      if(regOn){const r2=await p.request('sendBtcTransaction',{recipients:[{address:DEV_ADDR,amountSats:REG_FEE}]});rTx=r2?.result?.txId;}
+    }else{
+      await runDemo(regOn);
+      wTx=rndHex(64);if(regOn)rTx=rndHex(64);
+    }
+    showProg(85,'Broadcasting to Bitcoin network...');await wait(500);
+    showProg(100,'Wish inscribed forever!');
+    addToReg({wish:wt||('[file: '+(selFile?.name||'')+']'),contentType:selFile?selFile.type:'text/plain',wishTxid:wTx,regTxid:rTx||null,address:walAddr,timestamp:Date.now(),isDemo:!(walAddr&&((walType==='unisat'&&window.unisat)||(walType==='xverse'&&(window.XverseProviders||window.BitcoinProvider))))});
+    setTimeout(()=>{
+      showSuccess(wTx,rTx,regOn);
+      document.getElementById('ib').disabled=false;hideProg();
+    },500);
+  }catch(err){
+    showStatus('err','Inscription failed: '+(err.message||err));
+    hideProg();document.getElementById('ib').disabled=false;
+  }
+}
+
+async function runDemo(regOn){
+  const steps=[[55,'Serializing inscription...'],[68,regOn?'Sending registry fee...':'Broadcasting...'],[80,'Signing reveal tx...'],[95,'Confirmed in mempool!']];
+  for(const[p,l]of steps){showProg(p,l);await wait(400+Math.random()*250);}
+}
+
+function toB64(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result.split(',')[1]);r.onerror=()=>rej(new Error('read failed'));r.readAsDataURL(f);});}
+function wait(ms){return new Promise(r=>setTimeout(r,ms));}
+function showProg(p,l){document.getElementById('pw').classList.add('on');document.getElementById('pf').style.width=p+'%';document.getElementById('pl').textContent=l;}
+function hideProg(){document.getElementById('pw').classList.remove('on');}
+function showStatus(type,msg){const e=document.getElementById('st');e.className=`status on ${type}`;e.innerHTML=msg;}
+function hideStatus(){document.getElementById('st').classList.remove('on');}
+function showSuccess(wTx,rTx,regOn){
+  const e=document.getElementById('st');e.className='status on ok';
+  const wu=`https://ordinals.com/inscription/${wTx}`;
+  let html=`✓ Your wish has been cast into eternity!<br><a class="tx-lnk" href="${wu}" target="_blank">Wish: ${wTx.substring(0,14)}...${wTx.slice(-6)}</a>`;
+  if(regOn&&rTx){const ru=`https://mempool.space/tx/${rTx}`;html+=`<br><a class="tx-lnk" href="${ru}" target="_blank">Registry fee: ${rTx.substring(0,14)}...${rTx.slice(-6)}</a>`;}
+  e.innerHTML=html;
+}
+
+function loadRegistry(){try{const d=localStorage.getItem(REG_KEY);return d?JSON.parse(d):[];}catch(e){return[];}}
+function saveRegistry(l){try{localStorage.setItem(REG_KEY,JSON.stringify(l.slice(-100)));}catch(e){}}
+function addToReg(entry){const l=loadRegistry();l.unshift(entry);saveRegistry(l);renderRegistry(l);}
+function renderRegistry(list){
+  const el=document.getElementById('wl');
+  document.getElementById('wc').textContent=list.length;
+  if(!list.length){el.innerHTML='<div class="reg-empty">No wishes yet. Be the first to cast yours into eternity.</div>';return;}
+  el.innerHTML=list.map(w=>{
+    const short=s=>s?s.substring(0,10)+'...'+s.slice(-5):'—';
+    const dt=w.timestamp?new Date(w.timestamp).toLocaleDateString():'—';
+    const txt=w.wish?(w.wish.length>75?w.wish.substring(0,75)+'…':w.wish):'[file]';
+    const tl=w.contentType?w.contentType.split('/')[1]||w.contentType:'text';
+    const pills=[
+      `<span class="wi-pill type">${tl}</span>`,
+      w.regTxid?`<span class="wi-pill reg">registered</span>`:'',
+      w.isDemo?`<span class="wi-pill demo">demo</span>`:'',
+    ].filter(Boolean).join('');
+    return`<div class="wish-item">
+      <div class="wi-text">"${txt}"</div>
+      <div class="wi-meta">
+        ${pills}
+        <span class="wi-tx" onclick="openLink('https://ordinals.com/inscription/${w.wishTxid}')">${short(w.wishTxid)}</span>
+        <span class="wi-time">${dt}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+renderRegistry(loadRegistry());
+</script>
+</html>
