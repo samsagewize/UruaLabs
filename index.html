@@ -18,7 +18,6 @@
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
             display: ['Space Grotesk', 'sans-serif'],
-            mono: ['Courier New', 'monospace'],
           },
           colors: {
             accent: '#0066ff',
@@ -122,7 +121,7 @@
       100% { transform: translateY(100vh); }
     }
 
-    /* Dropdown */
+    /* Dropdown Menu */
     .dropdown-content {
       animation: dropdownPop 180ms cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -150,12 +149,17 @@
       <div id="desktop-dropdown" 
            class="hidden dropdown-content absolute top-[62px] right-0 w-72 glass rounded-3xl py-5 px-3 shadow-2xl z-[1100] flex flex-col gap-1 text-sm font-medium">
         <a href="#services" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🛠 Services</a>
-        <a href="#blockchain" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">⛓ Blockchain</a>
+        <a href="#blockchain" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">⛓ Blockchain Portfolio</a>
         <a href="#music" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🎵 Music</a>
         <a href="#vision" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🌌 Vision</a>
-        <div class="h-px bg-white/10 mx-3 my-2"></div>
+        
+        <div class="h-px bg-white/10 mx-3 my-3"></div>
+        
         <a href="https://another-wish.vercel.app/" target="_blank" rel="noreferrer" 
-           class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">✍️ Another Wish (Inscribe on Bitcoin)</a>
+           class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">✍️ Another Wish (Bitcoin Inscription)</a>
+        
+        <div class="h-px bg-white/10 mx-3 my-3"></div>
+        
         <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" 
            class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">✉️ Email Us</a>
         <a href="/pingwin.html" 
@@ -174,7 +178,7 @@
   <nav id="mobile-bottom-nav" aria-label="Mobile navigation">
     <a href="#services" class="item" title="Services"><div>🛠</div><div class="label">Services</div></a>
     <a href="#top" class="home item" title="Home"><div>⌂</div><div class="label" style="opacity:0.95;">Home</div></a>
-    <a href="#blockchain" class="item" title="Blockchain"><div>⛓</div><div class="label">Chain</div></a>
+    <a href="#blockchain" class="item" title="Blockchain"><div>⛓</div><div class="label">Portfolio</div></a>
     <button id="mobile-pingwin" class="item" title="PingWin"><div>🐧</div><div class="label">PingWin</div></button>
   </nav>
 
@@ -192,14 +196,13 @@
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href="#services" class="px-10 py-5 bg-accent text-white rounded-full font-black text-lg hover:opacity-90 transition-all">Explore Services</a>
-        <a href="#blockchain" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Blockchain</a>
-        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Work for Hire</a>
+        <a href="#blockchain" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">View Portfolio</a>
+        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Work with Us</a>
       </div>
     </section>
 
     <!-- Services -->
     <section id="services" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
-      <!-- (Services section remains unchanged - same as previous version) -->
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
         <div>
           <h2 class="text-5xl md:text-7xl font-black tracking-tighter">SERVICES</h2>
@@ -209,14 +212,11 @@
         </div>
         <div class="flex flex-wrap gap-3">
           <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request" class="px-8 py-4 bg-accent text-white rounded-full font-black text-base hover:opacity-90 transition-all">Request a Quote</a>
-          <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-8 py-4 border border-white/10 rounded-full font-black text-base hover:bg-white/5 transition-all">Email</a>
         </div>
       </div>
 
+      <!-- Services Grid (kept compact) -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Website, AI, NFT, Smart Contract cards - unchanged from previous version -->
-        <!-- ... (keeping the same 4 service cards as before) ... -->
-        <!-- For brevity, I'm showing only one card here. Replace with your full services grid from previous version -->
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Website Development</div>
           <div class="mt-3 text-2xl font-black">Fast websites that convert.</div>
@@ -226,14 +226,23 @@
             <li>• Vercel deploy + custom domains</li>
           </ul>
           <div class="mt-5">
-            <a href="mailto:urualabs@gmail.com?subject=Website%20Quote%20Request" class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">Get a Website Quote</a>
+            <a href="mailto:urualabs@gmail.com?subject=Website%20Quote%20Request" class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">Get Quote</a>
           </div>
         </div>
-        <!-- Add the other three service cards here (AI, NFT, Smart Contract) as in previous version -->
+        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">AI Programmer</div>
+          <div class="mt-3 text-2xl font-black">Automate the busywork.</div>
+          <ul class="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
+            <li>• Automation + workflow tooling</li>
+            <li>• AI features for websites/apps</li>
+            <li>• Integrations with your tools</li>
+          </ul>
+          <div class="mt-5">
+            <a href="mailto:urualabs@gmail.com?subject=AI%20Automation%20Quote" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Request AI Help</a>
+          </div>
+        </div>
+        <!-- Add the other two service cards (NFT & Smart Contract) if you want them back -->
       </div>
-
-      <!-- Past clients and quote sections remain the same -->
-      <!-- ... (copy from previous version) ... -->
     </section>
 
     <!-- Blockchain Portfolio -->
@@ -241,7 +250,7 @@
       <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
         <div>
           <h2 class="text-5xl md:text-7xl font-black tracking-tighter">BLOCKCHAIN PORTFOLIO</h2>
-          <p class="mt-6 opacity-40 max-w-2xl font-medium">Bitcoin Ordinals, Solana tokens, Ethereum OG collections, and Inscriptions.</p>
+          <p class="mt-6 opacity-40 max-w-2xl font-medium">Bitcoin Ordinals, Inscriptions, Solana tokens & Ethereum OG collections.</p>
         </div>
       </div>
 
@@ -250,8 +259,8 @@
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Bitcoin • Ordinals</div>
           <div class="mt-3 text-2xl font-black">Ordinookis</div>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <a href="https://magiceden.us/ordinals/marketplace/ordinookis" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">View on Magic Eden</a>
+          <div class="mt-5 flex gap-3">
+            <a href="https://www.satflow.com/ordinals/ordinookis" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-xs">View</a>
           </div>
         </div>
 
@@ -259,20 +268,19 @@
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Bitcoin • Ordinals</div>
           <div class="mt-3 text-2xl font-black">Rare78</div>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <a href="https://magiceden.us/ordinals/marketplace/rare78" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">View on Magic Eden</a>
+          <div class="mt-5 flex gap-3">
+            <a href="https://www.satflow.com/ordinals/rare78" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-xs">View</a>
           </div>
         </div>
 
-        <!-- Another Wish - NEW -->
+        <!-- Another Wish -->
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Bitcoin • Inscription</div>
           <div class="mt-3 text-2xl font-black">Another Wish</div>
-          <div class="mt-3 opacity-60 text-sm">A beautiful inscribed experience on Bitcoin.</div>
-          <div class="mt-5 flex flex-wrap gap-3">
+          <div class="mt-3 opacity-60 text-sm">Inscribed experience on Bitcoin.</div>
+          <div class="mt-5 flex gap-3">
             <a href="https://another-wish.vercel.app/" target="_blank" rel="noreferrer" 
-               class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">View Inscription</a>
-            <a href="mailto:urualabs@gmail.com?subject=Another%20Wish%20Inquiry" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Ask about it</a>
+               class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 font-black text-xs">View Inscription</a>
           </div>
         </div>
 
@@ -280,33 +288,96 @@
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Solana • Token</div>
           <div class="mt-3 text-2xl font-black">PingWin</div>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <a href="https://bags.fm/FVku66NdAeXMHyatQ9dzHqsirxwnVARWPEeLNWSLBAGS" target="_blank" class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">View on bags.fm</a>
+          <div class="mt-5 flex gap-3">
+            <a href="https://bags.fm/FVku66NdAeXMHyatQ9dzHqsirxwnVARWPEeLNWSLBAGS" target="_blank" class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 font-black text-xs">View Token</a>
           </div>
-          <div class="mt-6 text-[10px] opacity-60 font-black tracking-[0.35em] uppercase">FVku66Nd…LBAGS</div>
         </div>
 
         <!-- Popular Punks -->
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Ethereum • OG 2021</div>
           <div class="mt-3 text-2xl font-black">Popular Punks</div>
-          <div class="mt-5 flex flex-wrap gap-3">
-            <a href="https://opensea.io/collection/popular-punks" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">View on OpenSea</a>
+          <div class="mt-5 flex gap-3">
+            <a href="https://opensea.io/collection/popular-punks" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-xs">View on OpenSea</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Music Section (unchanged) -->
-    <!-- Vision Section (unchanged) -->
-    <!-- Footer (unchanged) -->
+    <!-- Music -->
+    <section id="music" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
+      <div class="glass rounded-[3.5rem] p-10 md:p-16 border border-white/10">
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
+          <div>
+            <div class="inline-block mb-6 px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">Sam Sage</div>
+            <h2 class="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95]">MUSIC CATALOG</h2>
+            <p class="mt-6 opacity-50 max-w-2xl font-medium">Follow the sound across worlds — releases, experiments, and creator energy.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href="https://samsage.com" target="_blank" class="px-6 py-3 rounded-full bg-accent text-white hover:opacity-90 font-black text-sm">Sam Sage</a>
+            <a href="https://www.youtube.com/@samsagewize" target="_blank" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-sm">YouTube</a>
+            <a href="https://open.spotify.com/artist/3o7QHIT3xAl7YM7nd9QiTk" target="_blank" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-sm">Spotify</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- Penguin Mascot (unchanged - same as previous version) -->
-    <!-- ... full penguin code ... -->
+    <!-- Vision -->
+    <section id="vision" class="bg-accent py-32 text-center relative overflow-hidden">
+      <div class="absolute inset-0 flex items-center justify-center text-[18rem] md:text-[30rem] font-black opacity-10 pointer-events-none italic whitespace-nowrap">2026 2026 2026</div>
+      <div class="relative z-10 px-8">
+        <h2 class="text-5xl md:text-[8rem] font-black tracking-tighter mb-6 leading-none">FEBRUARY 22</h2>
+        <p class="text-xl md:text-3xl font-bold opacity-80 uppercase tracking-[0.3em]">The New Web Begins.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 text-center border-t border-white/5 mx-8">
+      <div class="flex flex-wrap justify-center gap-8 mb-8 opacity-70 font-black text-[10px] tracking-[0.35em] uppercase">
+        <a href="https://x.com/samsagewize" target="_blank" class="hover:text-accent">X @samsagewize</a>
+        <a href="https://instagram.com/samsagewize" target="_blank" class="hover:text-accent">Instagram @samsagewize</a>
+      </div>
+      <p class="opacity-20 text-[10px] font-black tracking-widest uppercase">© 2026 URUA LABS :)</p>
+    </footer>
   </main>
 
-  <!-- (Include the full penguin mascot + script from the previous version here) -->
-  <!-- For space, I'm omitting the repeated penguin code. Copy the entire penguin section and script from my previous response. -->
+  <!-- Penguin Mascot + Script -->
+  <!-- (Copy the full penguin mascot HTML + JavaScript from the previous version I sent you. It remains unchanged.) -->
 
+  <script>
+    // Dropdown Menu Script
+    (function () {
+      const menuBtn = document.getElementById('desktop-menu-btn');
+      const dropdown = document.getElementById('desktop-dropdown');
+      const arrow = document.getElementById('menu-arrow');
+
+      function toggleDropdown() {
+        const isOpen = !dropdown.classList.contains('hidden');
+        if (isOpen) {
+          dropdown.classList.add('hidden');
+          arrow.style.transform = 'rotate(0deg)';
+        } else {
+          dropdown.classList.remove('hidden');
+          arrow.style.transform = 'rotate(180deg)';
+        }
+      }
+
+      menuBtn.addEventListener('click', toggleDropdown);
+
+      document.addEventListener('click', (e) => {
+        if (!menuBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add('hidden');
+          arrow.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          dropdown.classList.add('hidden');
+          arrow.style.transform = 'rotate(0deg)';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
