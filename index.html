@@ -162,11 +162,17 @@
         
         <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" 
            class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">✉️ Email Us</a>
+        <a href="/pingwin.html" 
+           class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🐧 PingWin</a>
+      </div>
+    </div>
 
     <!-- Mobile quick actions -->
     <div class="md:hidden flex items-center gap-2">
-      <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-3 py-2 rounded-full bg-accent text-white font-black text-xs">Email</a>
-
+      <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request" 
+         class="px-3 py-2 rounded-full bg-accent text-white font-black text-xs">Quote</a>
+      <a href="/pingwin.html" class="px-3 py-2 rounded-full border border-white/10 font-black text-xs hover:bg-white/5">PingWin</a>
+    </div>
   </header>
 
   <!-- Mobile bottom nav -->
@@ -192,7 +198,8 @@
       <div class="flex flex-wrap justify-center gap-4">
         <a href="#services" class="px-10 py-5 bg-accent text-white rounded-full font-black text-lg hover:opacity-90 transition-all">Explore Services</a>
         <a href="#blockchain" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">View Portfolio</a>
-        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Work with Us</a>
+        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request" 
+           class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Get a Quote</a>
       </div>
     </section>
 
@@ -206,11 +213,13 @@
           </p>
         </div>
         <div class="flex flex-wrap gap-3">
-          <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request" class="px-8 py-4 bg-accent text-white rounded-full font-black text-base hover:opacity-90 transition-all">Request a Quote</a>
+          <!-- Main Request a Quote button – now opens email with pre-filled template -->
+          <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request&body=Hi%20Urua%20Labs%2C%0A%0AI%27d%20like%20a%20quote%20for%3A%0A%0A-%20What%20I%20need%3A%0A-%20Project%20details%3A%0A-%20Timeline%3A%0A-%20Budget%20range%20(optional)%3A%0A%0AThanks!" 
+             class="px-8 py-4 bg-accent text-white rounded-full font-black text-base hover:opacity-90 transition-all">Request a Quote</a>
         </div>
       </div>
 
-      <!-- Services Grid (kept compact) -->
+      <!-- Services Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Website Development</div>
@@ -221,9 +230,11 @@
             <li>• Vercel deploy + custom domains</li>
           </ul>
           <div class="mt-5">
-            <a href="mailto:urualabs@gmail.com?subject=Website%20Quote%20Request" class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">Get Quote</a>
+            <a href="mailto:urualabs@gmail.com?subject=Website%20Quote%20Request&body=Hi%20Urua%20Labs%2C%0A%0AI%20want%20a%20website.%0A%0A-%20Business%2Fbrand%3A%0A-%20Goal%3A%0A-%20Pages%20needed%3A%0A-%20Timeline%3A%0A%0AThanks!" 
+               class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">Get Website Quote</a>
           </div>
         </div>
+
         <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
           <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">AI Programmer</div>
           <div class="mt-3 text-2xl font-black">Automate the busywork.</div>
@@ -233,10 +244,12 @@
             <li>• Integrations with your tools</li>
           </ul>
           <div class="mt-5">
-            <a href="mailto:urualabs@gmail.com?subject=AI%20Automation%20Quote" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Request AI Help</a>
+            <a href="mailto:urualabs@gmail.com?subject=AI%20Automation%20Quote&body=Hi%20Urua%20Labs%2C%0A%0AI%20need%20AI%20help%20with%3A%0A%0A-%20What%20to%20automate%3A%0A-%20Tools%20I%20use%3A%0A-%20Timeline%3A%0A%0AThanks!" 
+               class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Request AI Help</a>
           </div>
         </div>
-        <!-- Add the other two service cards (NFT & Smart Contract) if you want them back -->
+
+        <!-- You can add the NFT and Smart Contract cards back here if you want them -->
       </div>
     </section>
 
@@ -327,8 +340,8 @@
     </footer>
   </main>
 
-  <!-- Penguin Mascot + Script -->
-  <!-- (Copy the full penguin mascot HTML + JavaScript from the previous version I sent you. It remains unchanged.) -->
+  <!-- Penguin Mascot (unchanged) -->
+  <!-- Paste your full penguin mascot code here if you want it – it was already working in previous versions -->
 
   <script>
     // Dropdown Menu Script
