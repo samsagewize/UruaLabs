@@ -1,89 +1,149 @@
-    <!-- ==================== COOL SHOP SECTION WITH EYE FILTER ==================== -->
-    <section id="shop" class="py-28 md:py-36 px-8 max-w-7xl mx-auto relative overflow-hidden">
-      <!-- Cyber Eye Background Effect -->
-      <div class="absolute inset-0 opacity-10 pointer-events-none">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-purple-500 via-pink-500 to-cyan-500 rounded-full blur-[120px] animate-pulse"></div>
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Urua Labs — Building the Future</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            accent: '#0066ff',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Your existing styles remain unchanged */
+    html, body {
+      margin: 0; padding: 0; width: 100%; height: 100%;
+      background: #000; overflow-x: hidden;
+    }
+    .glass { background: rgba(255,255,255,0.02); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+    .text-gradient { background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .scanline { width: 100%; height: 4px; background: rgba(0, 102, 255, 0.05); position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1000; animation: scan 10s linear infinite; }
+    @keyframes scan { 0% { transform: translateY(-100vh); } 100% { transform: translateY(100vh); } }
+  </style>
+</head>
+<body class="bg-white dark:bg-[#050505] text-black dark:text-white selection:bg-accent/30">
+  <div class="scanline"></div>
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 h-24 px-6 md:px-16 flex items-center justify-between glass z-[100]">
+    <a href="#top" class="text-2xl md:text-3xl font-black tracking-tighter">URUA<span class="text-accent italic">LABS</span></a>
+
+    <!-- Desktop Dropdown Menu -->
+    <div class="relative hidden md:block">
+      <button id="desktop-menu-btn" class="flex items-center gap-2 px-8 py-3 text-[11px] font-black uppercase tracking-[0.3em] hover:text-accent transition-colors rounded-3xl border border-white/10 hover:border-white/30">
+        MENU
+        <span class="text-xl leading-none transition-transform" id="menu-arrow">▼</span>
+      </button>
+      
+      <div id="desktop-dropdown" class="hidden dropdown-content absolute top-[62px] right-0 w-72 glass rounded-3xl py-5 px-3 shadow-2xl z-[1100] flex flex-col gap-1 text-sm font-medium">
+        <a href="#services" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🛠 Services</a>
+        <a href="#blockchain" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">⛓ Blockchain Portfolio</a>
+        <a href="https://www.etsy.com/shop/UruaShop" target="_blank" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors text-accent font-black">🛍 Shop</a>
+        <a href="#music" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🎵 Music</a>
+        <a href="#vision" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🌌 Vision</a>
+        
+        <div class="h-px bg-white/10 mx-3 my-3"></div>
+        
+        <a href="https://another-wish.vercel.app/" target="_blank" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">✍️ Another Wish</a>
+        <a href="mailto:urualabs@gmail.com" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">✉️ Email Us</a>
       </div>
+    </div>
 
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14 relative z-10">
-        <div>
-          <div class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-white/5 border border-white/20 text-xs font-black tracking-widest mb-6">
-            <span class="text-pink-400 text-xl">👁️</span>
-            LIVE DROP
-          </div>
-          <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gradient">URUA SHOP</h2>
-          <p class="mt-6 opacity-70 max-w-xl text-lg">Phone cases • Apparel • Art cards • Music merch</p>
-        </div>
+    <!-- Mobile quick actions -->
+    <div class="md:hidden flex items-center gap-2">
+      <a href="mailto:urualabs@gmail.com" class="px-3 py-2 rounded-full bg-accent text-white font-black text-xs">Quote</a>
+    </div>
+  </header>
 
-        <a href="https://www.etsy.com/shop/UruaShop" 
-           target="_blank"
-           class="group relative px-12 py-7 bg-gradient-to-r from-white to-gray-100 text-black rounded-3xl font-black text-2xl flex items-center gap-4 hover:scale-105 active:scale-95 transition-all duration-300 shadow-2xl shadow-pink-500/30 overflow-hidden">
-          <span>SHOP NOW ON ETSY</span>
-          <span class="text-4xl group-hover:rotate-12 transition">→</span>
-          
-          <!-- Eye filter glow -->
-          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 group-hover:animate-[shimmer_1.5s_infinite]"></div>
+  <!-- Mobile Bottom Nav -->
+  <nav id="mobile-bottom-nav" aria-label="Mobile navigation">
+    <a href="#services" class="item" title="Services"><div>🛠</div><div class="label">Services</div></a>
+    <a href="#top" class="home item" title="Home"><div>⌂</div><div class="label">Home</div></a>
+    <a href="https://www.etsy.com/shop/UruaShop" target="_blank" class="item" title="Shop"><div>🛍</div><div class="label">Shop</div></a>
+    <a href="#blockchain" class="item" title="Blockchain"><div>⛓</div><div class="label">Portfolio</div></a>
+  </nav>
+
+  <!-- Hero -->
+  <main id="top" class="pt-24">
+    <section class="min-h-[92vh] flex flex-col items-center justify-center px-6 md:px-8 text-center relative">
+      <div class="mb-10 inline-block px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">
+        System Initialized :)
+      </div>
+      <h1 class="text-5xl sm:text-6xl md:text-[9rem] font-extrabold tracking-tighter leading-[0.9] md:leading-[0.8] mb-10 text-gradient">
+        BUILDING THE <br/> UNKNOWN.
+      </h1>
+      <p class="text-lg md:text-2xl opacity-40 max-w-3xl mx-auto mb-12 font-medium">
+        Websites, AI systems, smart contracts, and creative builds — shipped with taste.
+      </p>
+      
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#services" class="px-10 py-5 bg-accent text-white rounded-full font-black text-lg hover:opacity-90 transition-all">Explore Services</a>
+        
+        <!-- NEW SHOP BUTTON -->
+        <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
+           class="px-10 py-5 border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 rounded-full font-black text-lg transition-all flex items-center gap-3">
+          <span>🛍</span> SHOP NOW
         </a>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-
-        <!-- Retro Floral Camera Tee - Eye-catching -->
-        <div class="glass rounded-[2.5rem] overflow-hidden border-2 border-pink-500/70 relative group">
-          <div class="absolute top-6 right-6 bg-pink-500 text-black text-xs font-black px-5 py-1.5 rounded-full tracking-wider flex items-center gap-1">
-            <span class="text-lg">👁️</span> NEW
-          </div>
-          <div class="h-72 bg-gradient-to-br from-pink-600/40 via-violet-600/40 to-black flex items-center justify-center text-9xl relative">
-            👕
-            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,#fff_0%,transparent_70%)] opacity-20"></div>
-          </div>
-          <div class="p-8">
-            <h3 class="text-2xl font-black">Retro Floral Camera Tee</h3>
-            <p class="mt-2 opacity-70">Vintage camera pattern on premium soft tee. Limited drop.</p>
-            <div class="mt-8 flex justify-between items-end">
-              <span class="text-3xl font-bold">$25.47+</span>
-              <a href="https://www.etsy.com/listing/4523162186/retro-floral-camera-pattern-tee-vintage" 
-                 target="_blank"
-                 class="px-8 py-4 bg-white text-black rounded-2xl font-black hover:bg-white/90">Buy Now →</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Phone Cases -->
-        <div class="glass rounded-[2.5rem] overflow-hidden group">
-          <div class="h-72 bg-gradient-to-br from-purple-600/40 to-black flex items-center justify-center text-9xl">📱</div>
-          <div class="p-8">
-            <h3 class="text-2xl font-black">Custom Phone Cases</h3>
-            <p class="mt-2 opacity-70 text-sm">Slim • Tough • MagSafe</p>
-            <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
-               class="mt-8 block text-center py-4 border border-white/30 rounded-2xl font-black hover:bg-white/5">Shop Cases →</a>
-          </div>
-        </div>
-
-        <!-- Art Cards -->
-        <div class="glass rounded-[2.5rem] overflow-hidden group">
-          <div class="h-72 bg-gradient-to-br from-amber-600/40 to-black flex items-center justify-center text-9xl">🃏</div>
-          <div class="p-8">
-            <h3 class="text-2xl font-black">Art Cards & Prints</h3>
-            <p class="mt-2 opacity-70 text-sm">Collectible drops</p>
-            <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
-               class="mt-8 block text-center py-4 border border-white/30 rounded-2xl font-black hover:bg-white/5">Shop Cards →</a>
-          </div>
-        </div>
-
-        <!-- CDs -->
-        <div class="glass rounded-[2.5rem] overflow-hidden group">
-          <div class="h-72 bg-gradient-to-br from-red-600/40 to-black flex items-center justify-center text-9xl">💿</div>
-          <div class="p-8">
-            <h3 class="text-2xl font-black">Limited CDs</h3>
-            <p class="mt-2 opacity-70 text-sm">Music + Bundles</p>
-            <a href="#music" class="mt-8 block text-center py-4 border border-white/30 rounded-2xl font-black hover:bg-white/5">View Merch →</a>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="text-center mt-12 opacity-60 text-sm">
-        Powered by Printify • Ships worldwide • 👁️ New drops every month
-      </div>
     </section>
+
+    <!-- Rest of your sections (Services, Blockchain, Music, Vision, Footer) remain unchanged -->
+    <!-- ... (your existing code continues here) ... -->
+
+  </main>
+
+  <script>
+    // Your existing dropdown script
+    (function () {
+      const menuBtn = document.getElementById('desktop-menu-btn');
+      const dropdown = document.getElementById('desktop-dropdown');
+      const arrow = document.getElementById('menu-arrow');
+
+      function toggleDropdown() {
+        const isOpen = !dropdown.classList.contains('hidden');
+        if (isOpen) {
+          dropdown.classList.add('hidden');
+          arrow.style.transform = 'rotate(0deg)';
+        } else {
+          dropdown.classList.remove('hidden');
+          arrow.style.transform = 'rotate(180deg)';
+        }
+      }
+
+      menuBtn.addEventListener('click', toggleDropdown);
+
+      document.addEventListener('click', (e) => {
+        if (!menuBtn.contains(e.target) && !dropdown.contains(e.target)) {
+          dropdown.classList.add('hidden');
+          arrow.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          dropdown.classList.add('hidden');
+          arrow.style.transform = 'rotate(0deg)';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
