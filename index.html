@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Urua Labs — Building the Future</title>
+  <title>URUA SHOP - Phone Cases, Cards, CDs & Apparel</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,9 +19,7 @@
             sans: ['Inter', 'sans-serif'],
             display: ['Space Grotesk', 'sans-serif'],
           },
-          colors: {
-            accent: '#0066ff',
-          },
+          colors: { accent: '#0066ff' }
         }
       }
     }
@@ -29,354 +27,130 @@
 
   <style>
     html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: #000;
+      margin: 0; padding: 0;
+      background: #050505;
+      color: white;
       overflow-x: hidden;
     }
-
-    /* Mobile bottom nav */
-    #mobile-bottom-nav {
-      display: none;
-    }
-
-    @media (max-width: 767px) {
-      body { padding-bottom: 92px; }
-
-      #mobile-bottom-nav {
-        display: flex;
-        position: fixed;
-        left: 14px; right: 14px; bottom: 14px;
-        z-index: 1600;
-        height: 64px;
-        border-radius: 22px;
-        background: rgba(10, 10, 10, 0.72);
-        border: 1px solid rgba(255,255,255,0.12);
-        backdrop-filter: blur(16px);
-        padding: 10px 12px;
-        gap: 10px;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      #mobile-bottom-nav .item {
-        display: grid;
-        place-items: center;
-        gap: 2px;
-      }
-
-      #mobile-bottom-nav a, #mobile-bottom-nav button {
-        all: unset;
-        cursor: pointer;
-        width: 44px; height: 44px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        color: rgba(255,255,255,0.92);
-        font-weight: 900;
-      }
-
-      #mobile-bottom-nav .home {
-        width: 54px; height: 54px;
-        background: #0066ff;
-        border-color: rgba(0, 102, 255, 0.9);
-        box-shadow: 0 14px 40px rgba(0, 102, 255, 0.25);
-      }
-
-      #mobile-bottom-nav .label {
-        font-size: 9px;
-        font-weight: 900;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        opacity: 0.75;
-        margin-top: 3px;
-      }
-    }
-
     .glass {
-      background: rgba(255, 255, 255, 0.02);
+      background: rgba(255,255,255,0.02);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255,255,255,0.08);
     }
-
     .text-gradient {
       background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    .scanline {
-      width: 100%; height: 4px;
-      background: rgba(0, 102, 255, 0.05);
-      position: fixed; top: 0; left: 0;
-      pointer-events: none; z-index: 1000;
-      animation: scan 10s linear infinite;
-    }
-
-    @keyframes scan {
-      0% { transform: translateY(-100vh); }
-      100% { transform: translateY(100vh); }
-    }
-
-    /* Dropdown Menu */
-    .dropdown-content {
-      animation: dropdownPop 180ms cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes dropdownPop {
-      0% { opacity: 0; transform: translateY(8px) scale(0.95); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
-    }
   </style>
 </head>
-<body class="bg-white dark:bg-[#050505] text-black dark:text-white selection:bg-accent/30">
-  <div class="scanline"></div>
+<body class="bg-[#050505] text-white font-sans">
 
-  <!-- Header -->
+  <!-- Header (same as your index.html) -->
   <header class="fixed top-0 left-0 right-0 h-24 px-6 md:px-16 flex items-center justify-between glass z-[100]">
-    <a href="#top" class="text-2xl md:text-3xl font-black tracking-tighter">URUA<span class="text-accent italic">LABS</span></a>
+    <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter">URUA<span class="text-accent italic">LABS</span></a>
 
-    <!-- Desktop Dropdown Menu -->
-    <div class="relative hidden md:block">
-      <button id="desktop-menu-btn"
-              class="flex items-center gap-2 px-8 py-3 text-[11px] font-black uppercase tracking-[0.3em] hover:text-accent transition-colors rounded-3xl border border-white/10 hover:border-white/30">
-        MENU
-        <span class="text-xl leading-none transition-transform" id="menu-arrow">▼</span>
-      </button>
-      
-      <div id="desktop-dropdown" 
-           class="hidden dropdown-content absolute top-[62px] right-0 w-72 glass rounded-3xl py-5 px-3 shadow-2xl z-[1100] flex flex-col gap-1 text-sm font-medium">
-        <a href="#services" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🛠 Services</a>
-        <a href="#blockchain" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">⛓ Blockchain Portfolio</a>
-        <a href="#music" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🎵 Music</a>
-        <a href="#vision" class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🌌 Vision</a>
-        
-        <div class="h-px bg-white/10 mx-3 my-3"></div>
-        
-        <a href="https://another-wish.vercel.app/" target="_blank" rel="noreferrer" 
-           class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">✍️ Another Wish (Bitcoin Inscription)</a>
-        
-        <div class="h-px bg-white/10 mx-3 my-3"></div>
-        
-        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Inquiry" 
-           class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">✉️ Email Us</a>
-        <a href="/pingwin.html" 
-           class="px-6 py-4 hover:bg-white/10 rounded-2xl flex items-center gap-3 transition-colors">🐧 PingWin</a>
-      </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="index.html#services" class="hover:text-accent transition">Services</a>
+      <a href="index.html#blockchain" class="hover:text-accent transition">Blockchain</a>
+      <a href="shop.html" class="text-accent font-black">Shop</a>
+      <a href="index.html#music" class="hover:text-accent transition">Music</a>
     </div>
 
-    <!-- Mobile quick actions -->
-    <div class="md:hidden flex items-center gap-2">
-      <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request" 
-         class="px-3 py-2 rounded-full bg-accent text-white font-black text-xs">Quote</a>
-      <a href="/pingwin.html" class="px-3 py-2 rounded-full border border-white/10 font-black text-xs hover:bg-white/5">PingWin</a>
-    </div>
+    <a href="mailto:urualabs@gmail.com" 
+       class="px-6 py-3 bg-accent text-white rounded-3xl font-black text-sm">Contact</a>
   </header>
 
-  <!-- Mobile bottom nav -->
-  <nav id="mobile-bottom-nav" aria-label="Mobile navigation">
-    <a href="#services" class="item" title="Services"><div>🛠</div><div class="label">Services</div></a>
-    <a href="#top" class="home item" title="Home"><div>⌂</div><div class="label" style="opacity:0.95;">Home</div></a>
-    <a href="#blockchain" class="item" title="Blockchain"><div>⛓</div><div class="label">Portfolio</div></a>
-    <button id="mobile-pingwin" class="item" title="PingWin"><div>🐧</div><div class="label">PingWin</div></button>
-  </nav>
-
-  <!-- Hero -->
-  <main id="top" class="pt-24">
-    <section class="min-h-[92vh] flex flex-col items-center justify-center px-6 md:px-8 text-center">
-      <div class="mb-10 inline-block px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">
-        System Initialized :)
+  <main class="pt-24 min-h-screen pb-20">
+    <section class="py-20 px-6 max-w-7xl mx-auto">
+      <div class="text-center mb-16">
+        <h1 class="text-6xl md:text-7xl font-black tracking-tighter text-gradient">URUA SHOP</h1>
+        <p class="mt-4 text-xl opacity-70">Custom Phone Cases • Art Cards • Limited CDs • Apparel</p>
       </div>
-      <h1 class="text-5xl sm:text-6xl md:text-[9rem] font-extrabold tracking-tighter leading-[0.9] md:leading-[0.8] mb-10 text-gradient">
-        BUILDING THE <br/> UNKNOWN.
-      </h1>
-      <p class="text-lg md:text-2xl opacity-40 max-w-3xl mx-auto mb-12 font-medium">
-        Websites, AI systems, smart contracts, and creative builds — shipped with taste.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="#services" class="px-10 py-5 bg-accent text-white rounded-full font-black text-lg hover:opacity-90 transition-all">Explore Services</a>
-        <a href="#blockchain" class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">View Portfolio</a>
-        <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request" 
-           class="px-10 py-5 border border-white/10 rounded-full font-black text-lg hover:bg-white/5 transition-all">Get a Quote</a>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        <!-- Phone Cases -->
+        <div class="glass rounded-3xl overflow-hidden group">
+          <div class="h-80 bg-gradient-to-br from-purple-600/30 to-black flex items-center justify-center text-8xl">📱</div>
+          <div class="p-8">
+            <h3 class="text-3xl font-black">Custom Phone Cases</h3>
+            <p class="mt-3 opacity-70">iPhone, Samsung, Pixel — slim, tough, MagSafe. Original & Ordinookis designs.</p>
+            <div class="mt-8 flex items-center justify-between">
+              <span class="text-3xl font-bold">$22 — $35</span>
+              <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
+                 class="bg-white text-black px-8 py-4 rounded-2xl font-black hover:bg-white/90">Shop Cases →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Art Cards -->
+        <div class="glass rounded-3xl overflow-hidden group">
+          <div class="h-80 bg-gradient-to-br from-amber-600/30 to-black flex items-center justify-center text-8xl">🃏</div>
+          <div class="p-8">
+            <h3 class="text-3xl font-black">Art Cards & Prints</h3>
+            <p class="mt-3 opacity-70">Greeting cards, mini posters, collectible prints.</p>
+            <div class="mt-8 flex items-center justify-between">
+              <span class="text-3xl font-bold">$8 — $28</span>
+              <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
+                 class="bg-white text-black px-8 py-4 rounded-2xl font-black hover:bg-white/90">Shop Cards →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEW DROP: Retro Floral Camera Tee -->
+        <div class="glass rounded-3xl overflow-hidden group border-2 border-pink-500/50 relative">
+          <div class="absolute top-6 right-6 bg-pink-500 text-black text-xs font-black px-4 py-1 rounded-full">NEW DROP</div>
+          
+          <div class="h-80 bg-gradient-to-br from-pink-600/40 via-violet-600/30 to-black flex items-center justify-center text-8xl">👕</div>
+          
+          <div class="p-8">
+            <h3 class="text-3xl font-black">Retro Floral Camera Tee</h3>
+            <p class="mt-3 opacity-70 text-sm">Vintage camera repeat pattern on premium soft Bella+Canvas tee. Bold retro-modern aesthetic in deep greens, purples & high-contrast accents.</p>
+            
+            <div class="mt-8 flex items-center justify-between">
+              <div>
+                <span class="text-3xl font-bold">$25.47+</span>
+                <span class="block text-xs opacity-60">Ships from US • Multiple sizes & colors</span>
+              </div>
+              <a href="https://www.etsy.com/listing/4523162186/retro-floral-camera-pattern-tee-vintage" 
+                 target="_blank"
+                 class="bg-white text-black px-8 py-4 rounded-2xl font-black hover:bg-white/90 transition">Buy on Etsy →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- CDs -->
+        <div class="glass rounded-3xl overflow-hidden group">
+          <div class="h-80 bg-gradient-to-br from-red-600/30 to-black flex items-center justify-center text-8xl">💿</div>
+          <div class="p-8">
+            <h3 class="text-3xl font-black">Limited CDs & Bundles</h3>
+            <p class="mt-3 opacity-70">Physical music drops, signed editions & merch bundles.</p>
+            <div class="mt-8 flex items-center justify-between">
+              <span class="text-3xl font-bold">$18 — $50</span>
+              <a href="index.html#music" 
+                 class="bg-white/10 hover:bg-white/20 px-8 py-4 rounded-2xl font-black">View Music →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="text-center mt-16">
+        <p class="opacity-60">All products fulfilled by Printify • Sold via UruaShop on Etsy • Ships worldwide</p>
+        <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
+           class="inline-block mt-8 text-lg underline hover:text-accent">Visit Full Etsy Shop →</a>
       </div>
     </section>
-
-    <!-- Services -->
-    <section id="services" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
-        <div>
-          <h2 class="text-5xl md:text-7xl font-black tracking-tighter">SERVICES</h2>
-          <p class="mt-6 opacity-40 max-w-2xl font-medium">
-            Premium websites + AI + web3 builds — with a fast quote process and proof you can click.
-          </p>
-        </div>
-        <div class="flex flex-wrap gap-3">
-          <!-- Main Request a Quote button – now opens email with pre-filled template -->
-          <a href="mailto:urualabs@gmail.com?subject=Urua%20Labs%20Quote%20Request&body=Hi%20Urua%20Labs%2C%0A%0AI%27d%20like%20a%20quote%20for%3A%0A%0A-%20What%20I%20need%3A%0A-%20Project%20details%3A%0A-%20Timeline%3A%0A-%20Budget%20range%20(optional)%3A%0A%0AThanks!" 
-             class="px-8 py-4 bg-accent text-white rounded-full font-black text-base hover:opacity-90 transition-all">Request a Quote</a>
-        </div>
-      </div>
-
-      <!-- Services Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Website Development</div>
-          <div class="mt-3 text-2xl font-black">Fast websites that convert.</div>
-          <ul class="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
-            <li>• Landing pages + full small business websites</li>
-            <li>• Mobile-first design, SEO basics, fast hosting</li>
-            <li>• Vercel deploy + custom domains</li>
-          </ul>
-          <div class="mt-5">
-            <a href="mailto:urualabs@gmail.com?subject=Website%20Quote%20Request&body=Hi%20Urua%20Labs%2C%0A%0AI%20want%20a%20website.%0A%0A-%20Business%2Fbrand%3A%0A-%20Goal%3A%0A-%20Pages%20needed%3A%0A-%20Timeline%3A%0A%0AThanks!" 
-               class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 transition-all font-black text-xs">Get Website Quote</a>
-          </div>
-        </div>
-
-        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">AI Programmer</div>
-          <div class="mt-3 text-2xl font-black">Automate the busywork.</div>
-          <ul class="mt-4 space-y-2 opacity-70 text-sm font-medium leading-relaxed">
-            <li>• Automation + workflow tooling</li>
-            <li>• AI features for websites/apps</li>
-            <li>• Integrations with your tools</li>
-          </ul>
-          <div class="mt-5">
-            <a href="mailto:urualabs@gmail.com?subject=AI%20Automation%20Quote&body=Hi%20Urua%20Labs%2C%0A%0AI%20need%20AI%20help%20with%3A%0A%0A-%20What%20to%20automate%3A%0A-%20Tools%20I%20use%3A%0A-%20Timeline%3A%0A%0AThanks!" 
-               class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all font-black text-xs">Request AI Help</a>
-          </div>
-        </div>
-
-        <!-- You can add the NFT and Smart Contract cards back here if you want them -->
-      </div>
-    </section>
-
-    <!-- Blockchain Portfolio -->
-    <section id="blockchain" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
-        <div>
-          <h2 class="text-5xl md:text-7xl font-black tracking-tighter">BLOCKCHAIN PORTFOLIO</h2>
-          <p class="mt-6 opacity-40 max-w-2xl font-medium">Bitcoin Ordinals, Inscriptions, Solana tokens & Ethereum OG collections.</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <!-- Ordinookis -->
-        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Bitcoin • Ordinals</div>
-          <div class="mt-3 text-2xl font-black">Ordinookis</div>
-          <div class="mt-5 flex gap-3">
-            <a href="https://www.satflow.com/ordinals/ordinookis" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-xs">View</a>
-          </div>
-        </div>
-
-        <!-- Rare78 -->
-        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Bitcoin • Ordinals</div>
-          <div class="mt-3 text-2xl font-black">Rare78</div>
-          <div class="mt-5 flex gap-3">
-            <a href="https://www.satflow.com/ordinals/rare78" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-xs">Marketplace</a>
-          </div>
-        </div>
-
-        <!-- Another Wish -->
-        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Bitcoin • Inscription</div>
-          <div class="mt-3 text-2xl font-black">Another Wish</div>
-          <div class="mt-3 opacity-60 text-sm">Inscribed experience on Bitcoin.</div>
-          <div class="mt-5 flex gap-3">
-            <a href="https://another-wish.vercel.app/" target="_blank" rel="noreferrer" 
-               class="px-5 py-3 rounded-full bg-accent text-white hover:opacity-90 font-black text-xs">Inscribe Now</a>
-          </div>
-        </div>
-
-        <!-- Popular Punks -->
-        <div class="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-          <div class="text-[10px] font-black tracking-[0.4em] uppercase opacity-60">Ethereum • OG 2021</div>
-          <div class="mt-3 text-2xl font-black">Popular Punks</div>
-          <div class="mt-5 flex gap-3">
-            <a href="https://opensea.io/collection/popular-punks" target="_blank" class="px-5 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-xs">View on OpenSea</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Music -->
-    <section id="music" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
-      <div class="glass rounded-[3.5rem] p-10 md:p-16 border border-white/10">
-        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-10">
-          <div>
-            <div class="inline-block mb-6 px-5 py-2 rounded-full bg-accent/10 border border-accent/30 text-accent font-black text-[10px] tracking-[0.5em] uppercase">Sam Sage</div>
-            <h2 class="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95]">MUSIC CATALOG</h2>
-            <p class="mt-6 opacity-50 max-w-2xl font-medium">Follow the sound across worlds — releases, experiments, and creator energy.</p>
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <a href="https://samsage.com" target="_blank" class="px-6 py-3 rounded-full bg-accent text-white hover:opacity-90 font-black text-sm">Sam Sage</a>
-            <a href="https://www.youtube.com/@samsagewize" target="_blank" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-sm">YouTube</a>
-            <a href="https://open.spotify.com/artist/3o7QHIT3xAl7YM7nd9QiTk" target="_blank" class="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 font-black text-sm">Spotify</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Vision -->
-    <section id="vision" class="bg-accent py-32 text-center relative overflow-hidden">
-      <div class="absolute inset-0 flex items-center justify-center text-[18rem] md:text-[30rem] font-black opacity-10 pointer-events-none italic whitespace-nowrap">2026 2026 2026</div>
-      <div class="relative z-10 px-8">
-        <h2 class="text-5xl md:text-[8rem] font-black tracking-tighter mb-6 leading-none">FEBRUARY 22</h2>
-        <p class="text-xl md:text-3xl font-bold opacity-80 uppercase tracking-[0.3em]">The New Web Begins.</p>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-20 text-center border-t border-white/5 mx-8">
-      <div class="flex flex-wrap justify-center gap-8 mb-8 opacity-70 font-black text-[10px] tracking-[0.35em] uppercase">
-        <a href="https://x.com/samsagewize" target="_blank" class="hover:text-accent">X @samsagewize</a>
-        <a href="https://instagram.com/samsagewize" target="_blank" class="hover:text-accent">Instagram @samsagewize</a>
-      </div>
-      <p class="opacity-20 text-[10px] font-black tracking-widest uppercase">© 2026 URUA LABS :)</p>
-    </footer>
   </main>
 
-  <!-- Penguin Mascot (unchanged) -->
-  <!-- Paste your full penguin mascot code here if you want it – it was already working in previous versions -->
+  <!-- Mobile Bottom Nav -->
+  <nav id="mobile-bottom-nav" class="fixed bottom-4 left-4 right-4 md:hidden glass rounded-3xl p-3 flex items-center justify-around z-[200]">
+    <a href="index.html#services" class="text-center text-2xl">🛠</a>
+    <a href="index.html" class="text-center text-3xl">⌂</a>
+    <a href="shop.html" class="text-center text-2xl text-accent">🛍</a>
+    <a href="index.html#blockchain" class="text-center text-2xl">⛓</a>
+  </nav>
 
-  <script>
-    // Dropdown Menu Script
-    (function () {
-      const menuBtn = document.getElementById('desktop-menu-btn');
-      const dropdown = document.getElementById('desktop-dropdown');
-      const arrow = document.getElementById('menu-arrow');
-
-      function toggleDropdown() {
-        const isOpen = !dropdown.classList.contains('hidden');
-        if (isOpen) {
-          dropdown.classList.add('hidden');
-          arrow.style.transform = 'rotate(0deg)';
-        } else {
-          dropdown.classList.remove('hidden');
-          arrow.style.transform = 'rotate(180deg)';
-        }
-      }
-
-      menuBtn.addEventListener('click', toggleDropdown);
-
-      document.addEventListener('click', (e) => {
-        if (!menuBtn.contains(e.target) && !dropdown.contains(e.target)) {
-          dropdown.classList.add('hidden');
-          arrow.style.transform = 'rotate(0deg)';
-        }
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          dropdown.classList.add('hidden');
-          arrow.style.transform = 'rotate(0deg)';
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
