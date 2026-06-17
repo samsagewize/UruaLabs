@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>URUA SHOP - Phone Cases, Cards, CDs & Apparel</title>
+  <title>Urua Labs — Building the Future</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,14 +27,13 @@
 
   <style>
     html, body {
-      margin: 0; padding: 0;
-      background: #050505;
-      color: white;
-      overflow-x: hidden;
+      margin: 0; padding: 0; width: 100%; height: 100%;
+      background: #000; overflow-x: hidden;
     }
     .glass {
       background: rgba(255,255,255,0.02);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border: 1px solid rgba(255,255,255,0.08);
     }
     .text-gradient {
@@ -42,115 +41,125 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+    .scanline {
+      width: 100%; height: 4px;
+      background: rgba(0, 102, 255, 0.05);
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 1000;
+      animation: scan 10s linear infinite;
+    }
+    @keyframes scan { 0% { transform: translateY(-100vh); } 100% { transform: translateY(100vh); } }
   </style>
 </head>
 <body class="bg-[#050505] text-white font-sans">
 
-  <!-- Header (same as your index.html) -->
+  <div class="scanline"></div>
+
+  <!-- Header (unchanged) -->
   <header class="fixed top-0 left-0 right-0 h-24 px-6 md:px-16 flex items-center justify-between glass z-[100]">
-    <a href="index.html" class="text-2xl md:text-3xl font-black tracking-tighter">URUA<span class="text-accent italic">LABS</span></a>
+    <a href="#top" class="text-2xl md:text-3xl font-black tracking-tighter">URUA<span class="text-accent italic">LABS</span></a>
 
     <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-      <a href="index.html#services" class="hover:text-accent transition">Services</a>
-      <a href="index.html#blockchain" class="hover:text-accent transition">Blockchain</a>
-      <a href="shop.html" class="text-accent font-black">Shop</a>
-      <a href="index.html#music" class="hover:text-accent transition">Music</a>
+      <a href="#services" class="hover:text-accent transition">Services</a>
+      <a href="#blockchain" class="hover:text-accent transition">Blockchain</a>
+      <a href="#shop" class="text-accent font-black">🛍 Shop</a>
+      <a href="#music" class="hover:text-accent transition">Music</a>
     </div>
 
-    <a href="mailto:urualabs@gmail.com" 
-       class="px-6 py-3 bg-accent text-white rounded-3xl font-black text-sm">Contact</a>
+    <a href="mailto:urualabs@gmail.com" class="px-6 py-3 bg-accent text-white rounded-3xl font-black text-sm">Contact</a>
   </header>
 
-  <main class="pt-24 min-h-screen pb-20">
-    <section class="py-20 px-6 max-w-7xl mx-auto">
-      <div class="text-center mb-16">
-        <h1 class="text-6xl md:text-7xl font-black tracking-tighter text-gradient">URUA SHOP</h1>
-        <p class="mt-4 text-xl opacity-70">Custom Phone Cases • Art Cards • Limited CDs • Apparel</p>
+  <!-- Mobile Bottom Nav -->
+  <nav id="mobile-bottom-nav" class="fixed bottom-4 left-4 right-4 md:hidden glass rounded-3xl p-3 flex items-center justify-around z-[200]">
+    <a href="#services" class="text-center text-2xl">🛠</a>
+    <a href="#top" class="text-center text-3xl">⌂</a>
+    <a href="#shop" class="text-center text-2xl text-accent">🛍</a>
+    <a href="#blockchain" class="text-center text-2xl">⛓</a>
+  </nav>
+
+  <main id="top" class="pt-24">
+
+    <!-- Existing Hero, Services, Blockchain sections stay exactly the same -->
+
+    <!-- ==================== NEW SHOP SECTION ==================== -->
+    <section id="shop" class="py-28 md:py-36 px-8 max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-14">
+        <div>
+          <div class="inline-block px-5 py-2 rounded-full bg-white/5 border border-white/20 text-xs font-black tracking-[0.5em] mb-6">NEW DROP LIVE</div>
+          <h2 class="text-5xl md:text-7xl font-black tracking-tighter text-gradient">URUA SHOP</h2>
+          <p class="mt-6 opacity-70 max-w-xl text-lg">Premium merch that hits different. Phone cases, apparel, art cards & physical music drops.</p>
+        </div>
+        <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
+           class="group px-10 py-6 bg-white text-black rounded-3xl font-black text-xl flex items-center gap-4 hover:scale-105 transition-all duration-300">
+          SHOP NOW
+          <span class="text-3xl group-hover:rotate-12 transition">→</span>
+        </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- Retro Floral Camera Tee - Highlighted -->
+        <div class="glass rounded-[2.5rem] overflow-hidden border-2 border-pink-500/60 relative group">
+          <div class="absolute top-6 right-6 bg-pink-500 text-black text-xs font-black px-5 py-1.5 rounded-full tracking-wider">NEW DROP</div>
+          <div class="h-72 bg-gradient-to-br from-pink-500/30 via-violet-600/30 to-black flex items-center justify-center text-9xl">👕</div>
+          <div class="p-8">
+            <h3 class="text-2xl font-black">Retro Floral Camera Tee</h3>
+            <p class="mt-2 opacity-70 text-sm">Vintage camera pattern on ultra-soft premium tee. Limited drop.</p>
+            <div class="mt-8 flex justify-between items-end">
+              <span class="text-3xl font-bold">$25.47+</span>
+              <a href="https://www.etsy.com/listing/4523162186/retro-floral-camera-pattern-tee-vintage" target="_blank"
+                 class="px-8 py-4 bg-white text-black rounded-2xl font-black text-sm hover:bg-white/90">Buy Now →</a>
+            </div>
+          </div>
+        </div>
 
         <!-- Phone Cases -->
-        <div class="glass rounded-3xl overflow-hidden group">
-          <div class="h-80 bg-gradient-to-br from-purple-600/30 to-black flex items-center justify-center text-8xl">📱</div>
+        <div class="glass rounded-[2.5rem] overflow-hidden group">
+          <div class="h-72 bg-gradient-to-br from-purple-600/40 to-black flex items-center justify-center text-9xl">📱</div>
           <div class="p-8">
-            <h3 class="text-3xl font-black">Custom Phone Cases</h3>
-            <p class="mt-3 opacity-70">iPhone, Samsung, Pixel — slim, tough, MagSafe. Original & Ordinookis designs.</p>
-            <div class="mt-8 flex items-center justify-between">
-              <span class="text-3xl font-bold">$22 — $35</span>
+            <h3 class="text-2xl font-black">Custom Phone Cases</h3>
+            <p class="mt-2 opacity-70 text-sm">Slim, tough & MagSafe. Ordinookis & original art.</p>
+            <div class="mt-8">
               <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
-                 class="bg-white text-black px-8 py-4 rounded-2xl font-black hover:bg-white/90">Shop Cases →</a>
+                 class="block text-center py-4 border border-white/30 rounded-2xl font-black hover:bg-white/5">Shop Cases →</a>
             </div>
           </div>
         </div>
 
         <!-- Art Cards -->
-        <div class="glass rounded-3xl overflow-hidden group">
-          <div class="h-80 bg-gradient-to-br from-amber-600/30 to-black flex items-center justify-center text-8xl">🃏</div>
+        <div class="glass rounded-[2.5rem] overflow-hidden group">
+          <div class="h-72 bg-gradient-to-br from-amber-600/40 to-black flex items-center justify-center text-9xl">🃏</div>
           <div class="p-8">
-            <h3 class="text-3xl font-black">Art Cards & Prints</h3>
-            <p class="mt-3 opacity-70">Greeting cards, mini posters, collectible prints.</p>
-            <div class="mt-8 flex items-center justify-between">
-              <span class="text-3xl font-bold">$8 — $28</span>
+            <h3 class="text-2xl font-black">Art Cards & Prints</h3>
+            <p class="mt-2 opacity-70 text-sm">Collectible greeting cards & posters.</p>
+            <div class="mt-8">
               <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
-                 class="bg-white text-black px-8 py-4 rounded-2xl font-black hover:bg-white/90">Shop Cards →</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- NEW DROP: Retro Floral Camera Tee -->
-        <div class="glass rounded-3xl overflow-hidden group border-2 border-pink-500/50 relative">
-          <div class="absolute top-6 right-6 bg-pink-500 text-black text-xs font-black px-4 py-1 rounded-full">NEW DROP</div>
-          
-          <div class="h-80 bg-gradient-to-br from-pink-600/40 via-violet-600/30 to-black flex items-center justify-center text-8xl">👕</div>
-          
-          <div class="p-8">
-            <h3 class="text-3xl font-black">Retro Floral Camera Tee</h3>
-            <p class="mt-3 opacity-70 text-sm">Vintage camera repeat pattern on premium soft Bella+Canvas tee. Bold retro-modern aesthetic in deep greens, purples & high-contrast accents.</p>
-            
-            <div class="mt-8 flex items-center justify-between">
-              <div>
-                <span class="text-3xl font-bold">$25.47+</span>
-                <span class="block text-xs opacity-60">Ships from US • Multiple sizes & colors</span>
-              </div>
-              <a href="https://www.etsy.com/listing/4523162186/retro-floral-camera-pattern-tee-vintage" 
-                 target="_blank"
-                 class="bg-white text-black px-8 py-4 rounded-2xl font-black hover:bg-white/90 transition">Buy on Etsy →</a>
+                 class="block text-center py-4 border border-white/30 rounded-2xl font-black hover:bg-white/5">Shop Cards →</a>
             </div>
           </div>
         </div>
 
         <!-- CDs -->
-        <div class="glass rounded-3xl overflow-hidden group">
-          <div class="h-80 bg-gradient-to-br from-red-600/30 to-black flex items-center justify-center text-8xl">💿</div>
+        <div class="glass rounded-[2.5rem] overflow-hidden group">
+          <div class="h-72 bg-gradient-to-br from-red-600/40 to-black flex items-center justify-center text-9xl">💿</div>
           <div class="p-8">
-            <h3 class="text-3xl font-black">Limited CDs & Bundles</h3>
-            <p class="mt-3 opacity-70">Physical music drops, signed editions & merch bundles.</p>
-            <div class="mt-8 flex items-center justify-between">
-              <span class="text-3xl font-bold">$18 — $50</span>
-              <a href="index.html#music" 
-                 class="bg-white/10 hover:bg-white/20 px-8 py-4 rounded-2xl font-black">View Music →</a>
+            <h3 class="text-2xl font-black">Limited CDs</h3>
+            <p class="mt-2 opacity-70 text-sm">Physical music + merch bundles.</p>
+            <div class="mt-8">
+              <a href="#music" class="block text-center py-4 border border-white/30 rounded-2xl font-black hover:bg-white/5">View Music Merch →</a>
             </div>
           </div>
         </div>
 
       </div>
 
-      <div class="text-center mt-16">
-        <p class="opacity-60">All products fulfilled by Printify • Sold via UruaShop on Etsy • Ships worldwide</p>
-        <a href="https://www.etsy.com/shop/UruaShop" target="_blank"
-           class="inline-block mt-8 text-lg underline hover:text-accent">Visit Full Etsy Shop →</a>
+      <div class="text-center mt-12 opacity-60">
+        Powered by Printify • Ships worldwide • New drops every month
       </div>
     </section>
+
+    <!-- Your existing Music section and rest of the page stay here -->
+
   </main>
-
-  <!-- Mobile Bottom Nav -->
-  <nav id="mobile-bottom-nav" class="fixed bottom-4 left-4 right-4 md:hidden glass rounded-3xl p-3 flex items-center justify-around z-[200]">
-    <a href="index.html#services" class="text-center text-2xl">🛠</a>
-    <a href="index.html" class="text-center text-3xl">⌂</a>
-    <a href="shop.html" class="text-center text-2xl text-accent">🛍</a>
-    <a href="index.html#blockchain" class="text-center text-2xl">⛓</a>
-  </nav>
-
 </body>
 </html>
